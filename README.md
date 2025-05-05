@@ -63,7 +63,7 @@
 
 ---
 
-## 📟 Know Me on Your Terminal
+## 📟 Explore me in the Terminal
 
 ```bash
 npx nomadprogrammer
