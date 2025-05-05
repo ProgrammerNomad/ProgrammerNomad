@@ -12,6 +12,17 @@
   <img src="https://github-profile-trophy.vercel.app/?username=ProgrammerNomad&theme=light" alt="GitHub Trophies" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Expert-blue?style=for-the-badge&logo=artificial-intelligence" alt="AI Expert" />
+  <img src="https://img.shields.io/badge/Cloud-AWS%20%7C%20Azure%20%7C%20GCP-orange?style=for-the-badge&logo=cloud" alt="Cloud Expertise" />
+  <img src="https://img.shields.io/badge/DevOps-Docker%20%7C%20Kubernetes%20%7C%20Terraform-green?style=for-the-badge&logo=devops" alt="DevOps Skills" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/100%20Commits-Badge-blue?style=for-the-badge" alt="100 Commits" />
+  <img src="https://img.shields.io/badge/50%20Repositories-Badge-green?style=for-the-badge" alt="50 Repositories" />
+</p>
+
 ---
 
 ## 🚀 About Me
@@ -40,6 +51,14 @@
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=ProgrammerNomad&show_icons=true&theme=radical" alt="GitHub Stats" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=ProgrammerNomad&theme=radical" alt="GitHub Streak" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ProgrammerNomad&layout=compact&theme=radical" alt="Top Languages" />
+</p>
+
+<p align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Dynamic Quote" />
 </p>
 
 ---
