@@ -37,7 +37,7 @@
 
 ## 🛠️ Technologies & Tools
 
-- **Languages**: JavaScript, Python, Java, C++, PHP
+- **Languages**: JavaScript, Python, Java, C++, PHP, Rust
 - **Frameworks**: React, Node.js, Django, Flask, Laravel
 - **DevOps**: Docker, Kubernetes, Jenkins, Terraform
 - **Cloud**: AWS, Azure, Google Cloud
