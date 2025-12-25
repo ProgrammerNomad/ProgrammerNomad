@@ -11,7 +11,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/experience-15years.svg" alt="15+ Years Experience" />
   <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/education-mtech.svg" alt="M.Tech Graduate" />
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FProgrammerNomad&count_bg=%230E75B6&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Profile+Views&edge_flat=false" alt="Profile Views" />
+  <img src="https://komarev.com/ghpvc/?username=ProgrammerNomad&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views" />
 </p>
 
 <!-- Professional Credentials -->
@@ -38,7 +38,7 @@
 
 <!-- GitHub Trophy -->
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=ProgrammerNomad&theme=radical&no-frame=true&row=1&column=6" alt="GitHub Trophies" />
+  <img src="https://github-profile-trophy.vercel.app/?username=ProgrammerNomad&theme=radical&no-frame=false&no-bg=true&margin-w=4" alt="GitHub Trophies" />
 </p>
 
 ---
@@ -71,16 +71,19 @@
 ## 📈 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ProgrammerNomad&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" />
-  <img src="https://streak-stats.demolab.com/?user=ProgrammerNomad&theme=radical&hide_border=true" alt="GitHub Streak" />
+  <img src="https://github-readme-stats.vercel.app/api?username=ProgrammerNomad&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ProgrammerNomad&layout=compact&theme=radical&hide_border=true" alt="Top Languages" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=ProgrammerNomad&theme=radical&hide_border=true" alt="GitHub Streak" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=ProgrammerNomad&theme=react-dark&hide_border=true" alt="Contribution Graph" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ProgrammerNomad&layout=compact&theme=radical&hide_border=true&langs_count=8" alt="Top Languages" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=ProgrammerNomad&theme=react-dark&bg_color=20232a&hide_border=true&line=58a6ff&point=1f6feb" alt="Contribution Graph" />
 </p>
 
 ---
