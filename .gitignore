@@ -1,4 +1,44 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Temporary files
+*.tmp
+.cache/
+
+# Jekyll
 _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+
+# Documentation files (keep only README.md)
+START_HERE.md
+SETUP_GUIDE.md
+BADGE_URLS.md
+BADGES_FOR_SHIV.txt
+TODO.txt
+BADGE_TOOLS_RESEARCH.md
+.github/workflows/update-badges.yml

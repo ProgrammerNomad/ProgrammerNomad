@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="35" role="img" aria-label="💼 EXPERIENCE: 15+ Years | Since 2010">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <g filter="url(#shadow)">
+    <rect width="320" height="35" fill="url(#goldGradient)" rx="4"/>
+  </g>
+  
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="12" font-weight="bold">
+    <text x="160" y="22" fill="#000" opacity="0.8">💼 EXPERIENCE</text>
+  </g>
+</svg>
