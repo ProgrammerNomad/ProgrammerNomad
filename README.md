@@ -9,31 +9,31 @@
 
 <!-- Hero Badges - Premium Credentials -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/experience-15years.svg" alt="15+ Years Experience" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/education-mtech.svg" alt="M.Tech Graduate" />
-  <img src="https://komarev.com/ghpvc/?username=ProgrammerNomad&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/experience-15years.svg" alt="15+ Years Experience" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/education-mtech.svg" alt="M.Tech Graduate" height="28" />
+  <img src="https://komarev.com/ghpvc/?username=ProgrammerNomad&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views" height="28" />
 </p>
 
 <!-- Professional Credentials -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/business-owner.svg" alt="Business Owner" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/tech-architect.svg" alt="Tech Architect" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/business-owner.svg" alt="Business Owner" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/tech-architect.svg" alt="Tech Architect" height="28" />
 </p>
 
 <!-- Expertise Stack -->
 <p align="center">
-  <img src="https://img.shields.io/badge/AI-Expert-blue?style=for-the-badge&logo=artificial-intelligence" alt="AI Expert" />
-  <img src="https://img.shields.io/badge/Cloud-AWS%20%7C%20Azure%20%7C%20GCP-orange?style=for-the-badge&logo=cloud" alt="Cloud Expertise" />
-  <img src="https://img.shields.io/badge/DevOps-Docker%20%7C%20Kubernetes%20%7C%20Terraform-green?style=for-the-badge&logo=devops" alt="DevOps Skills" />
+  <img src="https://img.shields.io/badge/AI-Expert-blue?style=for-the-badge&logo=artificial-intelligence" alt="AI Expert" height="28" />
+  <img src="https://img.shields.io/badge/Cloud-AWS%20%7C%20Azure%20%7C%20GCP-orange?style=for-the-badge&logo=cloud" alt="Cloud Expertise" height="28" />
+  <img src="https://img.shields.io/badge/DevOps-Docker%20%7C%20Kubernetes%20%7C%20Terraform-green?style=for-the-badge&logo=devops" alt="DevOps Skills" height="28" />
 </p>
 
 <!-- GitHub Statistics - Auto-Updated Daily -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/commits-12mo.svg" alt="Commits" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/repositories.svg" alt="Repositories" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/stars-total.svg" alt="Total Stars" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/followers.svg" alt="Followers" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/forks-total.svg" alt="Total Forks" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/commits-12mo.svg" alt="Commits" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/repositories.svg" alt="Repositories" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/stars-total.svg" alt="Total Stars" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/followers.svg" alt="Followers" height="28" />
+  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/forks-total.svg" alt="Total Forks" height="28" />
 </p>
 
 <!-- GitHub Trophy -->
