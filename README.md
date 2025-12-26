@@ -64,11 +64,13 @@
 ## 🛠️ Technologies & Tools
 
 - **Languages**: JavaScript, Python, Java, C++, PHP, Rust
-- **Frameworks**: React, Node.js, Django, Flask, Laravel
-- **DevOps**: Docker, Kubernetes, Jenkins, Terraform
-- **Cloud**: AWS, Azure, Google Cloud
-- **Databases**: MySQL, MongoDB, PostgreSQL
-- **Other Tools**: Git, CI/CD, Big Data (Hadoop, Spark)
+- **Frameworks & Libraries**: React, Angular, Django, Flask, Laravel, Spring Boot
+- **Runtime & Platforms**: Node.js, .NET
+- **DevOps & CI/CD**: Docker, Kubernetes, Jenkins, Terraform, GitHub Actions
+- **Cloud Platforms**: AWS, Azure, Google Cloud
+- **Databases**: MySQL, MongoDB, PostgreSQL, Redis
+- **Big Data**: Hadoop, Spark
+- **Version Control**: Git, GitHub, GitLab
 
 ---
 
