@@ -36,9 +36,14 @@
   <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/forks-total.svg" alt="Total Forks" height="28" />
 </p>
 
-<!-- GitHub Trophy -->
+<!-- GitHub Achievements - Alternative Working Badges -->
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=ProgrammerNomad&theme=radical&column=7&margin-w=10&margin-h=10" alt="GitHub Trophies" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=ProgrammerNomad&theme=radical" alt="GitHub Profile Summary" />
+</p>
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=ProgrammerNomad&theme=radical" alt="Repos Per Language" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=ProgrammerNomad&theme=radical" alt="Most Commit Language" width="48%" />
 </p>
 
 ---
@@ -46,7 +51,6 @@
 ## 🚀 About Me
 
 💼 **15+ years** architecting and building scalable tech solutions  
-🎓 **M.Tech** in Computer Science  
 🏢 **Founder & Owner** of [srapsware.com](https://srapsware.com)  
 🔭 Currently working on **cutting-edge AI and Machine Learning projects**  
 🌱 Expertise: **Full-Stack | AI/ML | DevOps | Cloud | Big Data**  
@@ -71,13 +75,12 @@
 ## 📈 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ProgrammerNomad&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true&cache_seconds=86400" alt="GitHub Stats" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=ProgrammerNomad&theme=radical&hide_border=true" alt="GitHub Streak" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ProgrammerNomad&theme=radical" alt="GitHub Stats" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=ProgrammerNomad&theme=radical&utcOffset=5.5" alt="Productive Time" width="48%" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ProgrammerNomad&layout=compact&theme=radical&hide_border=true&langs_count=8&cache_seconds=86400" alt="Top Languages" width="48%" />
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=ProgrammerNomad&theme=react-dark&bg_color=20232a&hide_border=true&line=58a6ff&point=1f6feb" alt="Contribution Graph" width="48%" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=ProgrammerNomad&theme=react-dark&bg_color=20232a&hide_border=true&line=58a6ff&point=1f6feb" alt="Contribution Graph" />
 </p>
 
 ---
