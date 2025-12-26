@@ -10,7 +10,6 @@
 <!-- Hero Badges - Premium Credentials -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/experience-15years.svg" alt="15+ Years Experience" height="28" />
-  <img src="https://raw.githubusercontent.com/ProgrammerNomad/ProgrammerNomad/main/badges/education-mtech.svg" alt="M.Tech Graduate" height="28" />
   <img src="https://img.shields.io/badge/Profile_Views-2045-0e75b6?style=flat-square" alt="Profile Views" height="28" />
 </p>
 
