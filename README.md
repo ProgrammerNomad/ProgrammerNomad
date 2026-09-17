@@ -47,20 +47,20 @@
 
 ---
 
-## 🚀 About Me
+## About Me
 
-💼 **15+ years** architecting and building scalable tech solutions  
-🏢 **Founder & Owner** of [srapsware.com](https://srapsware.com)  
-🔭 Currently working on **cutting-edge AI and Machine Learning projects**  
-🌱 Expertise: **Full-Stack | AI/ML | DevOps | Cloud | Big Data**  
-💬 Ask me about **system architecture, scaling, AI implementation**  
-📫 Contact: **shiv@srapsware.com**  
-🌍 Location: **India 🇮🇳**  
-⚡ Fun fact: I've coded in **10+ programming languages**
+**15+ years** architecting and building scalable tech solutions  
+**Founder & Owner** of [srapsware.com](https://srapsware.com)  
+Currently working on **cutting-edge AI and Machine Learning projects**  
+Expertise: **Full-Stack | AI/ML | DevOps | Cloud | Big Data**  
+Ask me about **system architecture, scaling, AI implementation**  
+Contact: **shiv@srapsware.com**  
+Location: **India 🇮🇳**  
+Fun fact: I've coded in **10+ programming languages**
 
 ---
 
-## 🛠️ Technologies & Tools
+## Technologies & Tools
 
 - **Languages**: JavaScript, Python, Java, C++, PHP, Rust
 - **Frameworks & Libraries**: React, Angular, Django, Flask, Laravel, Spring Boot
@@ -73,7 +73,7 @@
 
 ---
 
-## 📈 GitHub Stats
+## GitHub Stats
 
 <p align="center">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ProgrammerNomad&theme=radical" alt="GitHub Stats" width="48%" />
@@ -86,7 +86,7 @@
 
 ---
 
-## 📟 Explore me in the Terminal
+## Explore me in the Terminal
 
 ```bash
 npx nomadprogrammer
@@ -94,7 +94,7 @@ npx nomadprogrammer
 
 ---
 
-## 📫 Connect with Me
+## Connect with Me
 
 <p align="center">
   <a href="https://linkedin.com/in/NomadProgrammer" target="_blank">
