@@ -1,5 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
+import { FooterWordmark } from "./FooterWordmark";
+import styles from "./FooterWordmark.module.css";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { SocialLink } from "@/components/ui/SocialLink";
@@ -11,11 +13,11 @@ import {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-paper/10 py-12">
+    <footer className={`${styles.footer} border-t border-paper/10 pt-12`}>
       <Container className="mb-12 grid gap-8 md:grid-cols-2">
         <div>
           <p className="atlas-meta">Keep exploring</p>
-          <p className="mt-4 max-w-sm font-display text-3xl leading-tight">
+          <p className="mt-4 max-w-sm font-display text-xl leading-snug text-paper/75">
             A little more code.
             <br />A little more world.
           </p>
@@ -51,6 +53,7 @@ export function SiteFooter() {
           © {new Date().getFullYear()} Shiv Singh · Nomad Programmer
         </p>
       </Container>
+      <FooterWordmark />
     </footer>
   );
 }

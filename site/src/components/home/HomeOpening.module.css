@@ -118,10 +118,31 @@
   outline-offset: 5px;
 }
 .signature {
+  width: fit-content;
+  max-width: 100%;
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 14px;
   margin-top: 32px;
+}
+.signature > div {
+  min-width: 0;
+}
+.signatureArrow {
+  flex-shrink: 0;
+  color: var(--atlas-muted);
+}
+.signature:hover .author,
+.signature:focus-visible .author,
+.signature:hover .signatureArrow,
+.signature:focus-visible .signatureArrow {
+  color: var(--atlas-lime);
+}
+.signature:hover .author,
+.signature:focus-visible .author {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .portrait {
   width: 48px;

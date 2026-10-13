@@ -1,0 +1,193 @@
+.footer {
+  background: #080a08;
+  padding-bottom: 20px;
+}
+
+.closing {
+  margin: clamp(56px, 8vw, 128px) 0 0;
+  padding: 0 clamp(12px, 2vw, 40px);
+  container-type: inline-size;
+  color: #f4f3ee;
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: 7.8vw;
+  font-size: 7.8cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.065em;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.ink {
+  background-image: linear-gradient(
+    110deg,
+    #f4f3ee 43%,
+    #d9edbc 49%,
+    #fff 51%,
+    #f4f3ee 57%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.nomad,
+.programmer {
+  display: inline-block;
+  /* Keep the mask outside the actual cap-height, including font overshoots. */
+  clip-path: inset(0 -0.03em -0.05em);
+}
+
+.route {
+  display: block;
+  width: 100%;
+  height: clamp(36px, 4vw, 64px);
+  margin-top: 8px;
+  overflow: visible;
+}
+
+.route path {
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.routeBase {
+  stroke: #30372a;
+}
+.routeDraw {
+  stroke: var(--lime);
+  opacity: 0.55;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.destination {
+  fill: var(--lime);
+  stroke: var(--lime);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+@media (forced-colors: active) {
+  .ink {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+.closing[data-state="pending"] .nomad,
+.closing[data-state="pending"] .programmer {
+  clip-path: inset(100% -0.03em -0.05em);
+  transform: translateY(0.12em);
+}
+.closing[data-state="pending"] .routeDraw {
+  stroke-dashoffset: 1;
+}
+.closing[data-state="pending"] .destination {
+  opacity: 0;
+}
+.closing[data-state="entered"] .nomad,
+.closing[data-state="entered"] .programmer {
+  animation: reveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.closing[data-state="entered"] .programmer {
+  animation-delay: 100ms;
+}
+.closing[data-state="entered"] .routeDraw {
+  animation: draw 1100ms 500ms ease-out both;
+}
+.closing[data-state="entered"] .destination {
+  animation: arrive 400ms 1300ms ease-out both;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .closing:not([data-state="pending"]):hover .ink {
+    animation: sweep 800ms ease-in-out both;
+  }
+  .closing:not([data-state="pending"]):hover .programmer .ink {
+    animation-delay: 500ms;
+  }
+}
+
+@keyframes reveal {
+  from {
+    clip-path: inset(100% -0.03em -0.05em);
+    transform: translateY(0.12em);
+  }
+  to {
+    clip-path: inset(0 -0.03em -0.05em);
+    transform: translateY(0);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@media (max-width: 699px) {
+  .wordmark {
+    white-space: normal;
+    line-height: 1.05;
+  }
+  .nomad,
+  .programmer {
+    display: block;
+  }
+  .nomad {
+    font-size: 22.8vw;
+    font-size: 22.8cqw;
+    letter-spacing: -0.055em;
+  }
+  .programmer {
+    font-size: 11.85vw;
+    font-size: 11.85cqw;
+    letter-spacing: -0.065em;
+  }
+  .route {
+    margin-top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .closing .wordmark,
+  .closing .ink,
+  .closing .nomad,
+  .closing .programmer,
+  .closing .routeDraw,
+  .closing .destination {
+    animation: none !important;
+    transform: none !important;
+    clip-path: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+  .ink {
+    background: none;
+    color: #f4f3ee;
+  }
+}

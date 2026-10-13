@@ -46,7 +46,11 @@ export function HomeOpening({
               Explore journeys <ArrowUpRight size={19} aria-hidden="true" />
             </Link>
           </nav>
-          <div className={styles.signature}>
+          <Link
+            href="/about"
+            className={styles.signature}
+            aria-label="About Shiv Singh"
+          >
             <Image
               src="/images/shiv-singh.jpg"
               alt="Shiv Singh"
@@ -63,7 +67,12 @@ export function HomeOpening({
                 CTO at Mobrilz · 15+ years in software
               </p>
             </div>
-          </div>
+            <ArrowUpRight
+              className={styles.signatureArrow}
+              size={17}
+              aria-hidden="true"
+            />
+          </Link>
         </div>
         <HeroArt destinations={destinations} />
       </div>

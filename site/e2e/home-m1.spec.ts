@@ -183,7 +183,7 @@ test("3D renders, keyboard rotation pauses, and context loss restores the poster
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await expect(
-    page.getByRole("button", { name: "Start globe rotation" }),
+    page.getByRole("button", { name: "Pause globe rotation" }),
   ).toBeVisible({ timeout: 15000 });
   await expect(page.getByTestId("atlas-poster")).toHaveCSS("opacity", "0");
   await page.getByRole("button", { name: "Turn globe right" }).focus();
@@ -245,7 +245,7 @@ test("enabling reduced motion tears down the running renderer", async ({
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("button", { name: "Start globe rotation" }),
+    page.getByRole("button", { name: "Pause globe rotation" }),
   ).toBeVisible({ timeout: 15000 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator("canvas")).toHaveCount(0);

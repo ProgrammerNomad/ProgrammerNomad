@@ -67,7 +67,7 @@ export function HeroArt({
     const update = () => {
       setMotionAllowed(!preference.matches);
       setReady(false);
-      setRotating(false);
+      setRotating(!preference.matches);
     };
     update();
     preference.addEventListener("change", update);
