@@ -8,17 +8,17 @@ export function Timeline({
   items: { year: string; title: string; description: string }[];
 }) {
   return (
-    <ol className="relative border-l border-lime/30 pl-8 ml-3 space-y-8">
+    <ol className="editorial-timeline">
       {items.map((item) => (
-        <li key={item.year} className="relative group">
-          {/* Glowing node point */}
-          <span className="absolute -left-[38px] top-1.5 h-3.5 w-3.5 rounded-full bg-lime border-2 border-canvas shadow-[0_0_12px_#b5ff43] transition-transform duration-300 group-hover:scale-125" />
-          <div className="glass-card p-5 transition-all duration-300 hover:border-lime/40 hover:shadow-[0_0_25px_rgba(181,255,67,0.12)]">
-            <p className="font-mono text-xs uppercase tracking-widest text-lime font-bold">
-              {"// "}{item.year}
+        <li key={item.year}>
+          <p className="timeline-year">{item.year}</p>
+          <div>
+            <h3 className="mt-1 font-display text-xl text-paper font-semibold">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-sm text-paper/75 leading-relaxed">
+              {item.description}
             </p>
-            <h3 className="mt-1 font-display text-xl text-paper font-semibold">{item.title}</h3>
-            <p className="mt-2 text-sm text-paper/75 leading-relaxed">{item.description}</p>
           </div>
         </li>
       ))}
@@ -69,7 +69,9 @@ export function CompanyCards() {
           <h3 className="mt-3 font-display text-xl font-semibold text-paper group-hover:text-white">
             {c.name}
           </h3>
-          <p className="mt-2 text-sm text-paper/70 leading-relaxed">{c.blurb}</p>
+          <p className="mt-2 text-sm text-paper/70 leading-relaxed">
+            {c.blurb}
+          </p>
         </Link>
       ))}
     </div>
@@ -111,7 +113,11 @@ export function SkillsGrid({
   );
 }
 
-export function PhotoGallery({ images }: { images: { src: string; alt: string }[] }) {
+export function PhotoGallery({
+  images,
+}: {
+  images: { src: string; alt: string }[];
+}) {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       {images.map((img) => (
@@ -135,16 +141,23 @@ export function PhotoGallery({ images }: { images: { src: string; alt: string }[
 export function PressKitBlock({ children }: { children?: ReactNode }) {
   return (
     <div className="glass-card p-8 border border-lime/20 shadow-[0_0_30px_rgba(181,255,67,0.08)]">
-      <h2 className="font-display text-2xl text-paper font-semibold">Media / press kit</h2>
+      <h2 className="font-display text-2xl text-paper font-semibold">
+        Media / press kit
+      </h2>
       <p className="mt-3 max-w-prose text-paper/75 leading-relaxed">
-        Download bio, logo, and headshot for articles and event listings.
+        Need a biography or brand assets for an article, event, or
+        collaboration? Get in touch. A current portrait is available below.
       </p>
-      <Link
-        href="/press-kit/nomad-programmer-press-kit.zip"
+      <a
+        href="/images/shiv-singh.jpg"
+        download="shiv-singh.jpg"
         className="btn-glow mt-5 inline-flex items-center gap-2 rounded-lg border border-lime/40 bg-lime/10 px-4 py-2 font-mono text-xs uppercase tracking-widest text-lime transition-all duration-300 hover:bg-lime hover:text-canvas"
       >
-        <span>Download press kit (.zip)</span>
+        <span>Download portrait</span>
         <span>↓</span>
+      </a>
+      <Link href="/contact" className="atlas-button ml-0 sm:ml-4 mt-5">
+        Request media kit ↗
       </Link>
       {children}
     </div>

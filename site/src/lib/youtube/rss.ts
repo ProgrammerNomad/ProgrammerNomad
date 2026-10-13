@@ -29,7 +29,7 @@ function extractTag(block: string, tag: string): string {
   return m ? decodeXml(m[1].trim()) : "";
 }
 
-function parseEntries(xml: string): YouTubeVideo[] {
+export function parseEntries(xml: string): YouTubeVideo[] {
   const entries = xml.split(/<entry>/i).slice(1);
   const videos: YouTubeVideo[] = [];
 
@@ -47,9 +47,12 @@ function parseEntries(xml: string): YouTubeVideo[] {
       extractTag(block, "summary") ||
       "";
 
-    const thumbMatch = block.match(/url="([^"]+)"/);
-    const thumbnailUrl =
-      thumbMatch?.[1] ?? `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    const thumbMatch = block.match(
+      /<media:thumbnail\b[^>]*\burl=["']([^"']+)["']/i,
+    );
+    const thumbnailUrl = thumbMatch?.[1]
+      ? decodeXml(thumbMatch[1])
+      : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
     videos.push({
       id,
@@ -64,9 +67,7 @@ function parseEntries(xml: string): YouTubeVideo[] {
   return videos;
 }
 
-export async function fetchChannelVideos(
-  limit = 15,
-): Promise<YouTubeVideo[]> {
+export async function fetchChannelVideos(limit = 15): Promise<YouTubeVideo[]> {
   const channelId = getChannelId();
   if (!channelId) return [];
 

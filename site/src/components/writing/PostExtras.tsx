@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { TocItem } from "@/lib/content/toc";
 import { SITE_URL } from "@/lib/seo/site-config";
+import { useState } from "react";
 
 export function TableOfContents({ items }: { items: TocItem[] }) {
   if (items.length === 0) return null;
@@ -16,10 +17,7 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
       </p>
       <ul className="mt-3 space-y-2 text-sm">
         {items.map((item) => (
-          <li
-            key={item.id}
-            className={item.level === 3 ? "ml-4" : undefined}
-          >
+          <li key={item.id} className={item.level === 3 ? "ml-4" : undefined}>
             <a href={`#${item.id}`} className="text-paper/80 hover:text-lime">
               {item.text}
             </a>
@@ -31,6 +29,7 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
 }
 
 export function ShareButtons({ title, path }: { title: string; path: string }) {
+  const [copyState, setCopyState] = useState("Copy link");
   const url = `${SITE_URL}${path}`;
   const encoded = encodeURIComponent(url);
   const text = encodeURIComponent(title);
@@ -55,10 +54,19 @@ export function ShareButtons({ title, path }: { title: string; path: string }) {
       </Link>
       <button
         type="button"
+        aria-label={copyState}
         className="text-paper/70 hover:text-lime"
-        onClick={() => navigator.clipboard.writeText(url)}
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(url);
+            setCopyState("Link copied");
+          } catch {
+            setCopyState("Copy unavailable");
+          }
+          window.setTimeout(() => setCopyState("Copy link"), 3000);
+        }}
       >
-        Copy link
+        <span role="status">{copyState}</span>
       </button>
     </div>
   );

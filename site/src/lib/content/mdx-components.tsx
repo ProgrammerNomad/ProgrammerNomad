@@ -78,13 +78,13 @@ export function CodeBlock({
   const text = textFromChildren(children).trim();
   return (
     <div className="relative my-8 overflow-x-auto border border-white/10 bg-elevated">
-      {title ? (
-        <div className="border-b border-white/10 px-4 py-2 font-mono text-xs text-lime">
-          {title}
-        </div>
-      ) : null}
+      <div className="border-b border-white/10 px-4 py-3 pr-24 font-mono text-xs text-lime min-h-12">
+        {title ?? "Code / command"}
+      </div>
       {text ? <CodeBlockCopy text={text} /> : null}
-      <pre className="p-4 text-sm leading-relaxed text-paper/90">{children}</pre>
+      <pre className="p-4 text-sm leading-relaxed text-paper/90">
+        {children}
+      </pre>
     </div>
   );
 }
@@ -157,16 +157,11 @@ export function GuideNextStep({
   );
 }
 
-export function Video({
-  src,
-  title,
-}: {
-  src: string;
-  title: string;
-}) {
+export function Video({ src, title }: { src: string; title: string }) {
   return (
     <div className="my-10 aspect-video border border-white/10 bg-elevated">
       <iframe
+        loading="lazy"
         src={src}
         title={title}
         className="h-full w-full"
@@ -217,7 +212,13 @@ export function ArchitectureDiagram({
 }) {
   return (
     <div className="my-10 border border-dashed border-lime/30 p-4">
-      <Image src={src} alt={alt} width={960} height={540} className="w-full h-auto" />
+      <Image
+        src={src}
+        alt={alt}
+        width={960}
+        height={540}
+        className="w-full h-auto"
+      />
     </div>
   );
 }
@@ -282,7 +283,7 @@ export const mdxComponents = {
   a: MdxLink,
   h2: MdxH2,
   h3: MdxH3,
-  pre: ({ children, className }: { children?: ReactNode; className?: string }) => (
-    <pre className={cn("overflow-x-auto rounded-none", className)}>{children}</pre>
+  pre: ({ children }: { children?: ReactNode }) => (
+    <CodeBlock>{children}</CodeBlock>
   ),
 };

@@ -24,8 +24,13 @@ export function ProjectCard({
 
   return (
     <Link href={link} className={cn(cardClass, className)}>
-      <div className={cn("relative aspect-[16/10] overflow-hidden bg-canvas", !entry.cover && "gen-cover gen-cover--travel")}>
-        {entry.cover ? (
+      <div
+        className={cn(
+          "relative aspect-[16/10] overflow-hidden bg-canvas",
+          !entry.cover && "gen-cover gen-cover--travel",
+        )}
+      >
+        {entry.cover && !entry.cover.includes("placeholder") ? (
           <Image
             src={entry.cover}
             alt=""
@@ -33,7 +38,16 @@ export function ProjectCard({
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 400px"
           />
-        ) : null}
+        ) : (
+          <div className="atlas-coordinate-art h-full" aria-hidden="true">
+            <span>⌖</span>
+            <p>
+              {entry.tags.slice(0, 2).join(" / ")}
+              <br />
+              FIELD JOURNAL
+            </p>
+          </div>
+        )}
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--glass-bg)] to-transparent" />
       </div>
       <div className="p-5">

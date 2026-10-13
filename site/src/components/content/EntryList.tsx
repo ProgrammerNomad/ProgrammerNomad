@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { BaseFrontmatter } from "@/lib/validation/schemas";
-import { EntryGridClient } from "@/components/content/EntryGridClient";
+import { ProjectCard } from "@/components/content/ProjectCard";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { PAGE_SIZE, totalPages } from "@/lib/utils";
 
@@ -11,7 +11,14 @@ export function EntryGrid({
   entries: BaseFrontmatter[];
   hrefPrefix: string;
 }) {
-  return <EntryGridClient entries={entries} hrefPrefix={hrefPrefix} />;
+  // Content archives must remain readable without JS or viewport-triggered reveals.
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry) => (
+        <ProjectCard entry={entry} hrefPrefix={hrefPrefix} key={entry.slug} />
+      ))}
+    </div>
+  );
 }
 
 export function EntryListSimple({
@@ -27,7 +34,7 @@ export function EntryListSimple({
         <li key={entry.slug}>
           <Link
             href={`${hrefPrefix}/${entry.slug}`}
-            className="glass-card group flex flex-col gap-2 p-5 transition-all duration-300 hover:border-lime/50 hover:shadow-[0_0_25px_rgba(181,255,67,0.14)] hover:translate-x-1 sm:flex-row sm:items-baseline sm:justify-between"
+            className="dispatch-link group flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between"
           >
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm text-lime opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -59,12 +66,14 @@ export function PaginationLinks({
 
   return (
     <nav
-      className="mt-10 flex items-center justify-between font-mono text-xs uppercase tracking-widest"
+      className="mt-10 flex flex-wrap gap-4 items-center justify-between font-mono text-xs uppercase tracking-widest"
       aria-label="Pagination"
     >
       {currentPage > 1 ? (
         <Link
-          href={currentPage === 2 ? basePath : `${basePath}/page/${currentPage - 1}`}
+          href={
+            currentPage === 2 ? basePath : `${basePath}/page/${currentPage - 1}`
+          }
           className="text-paper/80 hover:text-lime"
         >
           ← Previous

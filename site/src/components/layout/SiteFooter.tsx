@@ -1,4 +1,6 @@
 import { Container } from "@/components/ui/Container";
+import Link from "next/link";
+import { PRIMARY_NAV } from "@/lib/navigation";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { SocialLink } from "@/components/ui/SocialLink";
 import {
@@ -10,6 +12,29 @@ import {
 export function SiteFooter() {
   return (
     <footer className="border-t border-paper/10 py-12">
+      <Container className="mb-12 grid gap-8 md:grid-cols-2">
+        <div>
+          <p className="atlas-meta">Keep exploring</p>
+          <p className="mt-4 max-w-sm font-display text-3xl leading-tight">
+            A little more code.
+            <br />A little more world.
+          </p>
+        </div>
+        <nav aria-label="Footer">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+            {PRIMARY_NAV.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-11 items-center text-sm text-paper/75 hover:text-lime"
+                >
+                  {link.label} ↗
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </Container>
       <Container className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <div>
           <MetaLabel>{HEADER_COORDINATES} / DIGITAL SPACE</MetaLabel>

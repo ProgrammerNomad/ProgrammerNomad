@@ -7,6 +7,9 @@ import { PersonJsonLd, WebSiteJsonLd } from "@/lib/seo/json-ld";
 import { PlausibleAnalytics } from "@/components/analytics/PlausibleAnalytics";
 import { rootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
+import "./atlas.css";
+import { GlobalSearch } from "@/components/layout/GlobalSearch";
+import { getSearchIndex } from "@/lib/content/search-index";
 
 const display = Syne({
   subsets: ["latin"],
@@ -25,11 +28,12 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = rootMetadata;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const searchRecords = await getSearchIndex();
   return (
     <html lang="en">
       <body
@@ -40,7 +44,9 @@ export default function RootLayout({
           <PersonJsonLd />
           <WebSiteJsonLd />
           <PlausibleAnalytics />
-          <SiteHeader />
+          <SiteHeader>
+            <GlobalSearch records={searchRecords} />
+          </SiteHeader>
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>

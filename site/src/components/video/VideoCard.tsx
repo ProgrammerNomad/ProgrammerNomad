@@ -1,30 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { YouTubeVideo } from "@/lib/youtube/rss";
 import { MetaLabel } from "@/components/ui/MetaLabel";
+import { VideoPoster } from "./VideoPoster";
 
 export function VideoCard({ video }: { video: YouTubeVideo }) {
   const date = video.publishedAt.slice(0, 10);
   return (
-    <Link
-      href={`/videos/${video.id}`}
-      className="glass-card group block"
-    >
+    <Link href={`/videos/${video.id}`} className="video-card group block">
       <div className="relative aspect-video bg-canvas overflow-hidden">
-        <Image
-          src={video.thumbnailUrl}
-          alt=""
-          fill
-          className="object-cover transition duration-500 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, 400px"
-          unoptimized
-        />
+        <VideoPoster src={video.thumbnailUrl} title={video.title} />
         <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--glass-bg)] to-transparent" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-lime/20 backdrop-blur-sm">
-            <span className="ml-0.5 text-lime text-lg">▶</span>
-          </div>
-        </div>
       </div>
       <div className="p-4">
         <MetaLabel>{date}</MetaLabel>

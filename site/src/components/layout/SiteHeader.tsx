@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { HEADER_COORDINATES } from "@/lib/seo/site-config";
 
-export function SiteHeader() {
+export function SiteHeader({ children }: { children?: React.ReactNode }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -53,7 +53,7 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-4 lg:flex" aria-label="Primary">
           {PRIMARY_NAV.map((link) => {
             const isActive =
               pathname === link.href || pathname.startsWith(`${link.href}/`);
@@ -75,17 +75,20 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <button
-          ref={menuButton}
-          type="button"
-          className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md p-2 text-paper lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Toggle menu</span>
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-1">
+          {children}
+          <button
+            ref={menuButton}
+            type="button"
+            className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md p-2 text-paper lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">Toggle menu</span>
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </Container>
 
       {open ? (

@@ -8,11 +8,26 @@ const TravelMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[420px] animate-pulse rounded-xl bg-elevated" />
+      <div
+        className="h-[420px] flex items-center justify-center rounded-xl bg-elevated text-sm text-paper/65"
+        role="status"
+      >
+        Loading map. Destinations are available in the list below.
+      </div>
     ),
   },
 );
 
-export function TravelMapSection({ places }: { places: MapPlace[] }) {
-  return <TravelMap places={places} />;
+export function TravelMapSection({
+  places,
+  selectedId,
+  onSelect,
+}: {
+  places: MapPlace[];
+  selectedId?: string;
+  onSelect?: (id: string) => void;
+}) {
+  return (
+    <TravelMap places={places} selectedId={selectedId} onSelect={onSelect} />
+  );
 }

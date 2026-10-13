@@ -2,10 +2,12 @@ import fs from "fs/promises";
 import path from "path";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { MetaLabel } from "@/components/ui/MetaLabel";
+import Image from "next/image";
+import Link from "next/link";
+import { Prose } from "@/components/ui/Prose";
+import { PhotoGallery as EditorialGallery } from "@/components/content/PhotoGallery";
 import {
   CompanyCards,
-  PhotoGallery,
   PressKitBlock,
   SkillsGrid,
   Timeline,
@@ -21,7 +23,10 @@ export const metadata = indexPageMetadata(
 );
 
 async function loadJson<T>(file: string): Promise<T> {
-  const raw = await fs.readFile(path.join(process.cwd(), "content", "about", file), "utf8");
+  const raw = await fs.readFile(
+    path.join(process.cwd(), "content", "about", file),
+    "utf8",
+  );
   return JSON.parse(raw) as T;
 }
 
@@ -31,34 +36,83 @@ export default async function AboutPage() {
   const body = await renderMdx(page.body);
 
   const [timeline, skills] = await Promise.all([
-    loadJson<{ year: string; title: string; description: string }[]>("timeline.json"),
+    loadJson<{ year: string; title: string; description: string }[]>(
+      "timeline.json",
+    ),
     loadJson<{ name: string; category: string }[]>("skills.json"),
   ]);
 
   const gallery = [
     { src: "/images/shiv-singh.jpg", alt: "Shiv Singh - Nomad Programmer" },
-    { src: "/images/travel/rishikesh-2026/cover.jpg", alt: "Rishikesh Himalayan river expedition" },
-    { src: "/images/travel/madhmaheshwar/cover.jpg", alt: "Madhmaheshwar high altitude trail" },
-    { src: "/images/travel/pangi-lahaul-2026/cover.jpg", alt: "Pangi Valley high mountain pass" },
+    {
+      src: "/images/travel/rishikesh-2026/cover.jpg",
+      alt: "Rishikesh Himalayan river expedition",
+    },
+    {
+      src: "/images/travel/madhmaheshwar/cover.jpg",
+      alt: "Madhmaheshwar high altitude trail",
+    },
+    {
+      src: "/images/travel/pangi-lahaul-2026/cover.jpg",
+      alt: "Pangi Valley high mountain pass",
+    },
   ];
 
   return (
     <Container className="py-16 md:py-24">
-      <MetaLabel>IDENTITY / ABOUT</MetaLabel>
-      <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
-        About Shiv Singh
-      </h1>
-      <div className="mt-12 max-w-prose">{body}</div>
+      <header className="about-opening">
+        <div>
+          <p className="atlas-meta">Identity / Shiv Singh</p>
+          <h1>
+            One life.
+            <br />
+            Two perspectives.
+          </h1>
+          <p className="atlas-description mt-6">
+            Software engineer. Open-source builder. Traveler with a story to
+            share.
+          </p>
+          <Link href="/contact" className="atlas-button mt-8">
+            Let&apos;s talk ↗
+          </Link>
+        </div>
+        <figure>
+          <Image
+            src="/images/shiv-singh.jpg"
+            alt="Shiv Singh, Nomad Programmer"
+            width={700}
+            height={850}
+            priority
+            className="about-portrait"
+          />
+          <figcaption className="atlas-meta mt-4">
+            Shiv Singh / Nomad Programmer
+          </figcaption>
+        </figure>
+      </header>
+      <section className="about-story editorial-section">
+        <h2>
+          Tech by profession.
+          <br />
+          Traveler by soul.
+        </h2>
+        <Prose>{body}</Prose>
+      </section>
 
       <section className="mt-16">
-        <h2 className="font-display text-2xl text-paper">Timeline</h2>
+        <p className="atlas-meta mb-4">The path so far</p>
+        <h2 className="font-display text-4xl text-paper">
+          Milestones, not a straight line.
+        </h2>
         <div className="mt-8">
           <Timeline items={timeline} />
         </div>
       </section>
 
       <section className="mt-16">
-        <h2 className="font-display text-2xl text-paper">Companies</h2>
+        <h2 className="font-display text-2xl text-paper">
+          Companies & open source
+        </h2>
         <div className="mt-8">
           <CompanyCards />
         </div>
@@ -74,7 +128,7 @@ export default async function AboutPage() {
       <section className="mt-16">
         <h2 className="font-display text-2xl text-paper">Photos</h2>
         <div className="mt-6">
-          <PhotoGallery images={gallery} />
+          <EditorialGallery photos={gallery.slice(1)} />
         </div>
       </section>
 

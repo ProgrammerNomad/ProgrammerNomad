@@ -7,6 +7,10 @@ import { readingTimeMinutes } from "@/lib/content/reading-time";
 import { extractTocFromMdx } from "@/lib/content/toc";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { entryMetadata } from "@/lib/seo/metadata";
+import { TravelStoryLayout } from "@/components/travel/TravelStoryLayout";
+import { isFieldGuide } from "@/lib/content/field-guides";
+import { prepareTravelStory } from "@/lib/travel/story-presentation";
+import type { FieldNotesFrontmatter } from "@/lib/validation/schemas";
 
 export async function generateStaticParams() {
   const slugs = await getPublishedSlugs("field-notes");
@@ -19,7 +23,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = await getEntryBySlug("field-notes", slug);
+  const entry = await getEntryBySlug<FieldNotesFrontmatter>(
+    "field-notes",
+    slug,
+  );
   if (!entry?.frontmatter.published) return {};
   return entryMetadata(entry.frontmatter, "/field-notes");
 }
@@ -30,17 +37,22 @@ export default async function FieldNoteDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = await getEntryBySlug("field-notes", slug);
+  const entry = await getEntryBySlug<FieldNotesFrontmatter>(
+    "field-notes",
+    slug,
+  );
   if (!entry?.frontmatter.published) notFound();
 
-  const content = await renderMdx(entry.body);
-  const toc = extractTocFromMdx(entry.body);
-  const minutes = readingTimeMinutes(entry.body);
-  const related = await getRelatedArticles(
-    slug,
-    entry.frontmatter.tags,
-    3,
-  );
+  const isGuide = isFieldGuide(entry.frontmatter);
+  const presentation = isGuide
+    ? { body: entry.body, photos: [] }
+    : prepareTravelStory(entry.body);
+  const content = await renderMdx(presentation.body);
+  const toc = extractTocFromMdx(presentation.body);
+  if (presentation.photos.length)
+    toc.push({ id: "photo-journal", text: "Photo journal", level: 2 });
+  const minutes = readingTimeMinutes(presentation.body);
+  const related = await getRelatedArticles(slug, entry.frontmatter.tags, 3);
   const path = `/field-notes/${slug}`;
 
   return (
@@ -53,16 +65,28 @@ export default async function FieldNoteDetailPage({
           { name: entry.frontmatter.title, path },
         ]}
       />
-      <GuideArticleLayout
-        entry={entry.frontmatter}
-        path={path}
-        sectionLabel="FIELD NOTES"
-        minutes={minutes}
-        toc={toc}
-        related={related}
-      >
-        {content}
-      </GuideArticleLayout>
+      {!isGuide ? (
+        <TravelStoryLayout
+          entry={entry.frontmatter}
+          photos={presentation.photos}
+          related={related}
+          toc={toc}
+          minutes={minutes}
+        >
+          {content}
+        </TravelStoryLayout>
+      ) : (
+        <GuideArticleLayout
+          entry={entry.frontmatter}
+          path={path}
+          sectionLabel="FIELD GUIDE"
+          minutes={minutes}
+          toc={toc}
+          related={related}
+        >
+          {content}
+        </GuideArticleLayout>
+      )}
     </>
   );
 }

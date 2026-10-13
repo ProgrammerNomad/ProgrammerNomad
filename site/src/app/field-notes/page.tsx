@@ -1,14 +1,18 @@
 import Link from "next/link";
-import { EntryGrid, PaginationLinks, paginateEntries } from "@/components/content/EntryList";
+import {
+  EntryGrid,
+  PaginationLinks,
+  paginateEntries,
+} from "@/components/content/EntryList";
 import { Container } from "@/components/ui/Container";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionLink } from "@/components/ui/SectionLink";
 import { isFieldGuide } from "@/lib/content/field-guides";
 import { getAllEntries } from "@/lib/content/loader";
 import { indexPageMetadata } from "@/lib/seo/metadata";
-import { MotionSection } from "@/components/ui/MotionReveal";
-import { TravelMapSection } from "@/components/travel/TravelMapSection";
-import { getTravelMapPlaces } from "@/lib/travel/places";
+import { getTravelDestinations } from "@/lib/travel/merge-places";
+import { AtlasHeading } from "@/components/ui/AtlasHeading";
+import { TravelAtlas } from "@/components/travel/TravelAtlas";
+import type { FieldNotesFrontmatter } from "@/lib/validation/schemas";
 
 export const metadata = indexPageMetadata(
   "Travel Stories – Nomad Programmer",
@@ -17,9 +21,9 @@ export const metadata = indexPageMetadata(
 );
 
 export default async function FieldNotesIndexPage() {
-  const entries = await getAllEntries("field-notes");
+  const entries = await getAllEntries<FieldNotesFrontmatter>("field-notes");
   const pageEntries = paginateEntries(entries, 1);
-  const places = await getTravelMapPlaces();
+  const destinations = await getTravelDestinations();
   const guides = entries
     .filter((e) => isFieldGuide(e.frontmatter))
     .sort((a, b) => {
@@ -34,24 +38,27 @@ export default async function FieldNotesIndexPage() {
 
   return (
     <Container className="py-16 md:py-24" data-section="travel">
-      <PageHeader
-        label="EXPLORATION / TRAVEL"
-        title="Travel Stories"
-        description="Routes, costs, seasons, and films from the field - plus how I work on the road as a programmer-nomad."
+      <AtlasHeading
+        index="02"
+        eyebrow="Journeys / The living atlas"
+        title="The world, outside the editor."
+        description="Mountain roads, city lanes, and field notes from the places I've explored. Choose a pin, follow a story, or find a practical guide for working on the road."
+      >
+        <p className="atlas-meta mt-8">
+          {destinations.length} documented places /{" "}
+          {entries.filter((e) => !isFieldGuide(e.frontmatter)).length} travel
+          stories
+        </p>
+      </AtlasHeading>
+      <TravelAtlas
+        destinations={destinations}
+        stories={entries
+          .filter((e) => !isFieldGuide(e.frontmatter))
+          .map((e) => e.frontmatter)}
       />
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl text-paper">Map</h2>
-        <div className="mt-6">
-          <TravelMapSection places={places} />
-        </div>
-      </section>
-
       {guides.length > 0 ? (
-        <section
-          id="field-guides"
-          className="glass-card mt-12 p-8 border border-amber/30 shadow-[0_0_30px_rgba(232,184,109,0.1)] scroll-mt-24"
-        >
+        <section id="field-guides" className="field-guide-shelf scroll-mt-24">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#e8b86d] shadow-[0_0_8px_#e8b86d]" />
             <h2 className="font-display text-xl text-paper font-semibold">
@@ -83,7 +90,8 @@ export default async function FieldNotesIndexPage() {
         </section>
       ) : null}
 
-      <MotionSection className="mt-12">
+      <section className="mt-12">
+        <h2 className="font-display text-3xl mb-8">From the notebook</h2>
         <EntryGrid
           entries={pageEntries.map((e) => e.frontmatter)}
           hrefPrefix="/field-notes"
@@ -93,7 +101,7 @@ export default async function FieldNotesIndexPage() {
           itemCount={entries.length}
           currentPage={1}
         />
-      </MotionSection>
+      </section>
     </Container>
   );
 }
