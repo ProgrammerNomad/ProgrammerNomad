@@ -36,6 +36,16 @@
   <ellipse cx="200" cy="245" rx="75" ry="115" stroke="#B5FF43" stroke-width="1" opacity="0.2"/>
   <line x1="200" y1="130" x2="200" y2="360" stroke="#B5FF43" stroke-width="1.25" opacity="0.3"/>
 
+  <!-- Orbital Atlas: computational contour layers -->
+  <path d="M200 123 L262 160 L282 230 L244 306 L170 349 L112 285 L123 204 L160 145 Z"
+        stroke="#B5FF43" stroke-width="1.25" fill="#111811" fill-opacity="0.55" opacity="0.7"/>
+  <path d="M200 145 L244 174 L256 230 L227 280 L177 306 L143 267 L151 211 L172 167 Z"
+        stroke="#00D2FF" stroke-width="1" fill="none" opacity="0.38"/>
+  <ellipse cx="200" cy="245" rx="150" ry="56" transform="rotate(-28 200 245)"
+           stroke="#B5FF43" stroke-width="1.2" fill="none" opacity="0.52"/>
+  <ellipse cx="200" cy="245" rx="164" ry="42" transform="rotate(42 200 245)"
+           stroke="#00D2FF" stroke-width="1" fill="none" opacity="0.32"/>
+
   <!-- Flight Arcs Radiating from Hub -->
   <!-- Origin: Noida around (210, 220) -->
   <path d="M 210 220 Q 235 155 260 170" stroke="url(#arcGrad)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>

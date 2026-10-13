@@ -15,6 +15,29 @@ import {
 
 const GLOBE_RADIUS = 1.22;
 
+function AtlasContours() {
+  return (
+    <>
+      <mesh rotation={[1.15, 0.25, 0.55]}>
+        <torusGeometry args={[1.46, 0.009, 6, 96]} />
+        <meshBasicMaterial color="#b5ff43" transparent opacity={0.58} />
+      </mesh>
+      <mesh rotation={[0.42, 0.85, 1.1]}>
+        <torusGeometry args={[1.62, 0.006, 6, 96]} />
+        <meshBasicMaterial color="#00d2ff" transparent opacity={0.3} />
+      </mesh>
+      <mesh rotation={[2.05, -0.28, 0.7]}>
+        <torusGeometry args={[1.72, 0.004, 6, 96]} />
+        <meshBasicMaterial color="#b5ff43" transparent opacity={0.2} />
+      </mesh>
+      <mesh rotation={[0.35, 0.5, 0]}>
+        <icosahedronGeometry args={[GLOBE_RADIUS * 1.035, 2]} />
+        <meshBasicMaterial color="#b5ff43" transparent opacity={0.1} wireframe />
+      </mesh>
+    </>
+  );
+}
+
 function EarthGlobe({ paused }: { paused: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const sparksRef = useRef<(THREE.Mesh | null)[]>([]);
@@ -168,6 +191,7 @@ function EarthGlobe({ paused }: { paused: boolean }) {
         );
       }}
     >
+      <AtlasContours />
       {/* ── Base Earth Dark Core ── */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />

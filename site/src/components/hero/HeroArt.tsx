@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { HeroSculptureSkeleton } from "@/components/hero/HeroSculptureSkeleton";
+import { TRAVEL_DESTINATIONS } from "./globe-utils";
 
 const HeroCanvas = dynamic(
   () => import("./HeroCanvas").then((m) => m.HeroCanvas),
@@ -122,7 +123,8 @@ export function HeroArt() {
     <div
       ref={containerRef}
       className="relative aspect-square w-full max-w-[860px] sm:aspect-[1.1/1] lg:aspect-[1.22/1] min-h-[520px] sm:min-h-[600px] lg:min-h-[700px]"
-      aria-hidden
+      role="img"
+      aria-label={`Orbital Atlas: a generative travel and engineering sculpture with ${TRAVEL_DESTINATIONS.length} logged destinations.`}
     >
       {/* ── Soft Radial Glow Aura behind the globe ── */}
       <div
@@ -156,13 +158,13 @@ export function HeroArt() {
       <div className="pointer-events-none absolute inset-x-2 top-2 z-20 flex items-center justify-between text-[11px] font-mono text-paper/70 sm:inset-x-6 sm:top-4">
         <div className="flex items-center gap-2 rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75 motion-reduce:animate-none" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-lime shadow-[0_0_8px_#b5ff43]" />
           </span>
-          <span className="text-paper/90 font-semibold tracking-wider">GEO-MATRIX // ONLINE</span>
+          <span className="text-paper/90 font-semibold tracking-wider">ORBITAL ATLAS // LIVE</span>
         </div>
         <span className="hidden sm:inline rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md text-lime/90 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-          31 NODES LOGGED
+          {TRAVEL_DESTINATIONS.length} NODES LOGGED
         </span>
       </div>
 
@@ -171,13 +173,10 @@ export function HeroArt() {
           ORIGIN: <span className="text-lime font-semibold">NOIDA HQ [28.53°N]</span>
         </div>
         <div className="rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md text-paper/80 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-          DRAG TO ROTATE ↺
+          COMPUTATIONAL SCULPTURE
         </div>
       </div>
 
-      {show3d && !reducedMotion ? (
-        <span className="sr-only">Interactive 3D Earth globe with flight paths</span>
-      ) : null}
     </div>
   );
 }
