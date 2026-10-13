@@ -3,17 +3,24 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import type { TravelDestination } from "@/lib/travel/destinations";
 import {
-  FLIGHT_ROUTES,
-  NOIDA_ORIGIN,
-  TRAVEL_DESTINATIONS,
-  createArcCurve,
   generateGlobeDots,
   generateGridLines,
   latLngToVector3,
 } from "./globe-utils";
 
 const GLOBE_RADIUS = 1.22;
+type AtlasProps = {
+  destinations: TravelDestination[];
+  selected: TravelDestination;
+  turn: number;
+  paused: boolean;
+  autoRotate: boolean;
+  onReady: () => void;
+  onError: () => void;
+  onInteraction: () => void;
+};
 
 function AtlasContours() {
   return (
@@ -32,167 +39,172 @@ function AtlasContours() {
       </mesh>
       <mesh rotation={[0.35, 0.5, 0]}>
         <icosahedronGeometry args={[GLOBE_RADIUS * 1.035, 2]} />
-        <meshBasicMaterial color="#b5ff43" transparent opacity={0.1} wireframe />
+        <meshBasicMaterial
+          color="#b5ff43"
+          transparent
+          opacity={0.1}
+          wireframe
+        />
       </mesh>
     </>
   );
 }
 
-function EarthGlobe({ paused }: { paused: boolean }) {
+function CanvasHealth({
+  onReady,
+  onError,
+}: Pick<AtlasProps, "onReady" | "onError">) {
+  const { gl, invalidate } = useThree();
+  const reported = useRef(false);
+  useEffect(() => {
+    const canvas = gl.domElement;
+    const lost = (event: Event) => {
+      event.preventDefault();
+      onError();
+    };
+    canvas.addEventListener("webglcontextlost", lost);
+    return () => canvas.removeEventListener("webglcontextlost", lost);
+  }, [gl, onError]);
+  useFrame(() => {
+    if (reported.current) return;
+    // A previous frame must actually have drawn geometry, not merely mounted a canvas.
+    if (gl.info.render.calls > 0) {
+      reported.current = true;
+      onReady();
+    } else invalidate();
+  });
+  return null;
+}
+
+function EarthGlobe({
+  destinations,
+  selected,
+  turn,
+  paused,
+  autoRotate,
+  onInteraction,
+}: AtlasProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const sparksRef = useRef<(THREE.Mesh | null)[]>([]);
   const invalidate = useThree((s) => s.invalidate);
-
-  // Rotation state with drag & momentum (initially facing India & Noida)
-  const targetRot = useRef({ x: 0.18, y: 1.75 });
-  const currentRot = useRef({ x: 0.18, y: 1.75 });
-  const isDragging = useRef(false);
-  const lastMousePos = useRef({ x: 0, y: 0 });
-
-  // 1. Procedural land & ocean dot points
+  const target = useRef({
+    x: (selected.lat * Math.PI) / 180,
+    y: -Math.PI / 2 - (selected.lng * Math.PI) / 180,
+  });
+  const dragging = useRef(false);
+  const lastPointer = useRef({ x: 0, y: 0 });
+  const previousTurn = useRef(turn);
   const { landPositions, oceanPositions } = useMemo(
-    () => generateGlobeDots(GLOBE_RADIUS, 1500),
+    () => generateGlobeDots(GLOBE_RADIUS * 1.006, 1800),
     [],
   );
-
-  // 2. Latitude and longitude grid line geometries
-  const gridGeometries = useMemo(
-    () => generateGridLines(GLOBE_RADIUS * 1.002),
-    [],
-  );
-
-  // 3. Noida origin 3D position
-  const noidaPos = useMemo(
-    () => latLngToVector3(NOIDA_ORIGIN.lat, NOIDA_ORIGIN.lng, GLOBE_RADIUS * 1.01),
-    [],
-  );
-
-  // 4. Travel destination 3D positions
-  const destinationPositions = useMemo(
+  const gridLines = useMemo(
     () =>
-      TRAVEL_DESTINATIONS.map((dest) => ({
-        ...dest,
-        vec: latLngToVector3(dest.lat, dest.lng, GLOBE_RADIUS * 1.008),
-      })),
+      generateGridLines(GLOBE_RADIUS * 1.002).map(
+        (geometry) =>
+          new THREE.Line(
+            geometry,
+            new THREE.LineBasicMaterial({
+              color: "#b5ff43",
+              transparent: true,
+              opacity: 0.16,
+            }),
+          ),
+      ),
     [],
   );
+  const positions = useMemo(
+    () =>
+      destinations.map((place) => ({
+        ...place,
+        vector: latLngToVector3(place.lat, place.lng, GLOBE_RADIUS * 1.018),
+      })),
+    [destinations],
+  );
 
-  // 5. 3D Flight Bezier curves & line geometries
-  const arcData = useMemo(() => {
-    return FLIGHT_ROUTES.map((route) => {
-      const destVec = latLngToVector3(route.lat, route.lng, GLOBE_RADIUS * 1.008);
-      const { curve, points } = createArcCurve(noidaPos, destVec, GLOBE_RADIUS, 48);
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      return {
-        ...route,
-        curve,
-        geometry,
-        color: route.color,
-      };
-    });
-  }, [noidaPos]);
-
-  // Geometries for points and particles
-  const landGeom = useMemo(() => {
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute("position", new THREE.BufferAttribute(landPositions, 3));
-    return geom;
-  }, [landPositions]);
-
-  const oceanGeom = useMemo(() => {
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute("position", new THREE.BufferAttribute(oceanPositions, 3));
-    return geom;
-  }, [oceanPositions]);
-
-  const ambientGeom = useMemo(() => {
-    const count = 55;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 1.65 + Math.random() * 0.9;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
-    }
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-    return geom;
-  }, []);
-
+  useEffect(
+    () => () =>
+      gridLines.forEach((line) => {
+        line.geometry.dispose();
+        (line.material as THREE.Material).dispose();
+      }),
+    [gridLines],
+  );
+  useEffect(() => {
+    target.current = {
+      x: (selected.lat * Math.PI) / 180,
+      y: -Math.PI / 2 - (selected.lng * Math.PI) / 180,
+    };
+    previousTurn.current = 0;
+    invalidate();
+  }, [selected, invalidate]);
+  useEffect(() => {
+    target.current.y += ((turn - previousTurn.current) * Math.PI) / 6;
+    previousTurn.current = turn;
+    invalidate();
+  }, [turn, invalidate]);
   useEffect(() => {
     if (!paused) invalidate();
-  }, [paused, invalidate]);
+  }, [paused, autoRotate, invalidate]);
 
-  // Animation frame loop
-  useFrame((state, delta) => {
-    if (paused || !groupRef.current) return;
-
-    // Auto rotate when not actively dragging
-    if (!isDragging.current) {
-      targetRot.current.y += delta * 0.1;
-    }
-
-    // Smooth lerp rotation
-    currentRot.current.x = THREE.MathUtils.lerp(
-      currentRot.current.x,
-      targetRot.current.x,
-      0.08,
+  useFrame((_, delta) => {
+    const group = groupRef.current;
+    if (paused || !group) return;
+    if (autoRotate && !dragging.current)
+      target.current.y += Math.min(delta, 0.05) * 0.16;
+    const factor = 1 - Math.exp(-8 * Math.min(delta, 0.05));
+    group.rotation.x = THREE.MathUtils.lerp(
+      group.rotation.x,
+      target.current.x,
+      factor,
     );
-    currentRot.current.y = THREE.MathUtils.lerp(
-      currentRot.current.y,
-      targetRot.current.y,
-      0.08,
+    group.rotation.y = THREE.MathUtils.lerp(
+      group.rotation.y,
+      target.current.y,
+      factor,
     );
-
-    groupRef.current.rotation.x = currentRot.current.x;
-    groupRef.current.rotation.y = currentRot.current.y;
-
-    // Animate photon sparks along flight arcs
-    const time = state.clock.getElapsedTime();
-    arcData.forEach((arc, idx) => {
-      const spark = sparksRef.current[idx];
-      if (!spark) return;
-      const t = (time * arc.speed + idx * 0.18) % 1;
-      const pt = arc.curve.getPoint(t);
-      spark.position.copy(pt);
-      // Pulse scale as it traverses the peak altitude
-      const scale = 1 + Math.sin(t * Math.PI) * 0.8;
-      spark.scale.set(scale, scale, scale);
-    });
-
-    invalidate();
+    if (
+      autoRotate ||
+      Math.abs(group.rotation.x - target.current.x) +
+        Math.abs(group.rotation.y - target.current.y) >
+        0.001
+    )
+      invalidate();
   });
 
   return (
     <group
       ref={groupRef}
-      onPointerDown={(e) => {
-        isDragging.current = true;
-        lastMousePos.current = { x: e.clientX, y: e.clientY };
+      rotation={[
+        (selected.lat * Math.PI) / 180,
+        -Math.PI / 2 - (selected.lng * Math.PI) / 180,
+        0,
+      ]}
+      onPointerDown={(event) => {
+        // Keep touch scrolling native; buttons and the destination picker work for everyone.
+        if (event.pointerType === "touch") return;
+        onInteraction();
+        dragging.current = true;
+        lastPointer.current = { x: event.clientX, y: event.clientY };
       }}
       onPointerUp={() => {
-        isDragging.current = false;
+        dragging.current = false;
       }}
       onPointerLeave={() => {
-        isDragging.current = false;
+        dragging.current = false;
       }}
-      onPointerMove={(e) => {
-        if (!isDragging.current) return;
-        const dx = e.clientX - lastMousePos.current.x;
-        const dy = e.clientY - lastMousePos.current.y;
-        lastMousePos.current = { x: e.clientX, y: e.clientY };
-        targetRot.current.y += dx * 0.007;
-        targetRot.current.x = THREE.MathUtils.clamp(
-          targetRot.current.x + dy * 0.007,
-          -1.1,
-          1.1,
+      onPointerMove={(event) => {
+        if (!dragging.current) return;
+        target.current.y += (event.clientX - lastPointer.current.x) * 0.007;
+        target.current.x = THREE.MathUtils.clamp(
+          target.current.x + (event.clientY - lastPointer.current.y) * 0.007,
+          -1.4,
+          1.4,
         );
+        lastPointer.current = { x: event.clientX, y: event.clientY };
+        invalidate();
       }}
     >
       <AtlasContours />
-      {/* ── Base Earth Dark Core ── */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
         <meshStandardMaterial
@@ -201,8 +213,6 @@ function EarthGlobe({ paused }: { paused: boolean }) {
           metalness={0.12}
         />
       </mesh>
-
-      {/* ── Inner Atmosphere Glow / Rim ── */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS * 1.015, 36, 36]} />
         <meshBasicMaterial
@@ -213,8 +223,6 @@ function EarthGlobe({ paused }: { paused: boolean }) {
           blending={THREE.AdditiveBlending}
         />
       </mesh>
-
-      {/* ── Outer Atmosphere Halo ── */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS * 1.12, 36, 36]} />
         <meshBasicMaterial
@@ -225,127 +233,76 @@ function EarthGlobe({ paused }: { paused: boolean }) {
           blending={THREE.AdditiveBlending}
         />
       </mesh>
-
-      {/* ── Lat/Long Coordinate Grid Lines ── */}
-      {gridGeometries.map((geom, i) => (
-        <primitive
-          key={i}
-          object={
-            new THREE.Line(
-              geom,
-              new THREE.LineBasicMaterial({
-                color: "#b5ff43",
-                transparent: true,
-                opacity: 0.12,
-              }),
-            )
-          }
-        />
+      {gridLines.map((line, index) => (
+        <primitive key={index} object={line} />
       ))}
-
-      {/* ── Procedural Land Matrix Dots (Lime Glow) ── */}
-      <points geometry={landGeom}>
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[landPositions, 3]}
+          />
+        </bufferGeometry>
         <pointsMaterial
-          size={0.03}
+          size={0.025}
           color="#b5ff43"
           transparent
-          opacity={0.88}
+          opacity={0.68}
           sizeAttenuation
         />
       </points>
-
-      {/* ── Procedural Ocean Dots (Subtle) ── */}
-      <points geometry={oceanGeom}>
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[oceanPositions, 3]}
+          />
+        </bufferGeometry>
         <pointsMaterial
-          size={0.016}
-          color="#1e2c1e"
+          size={0.014}
+          color="#55735d"
           transparent
-          opacity={0.3}
+          opacity={0.35}
           sizeAttenuation
         />
       </points>
-
-      {/* ── Noida Home Base HQ Pulse Dot ── */}
-      <mesh position={noidaPos}>
-        <sphereGeometry args={[0.038, 16, 16]} />
-        <meshBasicMaterial color="#b5ff43" />
-      </mesh>
-      {/* Noida Origin Ring */}
-      <mesh position={noidaPos}>
-        <ringGeometry args={[0.05, 0.075, 24]} />
-        <meshBasicMaterial
-          color="#b5ff43"
-          transparent
-          opacity={0.75}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-
-      {/* ── Travel Destination Dots (31 hubs) ── */}
-      {destinationPositions.map((dest, i) => (
-        <mesh key={dest.label + i} position={dest.vec}>
-          <sphereGeometry args={[0.024, 12, 12]} />
+      {positions.map((place) => (
+        <mesh key={place.id} position={place.vector}>
+          <sphereGeometry
+            args={[place.id === selected.id ? 0.04 : 0.018, 12, 12]}
+          />
           <meshBasicMaterial
-            color={i % 3 === 0 ? "#b5ff43" : i % 3 === 1 ? "#00d2ff" : "#e8b86d"}
+            color={place.id === selected.id ? "#ffffff" : "#79d8ec"}
           />
         </mesh>
       ))}
-
-      {/* ── 3D Volumetric Glowing Flight Arcs ── */}
-      {arcData.map((arc, i) => (
-        <mesh key={arc.dest + i}>
-          <tubeGeometry args={[arc.curve, 36, 0.007, 6, false]} />
-          <meshBasicMaterial
-            color={arc.color}
-            transparent
-            opacity={0.88}
-          />
-        </mesh>
-      ))}
-
-      {/* ── Animated Flight Sparks / Traveling Photons ── */}
-      {arcData.map((arc, i) => (
-        <mesh
-          key={`spark-${arc.dest}-${i}`}
-          ref={(el) => {
-            sparksRef.current[i] = el;
-          }}
-          position={noidaPos}
-        >
-          <sphereGeometry args={[0.014, 12, 12]} />
-          <meshBasicMaterial
-            color={arc.color}
-          />
-        </mesh>
-      ))}
-
-      {/* ── Ambient Orbiting Star / Tech Particles ── */}
-      <points geometry={ambientGeom}>
-        <pointsMaterial
-          size={0.018}
-          color="#b5ff43"
-          transparent
-          opacity={0.45}
-          sizeAttenuation
-        />
-      </points>
     </group>
   );
 }
 
-export function HeroCanvas({ paused }: { paused: boolean }) {
+export function HeroCanvas(props: AtlasProps) {
   return (
     <Canvas
       frameloop="demand"
-      camera={{ position: [0, 0, 4.35], fov: 42 }}
-      dpr={[1, 1.75]}
+      camera={{ position: [0, 0, 5.35], fov: 42 }}
+      dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
-      style={{ width: "100%", height: "100%", cursor: "grab" }}
+      style={{
+        width: "100%",
+        height: "100%",
+        cursor: "grab",
+        touchAction: "pan-y",
+      }}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[4, 5, 3]} intensity={1.5} color="#ffffff" />
-      <directionalLight position={[-4, -3, -2]} intensity={0.4} color="#00d2ff" />
-      <EarthGlobe paused={paused} />
+      <directionalLight
+        position={[-4, -3, -2]}
+        intensity={0.4}
+        color="#00d2ff"
+      />
+      <EarthGlobe {...props} />
+      <CanvasHealth onReady={props.onReady} onError={props.onError} />
     </Canvas>
   );
 }

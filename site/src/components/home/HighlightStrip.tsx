@@ -1,34 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useInView, useMotionValueEvent, useReducedMotion, useSpring } from "motion/react";
-import { useEffect, useRef } from "react";
 import type { HighlightStats } from "@/lib/stats/highlights";
 import { SOCIAL } from "@/lib/seo/site-config";
 
+// Stable values are readable before hydration and never animate against a motion preference.
 function CountValue({ value }: { value: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-20px" });
-  const reduced = useReducedMotion();
-  const spring = useSpring(0, { stiffness: 90, damping: 18 });
-
-  useMotionValueEvent(spring, "change", (latest) => {
-    if (ref.current) {
-      ref.current.textContent = String(Math.round(latest));
-    }
-  });
-
-  useEffect(() => {
-    if (!inView) return;
-    spring.set(value);
-  }, [inView, spring, value]);
-
   return (
-    <span
-      ref={ref}
-      className="font-display text-3xl font-bold text-lime text-glow-lime md:text-4xl"
-    >
-      {reduced ? value : 0}
+    <span className="font-display text-3xl font-bold text-lime text-glow-lime md:text-4xl">
+      {value}
     </span>
   );
 }

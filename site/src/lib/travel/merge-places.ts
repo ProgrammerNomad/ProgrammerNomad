@@ -3,6 +3,7 @@ import path from "path";
 import { getAllEntries } from "@/lib/content/loader";
 import type { FieldNotesFrontmatter } from "@/lib/validation/schemas";
 import type { MapPlace } from "@/components/travel/TravelMap";
+import { groupTravelDestinations } from "@/lib/travel/destinations";
 
 type JsonPlace = { label: string; lat: number; lng: number; slug?: string };
 
@@ -54,6 +55,10 @@ export async function getMergedTravelPlaces(): Promise<MapPlace[]> {
 }
 
 export async function countMergedTravelPlaces(): Promise<number> {
-  const places = await getMergedTravelPlaces();
-  return places.length;
+  return (await getTravelDestinations()).length;
+}
+
+/** Shared map records, grouped for the homepage atlas and destination count. */
+export async function getTravelDestinations() {
+  return groupTravelDestinations(await getMergedTravelPlaces());
 }
