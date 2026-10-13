@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { EntryGrid, PaginationLinks, paginateEntries } from "@/components/content/EntryList";
 import { Container } from "@/components/ui/Container";
-import { MetaLabel } from "@/components/ui/MetaLabel";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { SectionLink } from "@/components/ui/SectionLink";
 import { getAllEntries } from "@/lib/content/loader";
 import { indexPageMetadata } from "@/lib/seo/metadata";
+import { MotionSection } from "@/components/ui/MotionReveal";
 import { TravelMapSection } from "@/components/travel/TravelMapSection";
 import { getTravelMapPlaces } from "@/lib/travel/places";
 
@@ -19,15 +21,12 @@ export default async function FieldNotesIndexPage() {
   const places = await getTravelMapPlaces();
 
   return (
-    <Container className="py-16 md:py-24">
-      <MetaLabel>EXPLORATION / TRAVEL</MetaLabel>
-      <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
-        Travel Stories
-      </h1>
-      <p className="mt-4 max-w-prose text-paper/70">
-        Routes, costs, seasons, and films from the field - plus how I work on the
-        road as a programmer-nomad.
-      </p>
+    <Container className="py-16 md:py-24" data-section="travel">
+      <PageHeader
+        label="EXPLORATION / TRAVEL"
+        title="Travel Stories"
+        description="Routes, costs, seasons, and films from the field - plus how I work on the road as a programmer-nomad."
+      />
 
       <section className="mt-12">
         <h2 className="font-display text-2xl text-paper">Map</h2>
@@ -41,12 +40,9 @@ export default async function FieldNotesIndexPage() {
         <p className="mt-2 max-w-prose text-sm text-paper/70">
           Laptop, connectivity, and gear for coding while traveling.
         </p>
-        <Link
-          href="/field-notes/nomad-remote-work"
-          className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-lime hover:underline"
-        >
+        <SectionLink href="/field-notes/nomad-remote-work" className="mt-4">
           Read the checklist →
-        </Link>
+        </SectionLink>
         <Link
           href="/gear"
           className="ml-6 inline-block font-mono text-xs uppercase tracking-widest text-paper/70 hover:text-lime"
@@ -55,7 +51,7 @@ export default async function FieldNotesIndexPage() {
         </Link>
       </section>
 
-      <div className="mt-12">
+      <MotionSection className="mt-12">
         <EntryGrid
           entries={pageEntries.map((e) => e.frontmatter)}
           hrefPrefix="/field-notes"
@@ -65,7 +61,7 @@ export default async function FieldNotesIndexPage() {
           itemCount={entries.length}
           currentPage={1}
         />
-      </div>
+      </MotionSection>
     </Container>
   );
 }

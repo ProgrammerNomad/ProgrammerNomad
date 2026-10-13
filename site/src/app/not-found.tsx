@@ -2,14 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { ButtonLink } from "@/components/ui/Button";
-
-const links = [
-  { href: "/work", label: "Projects" },
-  { href: "/videos", label: "Videos" },
-  { href: "/field-notes", label: "Travel" },
-  { href: "/writing", label: "Writing" },
-  { href: "/contact", label: "Contact" },
-];
+import { NOT_FOUND_NAV } from "@/lib/navigation";
 
 export default function NotFound() {
   return (
@@ -23,7 +16,7 @@ export default function NotFound() {
         these sections:
       </p>
       <ul className="mt-6 flex flex-wrap gap-4 font-mono text-xs uppercase tracking-widest">
-        {links.map((l) => (
+        {NOT_FOUND_NAV.map((l) => (
           <li key={l.href}>
             <Link href={l.href} className="text-lime hover:underline">
               {l.label}

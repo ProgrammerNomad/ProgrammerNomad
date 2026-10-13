@@ -1,5 +1,5 @@
 import { compileMDX } from "next-mdx-remote/rsc";
-import { mdxComponents } from "@/components/mdx/MdxComponents";
+import { mdxComponents } from "./mdx-components";
 
 export async function renderMdx(source: string) {
   const { content } = await compileMDX({
@@ -11,3 +11,6 @@ export async function renderMdx(source: string) {
   });
   return content;
 }
+
+/** @deprecated use renderMdx */
+export const renderMdxBody = renderMdx;

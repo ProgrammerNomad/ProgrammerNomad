@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { SectionLink } from "@/components/ui/SectionLink";
 import { HeroArt } from "@/components/hero/HeroArt";
 import { HighlightStrip } from "@/components/home/HighlightStrip";
 import { SubscribeCtas } from "@/components/home/SubscribeCtas";
@@ -9,6 +9,11 @@ import { ProjectCard } from "@/components/content/ProjectCard";
 import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { Section } from "@/components/ui/Section";
+import {
+  MotionSection,
+  MotionStaggerGrid,
+  MotionStaggerItem,
+} from "@/components/ui/MotionReveal";
 import { getAllEntries } from "@/lib/content/loader";
 import { getHighlightStats } from "@/lib/stats/highlights";
 import { SITE_TAGLINE } from "@/lib/seo/site-config";
@@ -62,58 +67,56 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      <Container className="py-12">
-        <HighlightStrip stats={stats} />
-      </Container>
+      <MotionSection>
+        <Container className="py-12">
+          <HighlightStrip stats={stats} />
+        </Container>
+      </MotionSection>
 
       <Container>
         {videos.length > 0 ? (
-          <Section eyebrow="YOUTUBE" title="Latest videos ↗">
-            <div className="grid gap-6 md:grid-cols-3">
-              {videos.map((v) => (
-                <VideoCard key={v.id} video={v} />
-              ))}
-            </div>
-            <Link
-              href="/videos"
-              className="mt-8 inline-block font-mono text-xs uppercase tracking-widest text-lime hover:underline"
-            >
-              All videos →
-            </Link>
-          </Section>
+          <MotionSection>
+            <Section eyebrow="YOUTUBE" title="Latest videos ↗">
+              <MotionStaggerGrid className="grid gap-6 md:grid-cols-3">
+                {videos.map((v) => (
+                  <MotionStaggerItem key={v.id}>
+                    <VideoCard video={v} />
+                  </MotionStaggerItem>
+                ))}
+              </MotionStaggerGrid>
+              <SectionLink href="/videos">All videos →</SectionLink>
+            </Section>
+          </MotionSection>
         ) : null}
 
-        <Section eyebrow="01 / PROJECTS" title="Featured open source ↗">
-          <div className="grid gap-6 md:grid-cols-3">
-            {featured.map((entry) => (
-              <WorkProjectCard key={entry.frontmatter.slug} entry={entry.frontmatter} />
-            ))}
-          </div>
-          <Link
-            href="/work"
-            className="mt-8 inline-block font-mono text-xs uppercase tracking-widest text-lime hover:underline"
-          >
-            All projects →
-          </Link>
-        </Section>
+        <MotionSection>
+          <Section eyebrow="01 / PROJECTS" title="Featured open source ↗">
+            <MotionStaggerGrid className="grid gap-6 md:grid-cols-3">
+              {featured.map((entry) => (
+                <MotionStaggerItem key={entry.frontmatter.slug}>
+                  <WorkProjectCard entry={entry.frontmatter} />
+                </MotionStaggerItem>
+              ))}
+            </MotionStaggerGrid>
+            <SectionLink href="/work">All projects →</SectionLink>
+          </Section>
+        </MotionSection>
 
-        <Section eyebrow="02 / TRAVEL" title="Latest from the field ↗">
-          <div className="grid gap-6 md:grid-cols-2">
-            {latestTravel.map((entry) => (
-              <ProjectCard
-                key={entry.frontmatter.slug}
-                entry={entry.frontmatter}
-                hrefPrefix="/field-notes"
-              />
-            ))}
-          </div>
-          <Link
-            href="/field-notes"
-            className="mt-8 inline-block font-mono text-xs uppercase tracking-widest text-lime hover:underline"
-          >
-            Travel stories →
-          </Link>
-        </Section>
+        <MotionSection>
+          <Section eyebrow="02 / TRAVEL" title="Latest from the field ↗">
+            <MotionStaggerGrid className="grid gap-6 md:grid-cols-2">
+              {latestTravel.map((entry) => (
+                <MotionStaggerItem key={entry.frontmatter.slug}>
+                  <ProjectCard
+                    entry={entry.frontmatter}
+                    hrefPrefix="/field-notes"
+                  />
+                </MotionStaggerItem>
+              ))}
+            </MotionStaggerGrid>
+            <SectionLink href="/field-notes">Travel stories →</SectionLink>
+          </Section>
+        </MotionSection>
       </Container>
     </>
   );

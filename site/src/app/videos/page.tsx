@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { MetaLabel } from "@/components/ui/MetaLabel";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { VideoCard } from "@/components/video/VideoCard";
 import { indexPageMetadata } from "@/lib/seo/metadata";
 import { fetchChannelVideos, type YouTubeVideo } from "@/lib/youtube/rss";
@@ -48,17 +48,22 @@ export default async function VideosPage() {
 
   return (
     <Container className="py-16 md:py-24">
-      <MetaLabel>YOUTUBE / VIDEOS</MetaLabel>
-      <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
-        Videos
-      </h1>
-      <p className="mt-4 max-w-prose text-paper/70">
-        Tech tutorials and travel stories from{" "}
-        <Link href="https://www.youtube.com/@NomadProgrammer" className="text-lime hover:underline">
-          @NomadProgrammer
-        </Link>
-        .
-      </p>
+      <PageHeader
+        label="YOUTUBE / VIDEOS"
+        title="Videos"
+        description={
+          <>
+            Tech tutorials and travel stories from{" "}
+            <Link
+              href="https://www.youtube.com/@NomadProgrammer"
+              className="text-lime hover:underline"
+            >
+              @NomadProgrammer
+            </Link>
+            .
+          </>
+        }
+      />
 
       {videos.length === 0 ? (
         <p className="mt-12 text-paper/60">

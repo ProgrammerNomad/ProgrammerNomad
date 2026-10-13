@@ -6,16 +6,8 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
-
-const links = [
-  { href: "/work", label: "Projects" },
-  { href: "/videos", label: "Videos" },
-  { href: "/field-notes", label: "Travel" },
-  { href: "/writing", label: "Writing" },
-  { href: "/gear", label: "Gear" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { PRIMARY_NAV } from "@/lib/navigation";
+import { HEADER_COORDINATES } from "@/lib/seo/site-config";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -24,15 +16,20 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-canvas/90 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="font-mono text-xs uppercase tracking-[0.25em] text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
-        >
-          Nomad Programmer
-        </Link>
+        <div className="flex flex-col gap-0.5">
+          <Link
+            href="/"
+            className="font-mono text-xs uppercase tracking-[0.25em] text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+          >
+            Nomad Programmer
+          </Link>
+          <span className="hidden font-mono text-[10px] uppercase tracking-widest text-paper/45 sm:block">
+            {HEADER_COORDINATES}
+          </span>
+        </div>
 
         <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
-          {links.map((link) => (
+          {PRIMARY_NAV.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -68,7 +65,7 @@ export function SiteHeader() {
           aria-label="Mobile navigation"
         >
           <Container className="flex flex-col gap-1 py-4">
-            {links.map((link) => (
+            {PRIMARY_NAV.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

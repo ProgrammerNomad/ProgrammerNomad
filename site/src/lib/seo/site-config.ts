@@ -19,6 +19,21 @@ export const SOCIAL = {
   instagram: "https://www.instagram.com/programmernomad/",
 } as const;
 
+/** Shown in header/footer micro-brand strip */
+export const HEADER_COORDINATES = "28° 38' N";
+
+export const SOCIAL_LINKS = [
+  { href: SOCIAL.youtube, label: "YouTube" },
+  { href: SOCIAL.github, label: "GitHub" },
+  { href: SOCIAL.instagram, label: "Instagram" },
+  { href: SOCIAL.linkedin, label: "LinkedIn" },
+] as const;
+
+export const FOOTER_SOCIAL_LINKS = [
+  ...SOCIAL_LINKS,
+  { href: `mailto:${CONTACT_EMAIL}`, label: "Email" },
+] as const;
+
 export const SAME_AS = [
   SOCIAL.youtube,
   SOCIAL.github,

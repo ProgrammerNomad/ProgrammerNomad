@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Container } from "@/components/layout/Container";
+import { ProjectCard } from "@/components/content/ProjectCard";
+import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { getAllTags, getEntriesByTag } from "@/lib/content/loader";
 import { matchTagFromParam, tagToParam } from "@/lib/content/tags";
@@ -31,12 +31,9 @@ export default async function WritingTagPage({
         {entries.map((entry) => (
           <ProjectCard
             key={entry.frontmatter.slug}
-            href={`/writing/${entry.frontmatter.slug}`}
-            title={entry.frontmatter.title}
-            summary={entry.frontmatter.summary}
-            date={entry.frontmatter.date}
-            cover={entry.frontmatter.cover}
-            tags={entry.frontmatter.tags}
+            entry={entry.frontmatter}
+            hrefPrefix="/writing"
+            showTags
           />
         ))}
       </div>

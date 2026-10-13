@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { BaseFrontmatter } from "@/lib/validation/schemas";
-import { ProjectCard } from "@/components/content/ProjectCard";
+import { EntryGridClient } from "@/components/content/EntryGridClient";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { PAGE_SIZE, totalPages } from "@/lib/utils";
 
@@ -11,13 +11,7 @@ export function EntryGrid({
   entries: BaseFrontmatter[];
   hrefPrefix: string;
 }) {
-  return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {entries.map((entry) => (
-        <ProjectCard key={entry.slug} entry={entry} hrefPrefix={hrefPrefix} />
-      ))}
-    </div>
-  );
+  return <EntryGridClient entries={entries} hrefPrefix={hrefPrefix} />;
 }
 
 export function EntryListSimple({

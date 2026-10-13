@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Container } from "@/components/layout/Container";
+import { ProjectCard } from "@/components/content/ProjectCard";
+import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import type { ContentEntry } from "@/lib/content/loader";
 
@@ -27,12 +27,9 @@ export function ContentIndex({
         {entries.map((entry) => (
           <ProjectCard
             key={entry.frontmatter.slug}
-            href={`${basePath}/${entry.frontmatter.slug}`}
-            title={entry.frontmatter.title}
-            summary={entry.frontmatter.summary}
-            date={entry.frontmatter.date}
-            cover={entry.frontmatter.cover}
-            tags={entry.frontmatter.tags}
+            entry={entry.frontmatter}
+            hrefPrefix={basePath}
+            showTags
           />
         ))}
       </div>

@@ -11,6 +11,8 @@ const buttonVariants = cva(
         ghost: "text-paper hover:text-lime",
         outline:
           "border border-paper/20 text-paper hover:border-lime hover:text-lime",
+        accent:
+          "border border-lime/50 bg-lime/10 text-lime hover:bg-lime/20",
       },
       size: {
         default: "h-10 px-4",

@@ -1,35 +1,50 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
 import type { Mesh } from "three";
 
-function Sculpture() {
+function Sculpture({ paused }: { paused: boolean }) {
   const mesh = useRef<Mesh>(null);
+  const invalidate = useThree((s) => s.invalidate);
+
+  useEffect(() => {
+    if (!paused) invalidate();
+  }, [paused, invalidate]);
 
   useFrame((_, delta) => {
-    if (!mesh.current) return;
+    if (paused || !mesh.current) return;
     mesh.current.rotation.y += delta * 0.25;
     mesh.current.rotation.x += delta * 0.08;
+    invalidate();
   });
 
   return (
     <mesh ref={mesh}>
-      <icosahedronGeometry args={[1.2, 1]} />
+      <icosahedronGeometry args={[1.15, 2]} />
       <meshStandardMaterial
         color="#0B0C0B"
         emissive="#B5FF43"
-        emissiveIntensity={0.15}
+        emissiveIntensity={0.2}
         wireframe
       />
     </mesh>
   );
 }
 
-export function HeroCanvas() {
+function GlobeRing() {
+  return (
+    <mesh rotation={[Math.PI / 2, 0, 0]}>
+      <torusGeometry args={[1.45, 0.012, 8, 64]} />
+      <meshBasicMaterial color="#B5FF43" transparent opacity={0.35} wireframe />
+    </mesh>
+  );
+}
+
+export function HeroCanvas({ paused }: { paused: boolean }) {
   return (
     <Canvas
-      frameloop="always"
+      frameloop="demand"
       camera={{ position: [0, 0, 4], fov: 45 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
@@ -37,7 +52,8 @@ export function HeroCanvas() {
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[4, 4, 2]} intensity={1.2} />
-      <Sculpture />
+      <GlobeRing />
+      <Sculpture paused={paused} />
     </Canvas>
   );
 }

@@ -4,23 +4,26 @@ import type { BaseFrontmatter } from "@/lib/validation/schemas";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { cn } from "@/lib/utils";
 
+const cardClass =
+  "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated shadow-sm transition hover:-translate-y-0.5 hover:border-lime/40 hover:shadow-[0_0_24px_rgba(181,255,67,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
+
 export function ProjectCard({
   entry,
   hrefPrefix,
+  href,
+  showTags = false,
   className,
 }: {
   entry: BaseFrontmatter;
-  hrefPrefix: string;
+  hrefPrefix?: string;
+  href?: string;
+  showTags?: boolean;
   className?: string;
 }) {
+  const link = href ?? `${hrefPrefix}/${entry.slug}`;
+
   return (
-    <Link
-      href={`${hrefPrefix}/${entry.slug}`}
-      className={cn(
-        "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated transition hover:-translate-y-0.5 hover:border-lime/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime",
-        className,
-      )}
-    >
+    <Link href={link} className={cn(cardClass, className)}>
       <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
         {entry.cover ? (
           <Image
@@ -39,9 +42,14 @@ export function ProjectCard({
         <h3 className="mt-2 font-display text-xl text-paper group-hover:text-lime">
           {entry.title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-paper/70">
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-paper/70">
           {entry.summary}
         </p>
+        {showTags && entry.tags.length > 0 ? (
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-paper/50">
+            {entry.tags.slice(0, 3).join(" · ")}
+          </p>
+        ) : null}
       </div>
     </Link>
   );

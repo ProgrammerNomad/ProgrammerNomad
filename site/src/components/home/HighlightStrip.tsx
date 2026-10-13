@@ -1,6 +1,34 @@
+"use client";
+
 import Link from "next/link";
+import { useInView, useMotionValueEvent, useReducedMotion, useSpring } from "motion/react";
+import { useEffect, useRef } from "react";
 import type { HighlightStats } from "@/lib/stats/highlights";
 import { SOCIAL } from "@/lib/seo/site-config";
+
+function CountValue({ value }: { value: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-20px" });
+  const reduced = useReducedMotion();
+  const spring = useSpring(0, { stiffness: 90, damping: 18 });
+
+  useMotionValueEvent(spring, "change", (latest) => {
+    if (ref.current) {
+      ref.current.textContent = String(Math.round(latest));
+    }
+  });
+
+  useEffect(() => {
+    if (!inView) return;
+    spring.set(value);
+  }, [inView, spring, value]);
+
+  return (
+    <span ref={ref} className="font-display text-2xl text-lime md:text-3xl">
+      {reduced ? value : 0}
+    </span>
+  );
+}
 
 function Stat({
   label,
@@ -14,7 +42,7 @@ function Stat({
   if (value === null) return null;
   const inner = (
     <>
-      <span className="font-display text-2xl text-lime md:text-3xl">{value}</span>
+      <CountValue value={value} />
       <span className="mt-1 font-mono text-xs uppercase tracking-widest text-paper/60">
         {label}
       </span>

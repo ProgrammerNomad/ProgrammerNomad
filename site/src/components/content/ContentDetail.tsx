@@ -1,10 +1,10 @@
-import { Prose } from "@/components/layout/Prose";
+import { Prose } from "@/components/ui/Prose";
 import { MetaLabel } from "@/components/ui/MetaLabel";
-import { renderMdxBody } from "@/lib/content/render-mdx";
+import { renderMdx } from "@/lib/content/mdx";
 import type { ContentEntry } from "@/lib/content/loader";
 
 export async function ContentDetail({ entry }: { entry: ContentEntry }) {
-  const body = await renderMdxBody(entry.body);
+  const body = await renderMdx(entry.body);
   const { title, date, tags, summary } = entry.frontmatter;
 
   return (

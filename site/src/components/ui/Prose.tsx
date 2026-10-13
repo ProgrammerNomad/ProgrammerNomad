@@ -8,13 +8,13 @@ export function Prose({
   className?: string;
 }) {
   return (
-    <div
+    <article
       className={cn(
-        "max-w-prose space-y-4 text-base leading-relaxed text-paper/85 [&_a]:text-lime [&_a]:underline-offset-4 hover:[&_a]:underline [&_h2]:font-display [&_h2]:text-2xl [&_h2]:text-paper [&_h3]:font-display [&_h3]:text-xl [&_strong]:text-paper",
+        "prose prose-invert max-w-prose prose-headings:font-display prose-headings:tracking-tight prose-a:text-lime prose-a:no-underline hover:prose-a:underline prose-strong:text-paper",
         className,
       )}
     >
       {children}
-    </div>
+    </article>
   );
 }

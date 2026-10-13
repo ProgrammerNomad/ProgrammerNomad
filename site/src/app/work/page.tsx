@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/Container";
-import { MetaLabel } from "@/components/ui/MetaLabel";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { WorkFilterGrid } from "@/components/work/WorkFilterGrid";
 import { getAllEntries } from "@/lib/content/loader";
 import { indexPageMetadata } from "@/lib/seo/metadata";
@@ -15,15 +15,12 @@ export default async function WorkIndexPage() {
   const entries = await getAllEntries<WorkFrontmatter>("work");
 
   return (
-    <Container className="py-16 md:py-24">
-      <MetaLabel>OPEN SOURCE / PROJECTS</MetaLabel>
-      <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
-        Open-Source Projects
-      </h1>
-      <p className="mt-4 max-w-prose text-paper/70">
-        Tools, libraries, and apps from the Nomad Programmer GitHub - filter by
-        stack below.
-      </p>
+    <Container className="py-16 md:py-24" data-section="work">
+      <PageHeader
+        label="OPEN SOURCE / PROJECTS"
+        title="Open-Source Projects"
+        description="Tools, libraries, and apps from the Nomad Programmer GitHub - filter by stack below."
+      />
       <div className="mt-12">
         <WorkFilterGrid entries={entries.map((e) => e.frontmatter)} />
       </div>

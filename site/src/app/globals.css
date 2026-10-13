@@ -5,6 +5,21 @@
   --paper: #ffffff;
   --lime: #b5ff43;
   --elevated: #242624;
+  --accent-code: #b5ff43;
+  --accent-travel: #e8b86d;
+  --page-accent: var(--lime);
+}
+
+[data-section="work"] {
+  --page-accent: var(--accent-code);
+}
+
+[data-section="travel"] {
+  --page-accent: var(--accent-travel);
+}
+
+[data-section] [data-page-accent] {
+  color: var(--page-accent);
 }
 
 @theme inline {

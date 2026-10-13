@@ -56,7 +56,7 @@ export function WorkProjectCard({
   );
 
   const classes = cn(
-    "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated transition hover:-translate-y-0.5 hover:border-lime/40",
+    "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated shadow-sm transition hover:-translate-y-0.5 hover:border-lime/40 hover:shadow-[0_0_24px_rgba(181,255,67,0.08)]",
     className,
   );
 
