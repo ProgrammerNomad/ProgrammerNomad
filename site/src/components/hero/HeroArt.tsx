@@ -121,15 +121,15 @@ export function HeroArt() {
   return (
     <div
       ref={containerRef}
-      className="relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border border-paper/10 bg-elevated/20 p-2 md:aspect-[4/5]"
+      className="relative aspect-square w-full max-w-[860px] sm:aspect-[1.1/1] lg:aspect-[1.22/1] min-h-[520px] sm:min-h-[600px] lg:min-h-[700px]"
       aria-hidden
     >
-      {/* ── Radial Glow Aura behind the globe ── */}
+      {/* ── Soft Radial Glow Aura behind the globe ── */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-80"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(181, 255, 67, 0.12) 0%, rgba(0, 210, 255, 0.06) 45%, transparent 72%)",
+            "radial-gradient(circle at 50% 50%, rgba(181, 255, 67, 0.15) 0%, rgba(0, 210, 255, 0.08) 42%, transparent 70%)",
         }}
       />
 
@@ -140,7 +140,7 @@ export function HeroArt() {
         fill
         priority
         className={`object-contain transition-opacity duration-700 ${hidePoster ? "opacity-0" : "opacity-100"}`}
-        sizes="(max-width: 768px) 100vw, 400px"
+        sizes="(max-width: 768px) 100vw, 800px"
       />
 
       {/* ── Live 3D Canvas ── */}
@@ -152,25 +152,25 @@ export function HeroArt() {
         </div>
       ) : null}
 
-      {/* ── HUD Telemetry Overlay (Click-through) ── */}
-      <div className="pointer-events-none absolute inset-x-3 top-3 z-20 flex items-center justify-between text-[11px] font-mono text-paper/70">
-        <div className="flex items-center gap-1.5 rounded-full border border-paper/10 bg-canvas/80 px-2.5 py-1 backdrop-blur-sm">
+      {/* ── Floating HUD Telemetry Chips ── */}
+      <div className="pointer-events-none absolute inset-x-2 top-2 z-20 flex items-center justify-between text-[11px] font-mono text-paper/70 sm:inset-x-6 sm:top-4">
+        <div className="flex items-center gap-2 rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-lime shadow-[0_0_8px_#b5ff43]" />
           </span>
           <span className="text-paper/90 font-semibold tracking-wider">GEO-MATRIX // ONLINE</span>
         </div>
-        <span className="hidden sm:inline rounded-full border border-paper/10 bg-canvas/80 px-2.5 py-1 backdrop-blur-sm text-lime/90">
+        <span className="hidden sm:inline rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md text-lime/90 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           31 NODES LOGGED
         </span>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-3 bottom-3 z-20 flex items-center justify-between text-[10px] font-mono text-paper/60">
-        <div className="rounded-full border border-paper/10 bg-canvas/80 px-2.5 py-1 backdrop-blur-sm">
-          ORIGIN: <span className="text-lime">NOIDA HQ [28.53°N]</span>
+      <div className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex items-center justify-between text-[10px] font-mono text-paper/60 sm:inset-x-6 sm:bottom-4">
+        <div className="rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+          ORIGIN: <span className="text-lime font-semibold">NOIDA HQ [28.53°N]</span>
         </div>
-        <div className="rounded-full border border-paper/10 bg-canvas/80 px-2.5 py-1 backdrop-blur-sm text-paper/80">
+        <div className="rounded-full border border-paper/10 bg-canvas/80 px-3 py-1.5 backdrop-blur-md text-paper/80 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           DRAG TO ROTATE ↺
         </div>
       </div>

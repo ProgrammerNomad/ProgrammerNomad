@@ -44,38 +44,42 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="border-b border-paper/10">
-        <Container className="grid gap-12 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:py-24 lg:gap-16">
-          <div>
-            <MetaLabel>NOMAD PROGRAMMER® · DIGITAL PORTFOLIO</MetaLabel>
-            <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-start">
-              <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-lime/40 shadow-[0_0_25px_rgba(181,255,67,0.25)] transition-transform duration-300 hover:scale-105">
-                <Image
-                  src="/images/shiv-singh.jpg"
-                  alt="Shiv Singh - Nomad Programmer"
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="128px"
-                />
-              </div>
-              <div>
-                <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                  Nomad Programmer
-                </h1>
-                <p className="mt-4 text-xl text-lime md:text-2xl">{SITE_TAGLINE}</p>
-                <p className="mt-4 max-w-prose text-lg text-paper/75">
-                  Shiv Singh - CTO at Mobrilz, 15+ years building software, open
-                  source, and travel content.
-                </p>
-                <div className="mt-8">
-                  <SubscribeCtas />
+      <section className="relative border-b border-paper/10 overflow-hidden">
+        <div className="mx-auto w-full max-w-[1750px] px-6 py-12 sm:px-8 md:py-16 lg:px-12 xl:px-16">
+          <div className="grid gap-12 items-center lg:grid-cols-[1fr_1.35fr] xl:grid-cols-[1fr_1.45fr]">
+            <div className="z-10 max-w-xl">
+              <MetaLabel>NOMAD PROGRAMMER® · DIGITAL PORTFOLIO</MetaLabel>
+              <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-start">
+                <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-lime/40 shadow-[0_0_25px_rgba(181,255,67,0.25)] transition-transform duration-300 hover:scale-105">
+                  <Image
+                    src="/images/shiv-singh.jpg"
+                    alt="Shiv Singh - Nomad Programmer"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="128px"
+                  />
+                </div>
+                <div>
+                  <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+                    Nomad Programmer
+                  </h1>
+                  <p className="mt-4 text-xl text-lime md:text-2xl">{SITE_TAGLINE}</p>
+                  <p className="mt-4 max-w-prose text-lg text-paper/75">
+                    Shiv Singh - CTO at Mobrilz, 15+ years building software, open
+                    source, and travel content.
+                  </p>
+                  <div className="mt-8">
+                    <SubscribeCtas />
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="w-full flex justify-center lg:justify-end">
+              <HeroArt />
+            </div>
           </div>
-          <HeroArt />
-        </Container>
+        </div>
       </section>
 
       <MotionSection>

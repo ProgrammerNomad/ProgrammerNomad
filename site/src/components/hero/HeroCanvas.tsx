@@ -313,7 +313,7 @@ export function HeroCanvas({ paused }: { paused: boolean }) {
   return (
     <Canvas
       frameloop="demand"
-      camera={{ position: [0, 0, 3.8], fov: 42 }}
+      camera={{ position: [0, 0, 4.35], fov: 42 }}
       dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true }}
       style={{ width: "100%", height: "100%", cursor: "grab" }}
