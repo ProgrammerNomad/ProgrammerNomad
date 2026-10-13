@@ -3,8 +3,8 @@
 ## Netlify (primary)
 
 1. Import the **ProgrammerNomad** GitHub repository in [Netlify](https://app.netlify.com).
-2. Set **Base directory** to `site` (or rely on repo `site/netlify.toml`).
-3. Build command: `npm run build` · Publish: handled by `@netlify/plugin-nextjs`.
+2. **Build settings** are defined in the repo root [`netlify.toml`](../netlify.toml) (`base = "site"`, `npm run build`, `@netlify/plugin-nextjs`, Node 20). After connect, confirm UI shows **Base directory** `site` and **Publish** is handled by the Next.js plugin (do not set publish to `.next` manually).
+3. After changing config, use **Deploys → Trigger deploy → Clear cache and deploy site**.
 4. **Environment variables**
    - Production (`main`): `SITE_ENV=production` (optional; default indexable when `CONTEXT=production`).
    - Preview/PR deploys: Netlify sets `CONTEXT=deploy-preview` - site emits **noindex** and `robots.txt` disallow.
