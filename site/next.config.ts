@@ -1,8 +1,9 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Do not set outputFileTracingRoot to repo parent on Netlify: only site/node_modules
-  // is installed there; tracing the monorepo root fails during "Collecting build traces".
+  // Scope tracing to site/ (dual lockfiles at repo root + site); do not use repo parent on Netlify.
+  outputFileTracingRoot: path.resolve(__dirname),
   images: {
     dangerouslyAllowSVG: true,
   },

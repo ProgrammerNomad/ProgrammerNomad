@@ -1,6 +1,6 @@
 # Nomad Programmer - site (`site/`)
 
-Next.js App Router portfolio for [nomadprogrammer.in](https://nomadprogrammer.in). Content lives in `content/` as MDX; the GitHub profile README and badge automation stay at the **repository root**.
+Next.js App Router portfolio for [www.nomadprogrammer.in](https://www.nomadprogrammer.in). Content lives in `content/` as MDX; the GitHub profile README and badge automation stay at the **repository root**.
 
 ## Stack
 

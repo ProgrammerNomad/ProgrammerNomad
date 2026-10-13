@@ -1,4 +1,4 @@
-export const SITE_URL = "https://nomadprogrammer.in";
+export const SITE_URL = "https://www.nomadprogrammer.in";
 export const SITE_NAME = "Nomad Programmer";
 export const AUTHOR_NAME = "Shiv Singh";
 

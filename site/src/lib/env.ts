@@ -10,4 +10,4 @@ export function shouldAllowIndexing(): boolean {
   return true;
 }
 
-export const siteUrl = "https://nomadprogrammer.in";
+export { SITE_URL as siteUrl } from "@/lib/seo/site-config";
