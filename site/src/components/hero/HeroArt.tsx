@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const HeroCanvas = dynamic(
   () => import("./HeroCanvas").then((m) => m.HeroCanvas),
@@ -22,9 +22,7 @@ function usePrefersReducedMotion() {
 }
 
 export function HeroArt() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [show3d, setShow3d] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [webglFailed, setWebglFailed] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -48,30 +46,10 @@ export function HeroArt() {
     };
   }, [reducedMotion, webglFailed]);
 
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setPaused(!entry.isIntersecting),
-      { threshold: 0.05 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const onVisibility = () => {
-      if (document.hidden) setPaused(true);
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
-
   const showCanvas = show3d && !reducedMotion && !webglFailed;
 
   return (
     <div
-      ref={containerRef}
       className="relative aspect-square w-full max-w-md overflow-hidden md:aspect-[4/5]"
       aria-hidden
     >
@@ -85,7 +63,7 @@ export function HeroArt() {
       />
       {showCanvas ? (
         <div className="absolute inset-0">
-          <HeroCanvas paused={paused} />
+          <HeroCanvas />
         </div>
       ) : null}
       {show3d && !reducedMotion ? (
