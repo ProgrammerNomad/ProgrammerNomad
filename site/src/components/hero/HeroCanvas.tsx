@@ -32,15 +32,6 @@ function Sculpture({ paused }: { paused: boolean }) {
   );
 }
 
-function GlobeRing() {
-  return (
-    <mesh rotation={[Math.PI / 2, 0, 0]}>
-      <torusGeometry args={[1.45, 0.012, 8, 64]} />
-      <meshBasicMaterial color="#B5FF43" transparent opacity={0.35} wireframe />
-    </mesh>
-  );
-}
-
 export function HeroCanvas({ paused }: { paused: boolean }) {
   return (
     <Canvas
@@ -51,8 +42,7 @@ export function HeroCanvas({ paused }: { paused: boolean }) {
       style={{ width: "100%", height: "100%" }}
     >
       <ambientLight intensity={0.4} />
-      <directionalLight position={[4, 4, 2]} intensity={1.2} />
-      <GlobeRing />
+      <directionalLight position={[4, 4, 2], intensity={1.2} />
       <Sculpture paused={paused} />
     </Canvas>
   );
