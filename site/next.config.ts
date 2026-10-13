@@ -1,19 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { NextConfig } from "next";
 
-// Windows junctions (C:\xampp\...\site → D:\Websites\...\site): Next resolves the app
-// via realpath while process.cwd() can stay on the junction path, breaking path.join.
-// scripts/next-cli.cjs chdirs before invoking Next; this covers direct `npx next` too.
-const projectDir = fs.realpathSync.native
-  ? fs.realpathSync.native(process.cwd())
-  : fs.realpathSync(process.cwd());
-if (projectDir !== process.cwd()) {
-  process.chdir(projectDir);
-}
-
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: path.resolve(projectDir, ".."),
+  // Do not set outputFileTracingRoot to repo parent on Netlify: only site/node_modules
+  // is installed there; tracing the monorepo root fails during "Collecting build traces".
   images: {
     dangerouslyAllowSVG: true,
   },
