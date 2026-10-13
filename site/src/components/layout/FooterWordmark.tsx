@@ -65,8 +65,7 @@ export function FooterWordmark() {
           pathLength="1"
           d="M2 39H280C390 39 398 13 508 13H760C863 13 879 39 981 39H1198"
         />
-        <circle className={styles.destination} cx="280" cy="39" r="0.5" />
-        <circle className={styles.destination} cx="981" cy="39" r="0.5" />
+        <circle className={styles.destination} cx="1198" cy="39" r="0.5" />
       </svg>
     </div>
   );

@@ -62,6 +62,44 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
   await expect(closing).toHaveAttribute("data-state", "pending");
   await closing.scrollIntoViewIfNeeded();
   await expect(closing).toHaveAttribute("data-state", "entered");
+  const sequence = await closing.evaluate((el) => {
+    const timing = (node: Element) => {
+      const style = getComputedStyle(node);
+      return {
+        delay: parseFloat(style.animationDelay) * 1000,
+        duration: parseFloat(style.animationDuration) * 1000,
+        iterations: style.animationIterationCount,
+      };
+    };
+    const words = [...el.querySelectorAll("p > span")].map(timing);
+    const route = el.querySelector<SVGPathElement>("path[pathLength]")!;
+    const waypoint = el.querySelector("circle")!;
+    const endpoint = route.getPointAtLength(route.getTotalLength());
+    return {
+      words,
+      route: timing(route),
+      waypoint: timing(waypoint),
+      markerCount: el.querySelectorAll("circle").length,
+      atEndpoint:
+        Math.abs(Number(waypoint.getAttribute("cx")) - endpoint.x) < 0.1 &&
+        Math.abs(Number(waypoint.getAttribute("cy")) - endpoint.y) < 0.1,
+    };
+  });
+  expect(sequence.route.delay).toBeGreaterThanOrEqual(
+    Math.max(...sequence.words.map((word) => word.delay + word.duration)),
+  );
+  expect(sequence.waypoint.delay).toBeGreaterThanOrEqual(
+    sequence.route.delay + sequence.route.duration,
+  );
+  expect(sequence.markerCount).toBe(1);
+  expect(sequence.atEndpoint).toBe(true);
+  for (const animation of [
+    ...sequence.words,
+    sequence.route,
+    sequence.waypoint,
+  ]) {
+    expect(animation.iterations).toBe("1");
+  }
   await expect(closing.locator("path[pathLength]")).toHaveCSS(
     "stroke-dashoffset",
     "0px",

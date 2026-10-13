@@ -4,7 +4,7 @@ Starting point: clean Git working tree at `364979d` (`Refactor layout components
 
 ## Delivered
 
-- Full-width closing wordmark in the existing Syne font, warm-white on black, with a thin lime route and two destination markers.
+- Full-width closing wordmark in the existing Syne font, warm-white on black, with a thin lime route and one terminal waypoint.
 - Real HTML text: one line from 700px upward; two balanced lines below 700px. Sizing was adjusted against the loaded font in a real browser, not estimated from character count.
 - A one-time clipping-mask entrance, followed by the route drawing. Hover sends a single light sweep across the two words; it does not loop. No new animation dependencies or WebGL were added to the footer.
 - Reduced-motion users get static text and route. The text is visible without JavaScript or IntersectionObserver. Existing navigation, social links, email and copyright remain intact.
@@ -55,3 +55,15 @@ npm run start -- --hostname 127.0.0.1 --port 3000
 5. Review at 320, 360, 390, 768 and 1440px. Enable reduced motion and reload: the footer is immediately visible and static, and the globe uses its static atlas.
 
 Saved screenshots are in the task's visualization `site-review` folder: `footer-desktop.jpg`, `footer-mobile-390.jpg`, and `footer-tablet-768.jpg`. Automated PNGs are under ignored `test-results`.
+
+## Isolated motion refinement
+
+Starting from clean commit `9fb6679`, only the footer component, its stylesheet, its browser test and this note were changed. Typography, responsive layout, hover treatment, globe, project cards and all other page content were preserved.
+
+- 0–1050ms: the existing staggered clipping reveal completes.
+- 1100–2100ms: the route draws with a smooth acceleration/deceleration curve.
+- 2100–2320ms: one small lime waypoint appears exactly at the route endpoint.
+- The sequence runs once and settles completely. Reduced-motion and no-JavaScript rendering remain static and visible.
+- The browser test now asserts the ordering, single iteration and exact endpoint alignment, as well as the existing responsive and accessibility checks.
+
+Updated visual review screenshots: `footer-refined-desktop.jpg` and `footer-refined-mobile.jpg` in the same visualization folder.
