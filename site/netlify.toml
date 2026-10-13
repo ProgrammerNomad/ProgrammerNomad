@@ -1,8 +1,9 @@
-# Canonical Netlify config is at the repository root: ../netlify.toml
-# (Netlify reads netlify.toml from the repo root unless Base directory is set in the UI.)
+# Used when Netlify UI Base directory = site (see DEPLOY.md).
+# publish = ".next" overrides UI publish=site (must not equal base).
 
 [build]
   command = "npm run build"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

@@ -1,5 +1,5 @@
-# Do not set publish here or in the Netlify UI - @netlify/plugin-nextjs owns output.
-# UI Publish directory must stay empty when base = site.
+# When UI Base directory is empty, this file applies (base = site).
+# When UI Base = site, Netlify reads site/netlify.toml instead — see site/netlify.toml for publish override.
 
 [build]
   base = "site"

@@ -3,27 +3,29 @@
 ## Netlify (primary)
 
 1. Import the **ProgrammerNomad** GitHub repository in [Netlify](https://app.netlify.com).
-2. **Build settings** are defined in the repo root [`netlify.toml`](../netlify.toml) (`base = "site"`, `npm run build`, `@netlify/plugin-nextjs`, Node 20).
+2. **Which `netlify.toml` applies**
+   - **UI Base directory empty:** repo root [`netlify.toml`](../netlify.toml) (`base = "site"`, `npm run build`, plugin, Node 20).
+   - **UI Base directory = `site`:** Netlify reads [`site/netlify.toml`](netlify.toml) (not the root file). Keep build/plugin settings there.
 
 ### Publish directory (required for `@netlify/plugin-nextjs`)
 
-**With `@netlify/plugin-nextjs`, leave the Publish directory empty in the Netlify UI.** Never set Publish to `site` when Base directory is also `site`.
-
-If Publish equals Base, the build fails after a successful `npm run build` with:
+Publish must **not** equal Base (`site`). If the UI has Publish = `site`, the plugin fails after a successful `npm run build`:
 
 `Your publish directory cannot be the same as the base directory of your site.`
 
-**Netlify UI steps:**
+**Fix in repo (overrides UI):** [`site/netlify.toml`](netlify.toml) sets `publish = ".next"` (relative to base → `site/.next`). After push, the deploy log should show `publishOrigin: config` and publish ending in `.next`.
+
+**Fix in Netlify UI (recommended in addition):**
 
 1. **Site configuration → Build & deploy → Build settings → Edit settings**
-2. **Base directory:** `site`
-3. **Publish directory:** **blank** (remove `site`, `.`, and `.next`). The Next.js plugin publishes automatically.
-4. **Build command:** `npm run build` (optional if `netlify.toml` supplies it)
+2. **Base directory:** `site` (or empty if you rely only on root `netlify.toml`)
+3. **Publish directory:** **blank** (remove `site`, `.`, and `.next`)
+4. **Build command:** `npm run build`
 5. Save → **Deploys → Trigger deploy → Clear cache and deploy site**
 
 **Verify in the deploy log (Resolved config):**
 
-- `publish` must **not** equal `base` (prefer no manual `publish` line).
+- `publish` must **not** equal `base` (`publish: .../site/.next` with `publishOrigin: config` is OK).
 - `(build.command completed in …)` then **Plugin "@netlify/plugin-nextjs"** succeeds (no exit code 2).
 
 3. **Environment variables**
