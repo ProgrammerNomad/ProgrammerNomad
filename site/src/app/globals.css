@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --canvas: #0b0c0b;
+  --paper: #ffffff;
+  --lime: #b5ff43;
+  --elevated: #242624;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
+  --color-lime: var(--lime);
+  --color-elevated: var(--elevated);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--canvas);
+  color: var(--paper);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}

@@ -1,0 +1,26 @@
+---
+title: "Static-First Architecture"
+slug: "static-first-architecture"
+summary: "Why build-time content and progressive enhancement beat premature complexity."
+date: "2026-08-15"
+published: true
+tags:
+  - Architecture
+  - Web
+cover: "/images/writing/static-first.svg"
+ogImage: "/og/home.png"
+---
+
+Git-managed MDX, validated at build time, keeps the editorial loop simple.
+
+<Callout title="Principle">
+  Ship HTML first; enhance with WebGL and motion only when the baseline is fast.
+</Callout>
+
+## Build-time validation
+
+Zod frontmatter and an MDX AST allowlist catch mistakes before deploy.
+
+## Deployment
+
+Netlify’s Next adapter preserves dynamic routes, metadata, and feeds without forcing static export on day one.

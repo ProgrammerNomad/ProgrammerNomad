@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-package-lock.json
 
 # Environment variables
 .env
@@ -23,6 +22,9 @@ npm-debug.log*
 # Build outputs
 dist/
 build/
+site/.next/
+site/playwright-report/
+site/test-results/
 
 # Temporary files
 *.tmp
@@ -41,4 +43,3 @@ BADGE_URLS.md
 BADGES_FOR_SHIV.txt
 TODO.txt
 BADGE_TOOLS_RESEARCH.md
-.github/workflows/update-badges.yml
