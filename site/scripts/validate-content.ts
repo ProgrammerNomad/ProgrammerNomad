@@ -28,6 +28,39 @@ const DISALLOWED_PATTERNS = [
 ];
 
 const contentRoot = path.join(process.cwd(), "content");
+const publicRoot = path.join(process.cwd(), "public");
+const PLACEHOLDER_TRAVEL = "/images/travel/placeholder.svg";
+
+async function assertPublicAsset(filePath: string, assetPath: string) {
+  if (!assetPath.startsWith("/")) {
+    throw new Error(`${filePath}: asset path must start with / (${assetPath})`);
+  }
+  if (assetPath === PLACEHOLDER_TRAVEL) return;
+  const disk = path.join(publicRoot, assetPath.replace(/^\//, ""));
+  try {
+    await fs.access(disk);
+  } catch {
+    throw new Error(`${filePath}: missing public asset ${assetPath}`);
+  }
+}
+
+function collectFigureSrc(body: string): string[] {
+  const srcs: string[] = [];
+  const re = /<Figure[^>]*\ssrc="([^"]+)"/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(body)) !== null) {
+    srcs.push(m[1]);
+  }
+  return srcs;
+}
+
+async function validateFieldNoteAssets(filePath: string, data: unknown, body: string) {
+  const cover = (data as { cover?: string }).cover;
+  if (cover) await assertPublicAsset(filePath, cover);
+  for (const src of collectFigureSrc(body)) {
+    await assertPublicAsset(filePath, src);
+  }
+}
 
 async function validateMdxBody(filePath: string, body: string) {
   for (const pattern of DISALLOWED_PATTERNS) {
@@ -79,6 +112,10 @@ async function validateCollection(collection: CollectionId) {
     }
 
     await validateMdxBody(filePath, content);
+
+    if (collection === "field-notes" && published) {
+      await validateFieldNoteAssets(filePath, data, content);
+    }
   }
 }
 

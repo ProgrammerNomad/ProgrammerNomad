@@ -14,7 +14,8 @@ Next.js App Router portfolio for [www.nomadprogrammer.in](https://www.nomadprogr
 2. Use ISO dates `YYYY-MM-DD` in frontmatter.
 3. Set `published: true` only when ready; drafts are omitted from indexes, sitemap, RSS, and `generateStaticParams`.
 4. Direct URLs to draft slugs return **404** in production builds.
-5. Allowed MDX components: `Callout`, `Figure`, `CodeBlock`, `Video`, `LinkCard`, `ArchitectureDiagram`.
+5. Allowed MDX components: `Callout`, `Figure`, `CodeBlock`, `Video`, `LinkCard`, `ArchitectureDiagram`, `YouTubeEmbed`.
+6. **Travel trips** (`content/field-notes/`): set `geo` for map pins; add photos under `public/images/travel/{slug}/`. Keep `content/travel/places.json` in sync for supplemental map markers. Published trip image paths are checked by `validate:content` (placeholder SVG is always allowed).
 
 ## Commands
 

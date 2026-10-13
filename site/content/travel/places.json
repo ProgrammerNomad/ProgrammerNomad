@@ -23,7 +23,7 @@
   { "label": "Lucknow", "lat": 26.85, "lng": 80.95 },
   { "label": "Jaipur", "lat": 26.91, "lng": 75.79 },
   { "label": "Agra", "lat": 27.18, "lng": 78.01 },
-  { "label": "Shivpuri,  Rishikesh", "lat": 30.14, "lng": 78.38 },
+  { "label": "Shivpuri, Rishikesh", "lat": 30.14, "lng": 78.38, "slug": "rishikesh-2026" },
   { "label": "Jammu", "lat": 32.73, "lng": 74.86 },
   { "label": "Pangi Valley", "lat": 33.07, "lng": 76.35 },
   { "label": "Keylong", "lat": 32.57, "lng": 77.03 },

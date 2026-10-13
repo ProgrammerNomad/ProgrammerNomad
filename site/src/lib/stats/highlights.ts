@@ -1,7 +1,5 @@
-import fs from "fs/promises";
-import path from "path";
-import { getAllEntries } from "@/lib/content/loader";
 import { GITHUB_USER } from "@/lib/seo/site-config";
+import { countMergedTravelPlaces } from "@/lib/travel/merge-places";
 import { getYoutubeVideoCount } from "@/lib/youtube/rss";
 
 export type HighlightStats = {
@@ -24,31 +22,11 @@ async function fetchGithubPublicRepos(): Promise<number | null> {
   }
 }
 
-async function countTravelPlaces(): Promise<number> {
-  try {
-    const placesPath = path.join(process.cwd(), "content", "travel", "places.json");
-    const raw = await fs.readFile(placesPath, "utf8");
-    const places = JSON.parse(raw) as unknown[];
-    if (Array.isArray(places)) return places.length;
-  } catch {
-    /* fall through */
-  }
-
-  const notes = await getAllEntries("field-notes");
-  const withGeo = notes.filter(
-    (n) =>
-      "geo" in n.frontmatter &&
-      n.frontmatter.geo &&
-      typeof n.frontmatter.geo === "object",
-  );
-  return withGeo.length > 0 ? withGeo.length : notes.length;
-}
-
 export async function getHighlightStats(): Promise<HighlightStats> {
   const [githubRepos, youtubeVideos, placesTraveled] = await Promise.all([
     fetchGithubPublicRepos(),
     getYoutubeVideoCount(),
-    countTravelPlaces(),
+    countMergedTravelPlaces(),
   ]);
 
   return { githubRepos, youtubeVideos, placesTraveled };
