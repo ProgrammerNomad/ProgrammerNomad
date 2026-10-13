@@ -1,0 +1,114 @@
+---
+title: "Internet Backup Plans for Traveling Programmers"
+slug: "developer-internet-backup"
+summary: "Layer accommodation Wi‑Fi, phone hotspots, and pre-trip testing so a single failed connection does not block deployments or client calls."
+date: "2026-10-01"
+published: true
+featured: true
+tags:
+  - Field Guide
+  - Connectivity
+  - Internet
+  - Developer Setup
+cover: "/images/field-notes/developer-internet-backup.svg"
+ogImage: "/og/developer-internet-backup.png"
+---
+
+Developers think in redundancy: load balancers, replicas, fallbacks. Travel connectivity deserves the same mindset. One Wi‑Fi password is not a plan.
+
+This guide explains how to design a **simple backup stack** for work on the road-especially in India, where coverage and hotel infrastructure vary sharply by region.
+
+## Why one connection is not enough
+
+Accommodation Wi‑Fi can be:
+
+- Fast at check-in and unusable during peak hours.
+- Shared across dozens of devices on one access point.
+- Blocked or filtered for VPN or non-standard ports.
+- Down during power cuts with no UPS on the router.
+
+A phone hotspot is not automatic insurance either-indoor signal, data caps, and thermal throttling on long video calls all matter.
+
+## The three-layer model
+
+### Layer 1 - Primary (fixed location)
+
+Use hotel, homestay, or coworking Ethernet/Wi‑Fi when you are stationary for focused work.
+
+**Before booking**, ask the host (in writing when possible):
+
+- Typical download/upload speeds.
+- Whether video calls work from the room you will use.
+- Power backup for the router or property.
+- Whether a desk or quiet corner is available.
+
+<Callout title="General recommendation">
+Run a speed test from the **same room** you plan to work in-not only from the lobby.
+</Callout>
+
+### Layer 2 - Personal hotspot
+
+Your phone (or a dedicated hotspot device) is the usual backup.
+
+Practical tips:
+
+- Confirm your data plan allows tethering and enough volume for your week.
+- On dual-SIM phones, pick the carrier with better coverage at the destination-not the one that works in your home city.
+- Keep the phone charged; hotspot drains battery quickly.
+- For long calls, prefer Wi‑Fi calling or a wired headset to reduce radio heat and dropouts.
+
+### Layer 3 - Optional second path
+
+Add a third option only when the trip justifies cost and weight:
+
+- Second SIM or eSIM on a different network.
+- Travel router that accepts SIM or bridges hotel login to your devices.
+- Known coworking space or cafe with tested uplink (have a offline fallback if you rely on this).
+
+## Test before the critical moment
+
+Schedule a **connectivity rehearsal** before important work:
+
+1. Join a test video call from the primary network.
+2. Switch to hotspot mid-call and confirm recovery time.
+3. Verify VPN, SSH, and git push over each path.
+4. Note upload speed-deployments and screen sharing need headroom.
+
+If a path fails, fix or replan **before** the client demo-not ten minutes before it starts.
+
+## When the internet fails during work
+
+Have a written runbook:
+
+- **Meetings:** Switch to audio-only or reschedule with a template message ready.
+- **Git:** Work locally; push when any path returns.
+- **Deploys:** Delay unless you have confirmed uplink and rollback plan.
+- **Support:** Notify stakeholders with ETA once you know which layer is available.
+
+Link this habit back to the pillar guide: [Working remotely while traveling](/field-notes/nomad-remote-work).
+
+## India-specific considerations
+
+- **Remote valleys and passes:** Treat cellular maps as hints; ask locals or recent travelers when possible.
+- **Monsoon:** Power and backhaul outages cluster-keep offline tasks queued.
+- **Rail journeys:** Coverage is intermittent; download tickets and work offline for long segments.
+
+## Quick checklist
+
+<Checklist title="Connectivity prep">
+
+- Primary network tested from your workspace.
+- Hotspot tested with realistic data use.
+- VPN and git verified on both paths.
+- Stakeholders know your timezone and response windows.
+- Offline tasks ready if all layers fail.
+
+</Checklist>
+
+<GuideNextStep
+  href="/field-notes/offline-coding-travel"
+  title="Prepare for offline coding"
+  description="Queue repositories, dependencies, and tasks that do not need live APIs."
+/>
+
+<AuthorBio />

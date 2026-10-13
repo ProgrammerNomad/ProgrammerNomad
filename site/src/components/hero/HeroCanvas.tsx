@@ -42,7 +42,7 @@ export function HeroCanvas({ paused }: { paused: boolean }) {
       style={{ width: "100%", height: "100%" }}
     >
       <ambientLight intensity={0.4} />
-      <directionalLight position={[4, 4, 2], intensity={1.2} />
+      <directionalLight position={[4, 4, 2]} intensity={1.2} />
       <Sculpture paused={paused} />
     </Canvas>
   );

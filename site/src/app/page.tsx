@@ -114,7 +114,12 @@ export default async function HomePage() {
                 </MotionStaggerItem>
               ))}
             </MotionStaggerGrid>
-            <SectionLink href="/field-notes">Travel stories →</SectionLink>
+            <div className="mt-8 flex flex-wrap gap-6">
+              <SectionLink href="/field-notes">Travel stories →</SectionLink>
+              <SectionLink href="/field-notes/nomad-remote-work" className="mt-0">
+                Developer field guide →
+              </SectionLink>
+            </div>
           </Section>
         </MotionSection>
       </Container>

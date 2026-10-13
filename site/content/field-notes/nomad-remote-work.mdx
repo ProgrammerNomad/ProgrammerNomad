@@ -1,23 +1,218 @@
 ---
-title: "Working Remotely While Traveling"
+title: "Working Remotely While Traveling: The Complete Developer's Field Guide"
 slug: "nomad-remote-work"
-summary: "Laptop, connectivity, and gear checklist for programmer-nomad trips across India."
+summary: "A practical guide to coding while traveling-laptop setup, backup internet, power, offline workflows, security, and planning productive workdays across India."
 date: "2026-07-10"
+updatedAt: "2026-10-13"
 published: true
-tags: ["Nomad", "Gear"]
-cover: "/images/travel/placeholder.svg"
+featured: true
+tags:
+  - Field Guide
+  - Digital Nomad
+  - Remote Work
+  - Developer Setup
+  - Travel
+cover: "/images/field-notes/nomad-remote-work.svg"
+ogImage: "/og/nomad-remote-work.png"
 ---
 
-## Laptop
+Travel gives you new places to explore. Programming gives you work that can often be done from almost anywhere. Combining the two sounds simple until your internet drops before a client call, your laptop battery runs low, or a mountain stop turns out to have nowhere comfortable to work.
 
-One reliable machine with spare charger and USB-C hub. Cloud backups before every trip.
+A reliable programmer-nomad setup is not about carrying every gadget you own. It is about being prepared for the problems that interrupt work while leaving enough energy to enjoy the journey.
 
-## Internet
+This guide covers equipment, connectivity, development workflow, security, and planning habits that make working while traveling more manageable.
 
-Dual-SIM phone for hotspot; confirm hotel Wi‑Fi with a speed test before long calls.
+## 1. Build a travel-ready development setup
 
-## Gear
+Your laptop is the centre of your mobile workspace. Choose a machine that handles your **actual** workload-not specs that look good in a brochure.
 
-Noise-cancelling headphones, compact power bank, and rain cover for monsoon treks.
+Before a trip, check:
 
-See the full list on [Gear & Tools](/gear).
+- Battery health and realistic battery life under your normal workload.
+- Available storage and free disk space.
+- Charger compatibility and a spare charging cable.
+- USB-C hub or adapters required for your devices.
+- Access to repositories, documentation, and essential tools.
+- A working backup and recovery plan.
+
+If you use containers, large monorepos, or local AI models, hardware requirements may be higher than for lightweight editor-only work.
+
+**The goal is a setup that works reliably, not the smallest possible bag.** See [Gear & Tools](/gear) for what I travel with today.
+
+## 2. Treat internet access as a system
+
+Accommodation Wi‑Fi should be your primary connection when it is suitable-not your only plan.
+
+Before booking for a work-heavy trip, ask about:
+
+- Download and upload speeds.
+- Stability during video calls.
+- Mobile coverage inside the property.
+- Power availability and backup arrangements.
+- A desk or quiet workspace.
+
+Whenever possible, test the connection before scheduling an important meeting or deployment.
+
+### Create a backup connection
+
+A practical stack:
+
+1. Accommodation Wi‑Fi or Ethernet as primary.
+2. Phone hotspot with a suitable mobile data plan.
+3. A second network option when the trip justifies it.
+
+<Callout title="India-specific note">
+Dual-SIM phones can help when two carriers cover a destination differently-but two SIMs do not guarantee redundancy if coverage is poor in a remote valley. Check coverage for the **actual** destination, not your home city.
+</Callout>
+
+For a deeper walkthrough, read [Internet backup plans for traveling programmers](/field-notes/developer-internet-backup).
+
+## 3. Plan for power, not just charging
+
+Pack for your real requirements:
+
+- The correct laptop charger.
+- A USB-C power bank if your laptop supports charging from one.
+- A spare cable for essential devices.
+- A compact multi-port charger where appropriate.
+- Offline copies of important travel and work information.
+
+Verify the power bank’s watt-hour rating and output-a phone bank may not charge a laptop properly.
+
+In places with unreliable electricity, identify alternate spots to charge and work. Do not assume Wi‑Fi advertising means dependable power.
+
+## 4. Make your development workflow work offline
+
+Know what you can do without connectivity before you leave reliable networks behind.
+
+Before you go:
+
+- Pull the repositories you expect to work on.
+- Commit or safely stash unfinished changes.
+- Download required documentation.
+- Install and verify dependencies.
+- Prepare local environment configuration without exposing secrets.
+- Cache container images and build dependencies when practical.
+- Note which tasks need VPN, cloud APIs, or remote databases.
+
+Divide your task list:
+
+**Offline:** Code, tests, refactors, documentation that needs no remote services.
+
+**Low bandwidth:** Occasional sync or small downloads.
+
+**Online dependent:** Meetings, deployments, remote environments.
+
+See [How to code without internet while traveling](/field-notes/offline-coding-travel) for a focused workflow guide.
+
+## 5. Protect your devices and work
+
+Travel means less control than a home office. Laptops can be lost, stolen, or left on unfamiliar networks.
+
+Before departure:
+
+- Enable full-disk encryption where supported.
+- Keep OS, browser, and dev tools updated.
+- Use a password manager and strong MFA.
+- Protect SSH keys, API tokens, and cloud credentials.
+- Store recovery codes separately from your primary device.
+- Maintain encrypted backups and test restore.
+- Follow employer or client security policies.
+
+Avoid credentials in source code, travel notes, or unencrypted backups. Use approved VPN or secure access on shared networks when required.
+
+## 6. Design your workday around the destination
+
+Avoid stacking a heavy coding day with long transfers, sightseeing, and critical meetings.
+
+Instead:
+
+- Schedule focused work in your most productive hours.
+- Group meetings into predictable windows.
+- Use travel days for lighter tasks when you can.
+- Download maps, tickets, and essentials before departure.
+- Buffer for delays and connectivity gaps.
+- Communicate availability and time zones to your team.
+
+A quiet morning for coding and an afternoon exploring often beats trying to work continuously while moving.
+
+## 7. Choose destinations with work requirements in mind
+
+A destination can be wonderful for travel without fitting every kind of remote work.
+
+For a work-heavy week, prioritize stable connectivity, electricity, quiet space, and services.
+
+For a lighter week, remote areas and longer offline stretches may be fine.
+
+In the mountains and during monsoon travel, plan for weather delays and connectivity gaps. Do not schedule a critical deployment immediately after a long transfer unless you have a tested fallback.
+
+<Callout title="From the field">
+On Himalayan routes, I treat connectivity as **best effort** until I have tested it on site-not something I assume from a map pin. Trip notes like [Manali–Lahaul 2023](/field-notes/manali-lahaul-2023) reflect that reality.
+</Callout>
+
+## 8. Build a compact but dependable travel kit
+
+Start with what you own. Add gear only when it solves a real problem.
+
+### Essential
+
+- Laptop and compatible charger.
+- Phone with a suitable data plan.
+- Cables and adapters you actually use.
+- Headphones for calls.
+- Password manager and MFA recovery plan.
+- Verified backups.
+- A practical way to protect equipment in transit.
+
+### Useful depending on the trip
+
+- USB-C hub.
+- Laptop-compatible power bank.
+- Compact laptop stand.
+- External SSD for backups.
+- Travel router when it solves a specific network problem.
+- Rain protection for gear on outdoor travel days.
+
+Details live on [Gear & Tools](/gear)-linked honestly, no hype.
+
+## 9. Your pre-trip checklist
+
+<Checklist title="Before you leave">
+
+- Confirm accommodation internet and workspace suitability.
+- Check mobile coverage and prepare a backup connection.
+- Update the laptop and test charger and cables.
+- Pull repositories and queue offline-friendly tasks.
+- Back up important files and verify recovery access.
+- Check authentication, VPN, and remote-access requirements.
+- Download tickets, maps, and essential travel details.
+- Tell teammates or clients about your availability.
+- Keep buffer time for delays and connectivity surprises.
+
+</Checklist>
+
+The best time to find gaps in your setup is **before** you leave-not when a deadline is due.
+
+## 10. Keep the setup simple
+
+Working while traveling gets easier when you remove unnecessary dependencies and know what you need to do your job.
+
+A reliable laptop, a tested connection with a backup, a safe dev environment, and a realistic schedule beat an expensive pile of accessories.
+
+Build around the work you actually do. Test before the trip, learn from problems, and refine as you travel. The goal is not to turn every destination into an office-it is to make work dependable enough that you can explore without constant worry.
+
+## Related guides
+
+- [Internet backup plans for traveling programmers](/field-notes/developer-internet-backup)
+- [How to code without internet while traveling](/field-notes/offline-coding-travel)
+- Minimal programming travel kit *(coming soon)*
+- Laptop security checklist before a trip *(coming soon)*
+- [Gear & Tools](/gear)
+
+<GuideNextStep
+  href="/field-notes/developer-internet-backup"
+  title="Build an internet backup plan"
+  description="Layer Wi‑Fi, hotspot, and testing habits so one failed connection does not stop your work."
+/>
+
+<AuthorBio />

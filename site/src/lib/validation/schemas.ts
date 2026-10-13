@@ -43,6 +43,7 @@ export const fieldNotesFrontmatterSchema = baseFrontmatterSchema.extend({
   bestSeason: z.string().optional(),
   geo: geoSchema.optional(),
   youtubeVideoId: z.string().optional(),
+  featured: z.boolean().default(false),
 });
 
 export type BaseFrontmatter = z.infer<typeof baseFrontmatterSchema>;

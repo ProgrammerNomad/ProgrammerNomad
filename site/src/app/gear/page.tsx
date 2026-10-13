@@ -69,13 +69,29 @@ export default async function GearPage() {
         </section>
       ))}
 
-      <p className="mt-12 text-sm text-paper/50">
-        Remote-work tips while traveling: see{" "}
-        <Link href="/field-notes/nomad-remote-work" className="text-lime hover:underline">
-          working on the road
-        </Link>
-        .
-      </p>
+      <section className="mt-16 border-t border-paper/10 pt-12">
+        <h2 className="font-display text-2xl text-paper">Related guides</h2>
+        <ul className="mt-6 space-y-3 text-paper/80">
+          <li>
+            <Link href="/field-notes/nomad-remote-work" className="hover:text-lime">
+              Working remotely while traveling - complete field guide
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/field-notes/developer-internet-backup"
+              className="hover:text-lime"
+            >
+              Internet backup plans for traveling programmers
+            </Link>
+          </li>
+          <li>
+            <Link href="/field-notes/offline-coding-travel" className="hover:text-lime">
+              How to code without internet while traveling
+            </Link>
+          </li>
+        </ul>
+      </section>
     </Container>
   );
 }

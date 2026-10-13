@@ -51,3 +51,14 @@ body {
 .font-display {
   font-family: var(--font-display), system-ui, sans-serif;
 }
+
+@media print {
+  .guide-checklist {
+    break-inside: avoid;
+    border-color: #333;
+  }
+
+  .guide-checklist [class*="before:"] {
+    print-color-adjust: exact;
+  }
+}

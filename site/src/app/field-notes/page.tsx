@@ -3,6 +3,7 @@ import { EntryGrid, PaginationLinks, paginateEntries } from "@/components/conten
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SectionLink } from "@/components/ui/SectionLink";
+import { isFieldGuide } from "@/lib/content/field-guides";
 import { getAllEntries } from "@/lib/content/loader";
 import { indexPageMetadata } from "@/lib/seo/metadata";
 import { MotionSection } from "@/components/ui/MotionReveal";
@@ -19,6 +20,17 @@ export default async function FieldNotesIndexPage() {
   const entries = await getAllEntries("field-notes");
   const pageEntries = paginateEntries(entries, 1);
   const places = await getTravelMapPlaces();
+  const guides = entries
+    .filter((e) => isFieldGuide(e.frontmatter))
+    .sort((a, b) => {
+      const af = (a.frontmatter as { featured?: boolean }).featured ? 1 : 0;
+      const bf = (b.frontmatter as { featured?: boolean }).featured ? 1 : 0;
+      if (af !== bf) return bf - af;
+      return (
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+      );
+    });
 
   return (
     <Container className="py-16 md:py-24" data-section="travel">
@@ -35,21 +47,31 @@ export default async function FieldNotesIndexPage() {
         </div>
       </section>
 
-      <section className="mt-12 rounded-xl border border-paper/10 bg-elevated/40 p-6">
-        <h2 className="font-display text-xl text-paper">Nomad programmer tips</h2>
-        <p className="mt-2 max-w-prose text-sm text-paper/70">
-          Laptop, connectivity, and gear for coding while traveling.
-        </p>
-        <SectionLink href="/field-notes/nomad-remote-work" className="mt-4">
-          Read the checklist →
-        </SectionLink>
-        <Link
-          href="/gear"
-          className="ml-6 inline-block font-mono text-xs uppercase tracking-widest text-paper/70 hover:text-lime"
-        >
-          Gear page →
-        </Link>
-      </section>
+      {guides.length > 0 ? (
+        <section className="mt-12 rounded-xl border border-paper/10 bg-elevated/40 p-6">
+          <h2 className="font-display text-xl text-paper">Developer field guides</h2>
+          <p className="mt-2 max-w-prose text-sm text-paper/70">
+            Practical guides for coding while traveling-connectivity, offline
+            workflows, gear, and security.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {guides.map((g) => (
+              <li key={g.frontmatter.slug}>
+                <Link
+                  href={`/field-notes/${g.frontmatter.slug}`}
+                  className="font-display text-lg text-paper hover:text-lime"
+                >
+                  {g.frontmatter.title}
+                </Link>
+                <p className="mt-1 text-sm text-paper/60">{g.frontmatter.summary}</p>
+              </li>
+            ))}
+          </ul>
+          <SectionLink href="/gear" className="mt-6">
+            Gear & tools →
+          </SectionLink>
+        </section>
+      ) : null}
 
       <MotionSection className="mt-12">
         <EntryGrid

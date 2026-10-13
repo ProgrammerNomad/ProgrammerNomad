@@ -1,0 +1,110 @@
+---
+title: "How to Code Without Internet While Traveling"
+slug: "offline-coding-travel"
+summary: "Prepare repositories, dependencies, and task lists so you can keep shipping when connectivity disappears on trains, mountains, or power cuts."
+date: "2026-10-15"
+published: true
+featured: true
+tags:
+  - Field Guide
+  - Developer Workflow
+  - Offline
+  - Developer Setup
+cover: "/images/field-notes/offline-coding-travel.svg"
+ogImage: "/og/offline-coding-travel.png"
+---
+
+Offline coding is not nostalgia-it is insurance. Trains, mountain homestays, and airport lounges regularly offer time without reliable uplink. The question is whether that time is wasted or used deliberately.
+
+## What offline work actually includes
+
+You can often do the following without internet:
+
+- Write and refactor application code.
+- Run local tests and linters.
+- Review diffs and document architecture.
+- Draft commits locally (push later).
+- Prototype UI or scripts with mocked data.
+
+You usually **cannot** without planning:
+
+- Install new packages unless cached.
+- Pull fresh container images.
+- Hit production APIs or remote databases.
+- Join live pair sessions or deploy pipelines.
+
+Sort your backlog into **offline**, **low bandwidth**, and **online only** before you travel-see section 4 of the [complete developer field guide](/field-notes/nomad-remote-work).
+
+## Prepare your machine
+
+### Repositories
+
+```bash
+git fetch --all
+git pull
+```
+
+For multiple repos, script pulls or use a meta-repo list. Confirm you are on the branch you intend to work on.
+
+### Dependencies
+
+- Run installs while you still have fast internet.
+- For Node, consider `npm ci` with a full lockfile committed.
+- For Docker, `docker pull` images you need and tag them clearly.
+- Cache language-specific docs (Dash, Zeal, or exported HTML) if you rely on them.
+
+### Secrets and config
+
+Never copy production secrets into travel notes. Use:
+
+- Local `.env` files already on the machine (encrypted disk).
+- Sample env templates with dummy values for offline UI work.
+- VPN credentials tested before the trip.
+
+## Git workflow on long journeys
+
+A simple pattern for multi-day offline stretches:
+
+1. Create a topic branch before connectivity drops.
+2. Commit in small, logical chunks with clear messages.
+3. Avoid rebase across days if you are unsure when you will push-merge or rebase once online.
+4. On reconnect, `git fetch` first, then push; resolve conflicts before deadlines.
+
+<Callout title="General recommendation">
+If you share a branch with others, tell them you may push in batches when back online to avoid surprise overwrites.
+</Callout>
+
+## Mock what you cannot reach
+
+When APIs are unavailable:
+
+- Use contract tests with recorded fixtures.
+- Stub HTTP with local JSON files.
+- Feature-flag integrations off for offline demos.
+
+This keeps product work moving without pretending production data is on your laptop.
+
+## Low-bandwidth mode
+
+When you have occasional signal:
+
+- Push only necessary commits; avoid large binary uploads.
+- Sync issue trackers in text form if the web app is heavy.
+- Defer CI reruns until you are on primary Wi‑Fi.
+
+## After you reconnect
+
+1. Push branches and open or update PRs.
+2. Run full CI you skipped offline.
+3. Install any packages you deferred.
+4. Note what failed offline-update your pre-trip checklist for next time.
+
+Pair this guide with [Internet backup plans for traveling programmers](/field-notes/developer-internet-backup) so you know when offline mode ends.
+
+<GuideNextStep
+  href="/gear"
+  title="Review your travel kit"
+  description="Match hardware and cables to the offline workflow you actually use."
+/>
+
+<AuthorBio />

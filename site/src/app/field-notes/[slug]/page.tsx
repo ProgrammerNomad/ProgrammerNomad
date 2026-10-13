@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/Container";
-import { MetaLabel } from "@/components/ui/MetaLabel";
+import { GuideArticleLayout } from "@/components/content/GuideArticleLayout";
 import { getEntryBySlug, getPublishedSlugs } from "@/lib/content/loader";
 import { renderMdx } from "@/lib/content/mdx";
+import { getRelatedArticles } from "@/lib/content/related";
+import { readingTimeMinutes } from "@/lib/content/reading-time";
+import { extractTocFromMdx } from "@/lib/content/toc";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { entryMetadata } from "@/lib/seo/metadata";
 
@@ -32,25 +34,35 @@ export default async function FieldNoteDetailPage({
   if (!entry?.frontmatter.published) notFound();
 
   const content = await renderMdx(entry.body);
+  const toc = extractTocFromMdx(entry.body);
+  const minutes = readingTimeMinutes(entry.body);
+  const related = await getRelatedArticles(
+    slug,
+    entry.frontmatter.tags,
+    3,
+  );
+  const path = `/field-notes/${slug}`;
 
   return (
-    <Container className="py-16 md:py-24">
+    <>
       <BlogPostingJsonLd entry={entry.frontmatter} pathPrefix="/field-notes" />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },
           { name: "Travel", path: "/field-notes" },
-          { name: entry.frontmatter.title, path: `/field-notes/${slug}` },
+          { name: entry.frontmatter.title, path },
         ]}
       />
-      <MetaLabel>{entry.frontmatter.date}</MetaLabel>
-      <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
-        {entry.frontmatter.title}
-      </h1>
-      <p className="mt-4 max-w-prose text-lg text-paper/70">
-        {entry.frontmatter.summary}
-      </p>
-      <div className="mt-10">{content}</div>
-    </Container>
+      <GuideArticleLayout
+        entry={entry.frontmatter}
+        path={path}
+        sectionLabel="FIELD NOTES"
+        minutes={minutes}
+        toc={toc}
+        related={related}
+      >
+        {content}
+      </GuideArticleLayout>
+    </>
   );
 }
