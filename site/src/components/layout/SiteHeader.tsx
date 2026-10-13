@@ -16,17 +16,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-canvas/90 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <div className="flex flex-col gap-0.5">
-          <Link
-            href="/"
-            className="font-mono text-xs uppercase tracking-[0.25em] text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
-          >
-            Nomad Programmer
-          </Link>
-          <span className="hidden font-mono text-[10px] uppercase tracking-widest text-paper/45 sm:block">
+        <Link
+          href="/"
+          aria-label="Nomad Programmer home"
+          className="group -my-1 flex flex-col gap-0.5 rounded-sm py-1 font-mono uppercase tracking-[0.25em] text-paper transition hover:text-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+        >
+          <span className="text-xs">Nomad Programmer</span>
+          <span className="hidden text-[10px] tracking-widest text-paper/45 group-hover:text-lime/80 sm:block">
             {HEADER_COORDINATES}
           </span>
-        </div>
+        </Link>
 
         <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {PRIMARY_NAV.map((link) => (
