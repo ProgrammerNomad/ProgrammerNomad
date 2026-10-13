@@ -60,7 +60,9 @@
 .routeBase {
   stroke: #30372a;
 }
-.routeDraw {
+.route .routeDraw {
+  /* Normalized dash lengths must scale with the path, not the viewport. */
+  vector-effect: none;
   stroke: var(--lime);
   opacity: 0.55;
   stroke-dasharray: 1;
@@ -170,6 +172,9 @@
   }
   .route {
     margin-top: 20px;
+  }
+  .route .routeDraw {
+    stroke-width: 3;
   }
 }
 

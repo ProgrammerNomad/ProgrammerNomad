@@ -66,6 +66,10 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
     "stroke-dashoffset",
     "0px",
   );
+  await expect(closing.locator("path[pathLength]")).toHaveCSS(
+    "vector-effect",
+    "none",
+  );
   await expect
     .poll(() =>
       closing.evaluate((el) =>

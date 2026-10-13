@@ -37,7 +37,7 @@ No unrelated page content, renderer, destination data, content pipeline, depende
 - Real in-app browser visual review at 320px (development), and 390px, 768px and 1440px (production). Manually followed the signature link to About; verified the live atlas reports rotating without pressing Play.
 - `git diff --check` — passed.
 
-No known outstanding issues in this scope. Safari/Firefox and physical-device testing were not performed. Nothing was deployed or committed.
+No known outstanding issues in this scope. Safari/Firefox and physical-device testing were not performed. Nothing was deployed and the agent did not create a commit. During final verification, commit `8775a35` appeared containing the main changes; it was preserved. A final route-stroke scaling correction, its regression assertion, and this review note were made afterward.
 
 ## Review locally
 
