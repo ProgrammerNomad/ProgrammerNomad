@@ -48,7 +48,10 @@ export default async function FieldNotesIndexPage() {
       </section>
 
       {guides.length > 0 ? (
-        <section className="mt-12 rounded-xl border border-paper/10 bg-elevated/40 p-6">
+        <section
+          id="field-guides"
+          className="mt-12 rounded-xl border border-paper/10 bg-elevated/40 p-6 scroll-mt-24"
+        >
           <h2 className="font-display text-xl text-paper">Developer field guides</h2>
           <p className="mt-2 max-w-prose text-sm text-paper/70">
             Practical guides for coding while traveling-connectivity, offline

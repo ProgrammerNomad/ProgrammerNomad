@@ -1,5 +1,9 @@
 import Image from "next/image";
-import { SectionLink } from "@/components/ui/SectionLink";
+import {
+  SectionLink,
+  SectionTextLink,
+} from "@/components/ui/SectionLink";
+import { SectionLinkRow } from "@/components/ui/SectionLinkRow";
 import { HeroArt } from "@/components/hero/HeroArt";
 import { HighlightStrip } from "@/components/home/HighlightStrip";
 import { SubscribeCtas } from "@/components/home/SubscribeCtas";
@@ -29,7 +33,14 @@ export default async function HomePage() {
   ]);
 
   const featured = work.filter((w) => w.frontmatter.featured).slice(0, 3);
-  const latestTravel = fieldNotes.slice(0, 2);
+  const GUIDE_SLUGS = new Set(["nomad-remote-work"]);
+  const latestTravel = fieldNotes
+    .filter(
+      (e) =>
+        !e.frontmatter.tags.includes("Field Guide") &&
+        !GUIDE_SLUGS.has(e.frontmatter.slug),
+    )
+    .slice(0, 2);
 
   return (
     <>
@@ -84,7 +95,11 @@ export default async function HomePage() {
                   </MotionStaggerItem>
                 ))}
               </MotionStaggerGrid>
-              <SectionLink href="/videos">All videos →</SectionLink>
+              <SectionLinkRow>
+                <SectionLink href="/videos" inline>
+                  All videos →
+                </SectionLink>
+              </SectionLinkRow>
             </Section>
           </MotionSection>
         ) : null}
@@ -98,7 +113,11 @@ export default async function HomePage() {
                 </MotionStaggerItem>
               ))}
             </MotionStaggerGrid>
-            <SectionLink href="/work">All projects →</SectionLink>
+            <SectionLinkRow>
+              <SectionLink href="/work" inline>
+                All projects →
+              </SectionLink>
+            </SectionLinkRow>
           </Section>
         </MotionSection>
 
@@ -114,12 +133,14 @@ export default async function HomePage() {
                 </MotionStaggerItem>
               ))}
             </MotionStaggerGrid>
-            <div className="mt-8 flex flex-wrap gap-6">
-              <SectionLink href="/field-notes">Travel stories →</SectionLink>
-              <SectionLink href="/field-notes/nomad-remote-work" className="mt-0">
-                Developer field guide →
+            <SectionLinkRow>
+              <SectionLink href="/field-notes" inline>
+                All travel stories →
               </SectionLink>
-            </div>
+              <SectionTextLink href="/field-notes#field-guides">
+                Developer field guides
+              </SectionTextLink>
+            </SectionLinkRow>
           </Section>
         </MotionSection>
       </Container>
