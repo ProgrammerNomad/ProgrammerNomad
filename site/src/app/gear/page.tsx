@@ -49,18 +49,28 @@ export default async function GearPage() {
             {list.map((item) => (
               <li
                 key={item.name}
-                className="rounded-xl border border-paper/10 bg-elevated/50 p-5"
+                className="glass-card group p-6 transition-all duration-300 hover:border-lime/40 hover:shadow-[0_0_25px_rgba(181,255,67,0.12)] hover:-translate-y-0.5"
               >
-                <h3 className="font-display text-lg text-lime">{item.name}</h3>
-                <p className="mt-2 text-sm text-paper/70">{item.description}</p>
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-lg font-semibold text-lime text-glow-lime">
+                    {item.name}
+                  </h3>
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-paper/40">
+                    {category}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-paper/75 leading-relaxed">
+                  {item.description}
+                </p>
                 {item.affiliateUrl ? (
                   <Link
                     href={item.affiliateUrl}
                     target="_blank"
                     rel="sponsored noopener noreferrer"
-                    className="mt-3 inline-block font-mono text-xs uppercase tracking-widest text-paper/80 hover:text-lime"
+                    className="mt-4 inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-lime transition-all group-hover:text-white"
                   >
-                    View product →
+                    <span>View product</span>
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
                   </Link>
                 ) : null}
               </li>

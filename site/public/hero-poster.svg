@@ -1,27 +1,66 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none" aria-hidden="true">
   <rect width="400" height="500" fill="#0B0C0B"/>
-  <g stroke="#B5FF43" stroke-width="1.25" stroke-linejoin="round" opacity="0.95">
-    <!-- Static wireframe icosahedron-style hero (matches live sculpture framing) -->
-    <polygon points="200,95 285,145 255,235 145,235 115,145" fill="none"/>
-    <polygon points="200,405 285,355 255,265 145,265 115,355" fill="none"/>
-    <line x1="200" y1="95" x2="200" y2="405"/>
-    <line x1="285" y1="145" x2="285" y2="355"/>
-    <line x1="115" y1="145" x2="115" y2="355"/>
-    <line x1="255" y1="235" x2="255" y2="265"/>
-    <line x1="145" y1="235" x2="145" y2="265"/>
-    <line x1="200" y1="95" x2="285" y2="355"/>
-    <line x1="200" y1="95" x2="115" y2="355"/>
-    <line x1="285" y1="145" x2="145" y2="265"/>
-    <line x1="115" y1="145" x2="255" y2="265"/>
-    <line x1="285" y1="145" x2="115" y2="355"/>
-    <line x1="115" y1="145" x2="285" y2="355"/>
-    <line x1="200" y1="95" x2="255" y2="265"/>
-    <line x1="200" y1="95" x2="145" y2="265"/>
-    <line x1="200" y1="405" x2="255" y2="235"/>
-    <line x1="200" y1="405" x2="145" y2="235"/>
-    <line x1="285" y1="355" x2="255" y2="235"/>
-    <line x1="115" y1="355" x2="145" y2="235"/>
-    <line x1="285" y1="355" x2="145" y2="235"/>
-    <line x1="115" y1="355" x2="255" y2="235"/>
-  </g>
+  
+  <!-- Ambient background glow behind globe -->
+  <circle cx="200" cy="245" r="150" fill="url(#bgGlow)" opacity="0.6"/>
+  
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#B5FF43" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#00D2FF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0B0C0B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B5FF43"/>
+      <stop offset="100%" stop-color="#00D2FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Atmosphere outer glow ring -->
+  <circle cx="200" cy="245" r="135" stroke="#B5FF43" stroke-width="1" stroke-dasharray="2 6" opacity="0.4"/>
+  <circle cx="200" cy="245" r="125" stroke="#00D2FF" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Base Globe Sphere Wireframe -->
+  <!-- Outer boundary -->
+  <circle cx="200" cy="245" r="115" stroke="#B5FF43" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Latitude Rings (Parallels) -->
+  <ellipse cx="200" cy="245" rx="115" ry="32" stroke="#B5FF43" stroke-width="1" opacity="0.2"/>
+  <ellipse cx="200" cy="205" rx="100" ry="25" stroke="#B5FF43" stroke-width="1" opacity="0.18"/>
+  <ellipse cx="200" cy="285" rx="100" ry="25" stroke="#B5FF43" stroke-width="1" opacity="0.18"/>
+  <ellipse cx="200" cy="170" rx="75" ry="18" stroke="#B5FF43" stroke-width="1" opacity="0.14"/>
+  <ellipse cx="200" cy="320" rx="75" ry="18" stroke="#B5FF43" stroke-width="1" opacity="0.14"/>
+
+  <!-- Longitude Rings (Meridians) -->
+  <ellipse cx="200" cy="245" rx="35" ry="115" stroke="#B5FF43" stroke-width="1" opacity="0.22"/>
+  <ellipse cx="200" cy="245" rx="75" ry="115" stroke="#B5FF43" stroke-width="1" opacity="0.2"/>
+  <line x1="200" y1="130" x2="200" y2="360" stroke="#B5FF43" stroke-width="1.25" opacity="0.3"/>
+
+  <!-- Flight Arcs Radiating from Hub -->
+  <!-- Origin: Noida around (210, 220) -->
+  <path d="M 210 220 Q 235 155 260 170" stroke="url(#arcGrad)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 210 220 Q 240 250 255 295" stroke="url(#arcGrad)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M 210 220 Q 170 180 145 200" stroke="#E8B86D" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M 210 220 Q 200 160 195 145" stroke="#B5FF43" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9"/>
+  <path d="M 210 220 Q 260 215 285 240" stroke="#00D2FF" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+  <!-- Hub Nodes -->
+  <!-- Noida HQ (Origin) -->
+  <circle cx="210" cy="220" r="4.5" fill="#B5FF43"/>
+  <circle cx="210" cy="220" r="8" stroke="#B5FF43" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Destinations -->
+  <circle cx="195" cy="145" r="3" fill="#B5FF43" opacity="0.9"/>
+  <circle cx="260" cy="170" r="3" fill="#00D2FF" opacity="0.9"/>
+  <circle cx="255" cy="295" r="3" fill="#E8B86D" opacity="0.9"/>
+  <circle cx="145" cy="200" r="3" fill="#E8B86D" opacity="0.9"/>
+  <circle cx="285" cy="240" r="3" fill="#00D2FF" opacity="0.9"/>
+  <circle cx="175" cy="255" r="2.5" fill="#B5FF43" opacity="0.75"/>
+  <circle cx="225" cy="275" r="2.5" fill="#B5FF43" opacity="0.75"/>
+
+  <!-- Ambient star particles -->
+  <circle cx="120" cy="110" r="1.5" fill="#B5FF43" opacity="0.5"/>
+  <circle cx="280" cy="95" r="1.5" fill="#00D2FF" opacity="0.5"/>
+  <circle cx="310" cy="330" r="1.5" fill="#B5FF43" opacity="0.4"/>
+  <circle cx="95" cy="290" r="1.5" fill="#E8B86D" opacity="0.4"/>
 </svg>

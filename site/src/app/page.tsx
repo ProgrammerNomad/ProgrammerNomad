@@ -49,10 +49,10 @@ export default async function HomePage() {
           <div>
             <MetaLabel>NOMAD PROGRAMMER® · DIGITAL PORTFOLIO</MetaLabel>
             <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-start">
-              <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border border-paper/15">
+              <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-lime/40 shadow-[0_0_25px_rgba(181,255,67,0.25)] transition-transform duration-300 hover:scale-105">
                 <Image
-                  src="/images/shiv-singh.svg"
-                  alt="Shiv Singh"
+                  src="/images/shiv-singh.jpg"
+                  alt="Shiv Singh - Nomad Programmer"
                   fill
                   className="object-cover"
                   priority

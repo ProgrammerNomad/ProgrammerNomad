@@ -1,13 +1,34 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────
+   Design tokens
+   ────────────────────────────────────────────── */
 :root {
   --canvas: #0b0c0b;
+  --canvas-elevated: #111211;
   --paper: #ffffff;
   --lime: #b5ff43;
   --elevated: #242624;
   --accent-code: #b5ff43;
   --accent-travel: #e8b86d;
+  --accent-cyan: #00d2ff;
+  --accent-rose: #ff6482;
   --page-accent: var(--lime);
+
+  /* Glow tokens */
+  --glow-lime: rgba(181, 255, 67, 0.15);
+  --glow-lime-strong: rgba(181, 255, 67, 0.25);
+  --glow-cyan: rgba(0, 210, 255, 0.12);
+  --glow-amber: rgba(232, 184, 109, 0.12);
+  --glow-rose: rgba(255, 100, 130, 0.08);
+
+  /* Noise texture (inline SVG) */
+  --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+
+  /* Glass tokens */
+  --glass-bg: rgba(36, 38, 36, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-border-hover: rgba(181, 255, 67, 0.3);
 }
 
 [data-section="work"] {
@@ -32,6 +53,9 @@
   --font-display: var(--font-display);
 }
 
+/* ──────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
@@ -40,19 +64,330 @@ html {
   html {
     scroll-behavior: auto;
   }
+  .ambient-orb,
+  .ambient-grid {
+    animation: none !important;
+  }
 }
 
 body {
   background: var(--canvas);
   color: var(--paper);
   font-family: var(--font-body), system-ui, sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .font-display {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 
+/* ──────────────────────────────────────────────
+   Noise grain overlay (applied to body via ::after)
+   ────────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: var(--noise-url);
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+/* ──────────────────────────────────────────────
+   Ambient background orbs
+   ────────────────────────────────────────────── */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.ambient-orb--lime {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(181, 255, 67, 0.07) 0%, transparent 70%);
+  top: -10%;
+  right: -5%;
+  animation: orb-drift-1 25s ease-in-out infinite;
+}
+
+.ambient-orb--cyan {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+  bottom: 10%;
+  left: -8%;
+  animation: orb-drift-2 30s ease-in-out infinite;
+}
+
+.ambient-orb--amber {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(232, 184, 109, 0.04) 0%, transparent 70%);
+  top: 40%;
+  right: 20%;
+  animation: orb-drift-3 35s ease-in-out infinite;
+}
+
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.05); }
+  66% { transform: translate(20px, -20px) scale(0.95); }
+}
+
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.08); }
+  66% { transform: translate(-20px, 20px) scale(0.92); }
+}
+
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, -30px) scale(1.1); }
+}
+
+/* ──────────────────────────────────────────────
+   Dot grid background (on main content area)
+   ────────────────────────────────────────────── */
+.ambient-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 100%);
+}
+
+/* ──────────────────────────────────────────────
+   Glassmorphism card base
+   ────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-url);
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.15;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow:
+    0 0 30px var(--glow-lime),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Gradient border effect for glass cards (via pseudo-element) */
+.glass-card--glow {
+  border: none;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(181, 255, 67, 0.2) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 210, 255, 0.15) 100%
+  );
+}
+
+.glass-card--glow > .glass-card-inner {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: calc(0.75rem - 1px);
+  overflow: hidden;
+}
+
+/* Amber/travel variant */
+.glass-card--amber:hover {
+  border-color: rgba(232, 184, 109, 0.35);
+  box-shadow:
+    0 0 30px var(--glow-amber),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Cyan/code variant */
+.glass-card--cyan:hover {
+  border-color: rgba(0, 210, 255, 0.3);
+  box-shadow:
+    0 0 30px var(--glow-cyan),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ──────────────────────────────────────────────
+   3D tilt hover effect for cards
+   ────────────────────────────────────────────── */
+.tilt-card {
+  perspective: 800px;
+}
+
+.tilt-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ──────────────────────────────────────────────
+   Section gradient divider
+   ────────────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(181, 255, 67, 0.2) 20%,
+    rgba(181, 255, 67, 0.4) 50%,
+    rgba(181, 255, 67, 0.2) 80%,
+    transparent 100%
+  );
+  border: none;
+}
+
+/* ──────────────────────────────────────────────
+   Glow text utility
+   ────────────────────────────────────────────── */
+.text-glow-lime {
+  text-shadow: 0 0 20px rgba(181, 255, 67, 0.3), 0 0 40px rgba(181, 255, 67, 0.1);
+}
+
+.text-glow-lime-strong {
+  text-shadow: 0 0 12px rgba(181, 255, 67, 0.5), 0 0 30px rgba(181, 255, 67, 0.2);
+}
+
+/* ──────────────────────────────────────────────
+   Animated underline for nav links
+   ────────────────────────────────────────────── */
+.nav-link-animated {
+  position: relative;
+}
+
+.nav-link-animated::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--lime);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 6px rgba(181, 255, 67, 0.4);
+}
+
+.nav-link-animated:hover::after {
+  width: 100%;
+}
+
+/* ──────────────────────────────────────────────
+   Form inputs - glassmorphism
+   ────────────────────────────────────────────── */
+.glass-input {
+  background: rgba(36, 38, 36, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(181, 255, 67, 0.5);
+  box-shadow: 0 0 16px rgba(181, 255, 67, 0.1);
+  outline: none;
+}
+
+/* ──────────────────────────────────────────────
+   Generative cover SVG backgrounds (per tech stack)
+   ────────────────────────────────────────────── */
+.gen-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.gen-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  background: 
+    radial-gradient(ellipse at 20% 50%, var(--cover-color-1, rgba(181,255,67,0.15)) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, var(--cover-color-2, rgba(0,210,255,0.1)) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, var(--cover-color-3, rgba(232,184,109,0.08)) 0%, transparent 50%);
+}
+
+.gen-cover--php { --cover-color-1: rgba(119, 123, 180, 0.2); --cover-color-2: rgba(181, 255, 67, 0.12); }
+.gen-cover--python { --cover-color-1: rgba(255, 212, 59, 0.18); --cover-color-2: rgba(55, 118, 171, 0.15); }
+.gen-cover--typescript { --cover-color-1: rgba(0, 122, 204, 0.2); --cover-color-2: rgba(0, 210, 255, 0.12); }
+.gen-cover--iot { --cover-color-1: rgba(0, 210, 255, 0.18); --cover-color-2: rgba(181, 255, 67, 0.1); }
+.gen-cover--travel { --cover-color-1: rgba(232, 184, 109, 0.2); --cover-color-2: rgba(255, 100, 130, 0.1); }
+
+/* ──────────────────────────────────────────────
+   Button glow on hover
+   ────────────────────────────────────────────── */
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(181, 255, 67, 0.25), 0 0 40px rgba(181, 255, 67, 0.1);
+}
+
+/* ──────────────────────────────────────────────
+   Stat card glow
+   ────────────────────────────────────────────── */
+.stat-glow {
+  position: relative;
+}
+
+.stat-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(181,255,67,0.1) 0%, transparent 50%, rgba(0,210,255,0.08) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-glow:hover::after {
+  opacity: 1;
+}
+
+/* ──────────────────────────────────────────────
+   Dark tactical map tiles (inverted OSM)
+   ────────────────────────────────────────────── */
+.dark-map-tiles .leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) brightness(88%) contrast(92%);
+}
+
+/* ──────────────────────────────────────────────
+   Print styles
+   ────────────────────────────────────────────── */
 @media print {
+  body::after,
+  .ambient-orb,
+  .ambient-grid {
+    display: none !important;
+  }
+
   .guide-checklist {
     break-inside: avoid;
     border-color: #333;

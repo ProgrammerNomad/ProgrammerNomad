@@ -50,23 +50,30 @@ export default async function FieldNotesIndexPage() {
       {guides.length > 0 ? (
         <section
           id="field-guides"
-          className="mt-12 rounded-xl border border-paper/10 bg-elevated/40 p-6 scroll-mt-24"
+          className="glass-card mt-12 p-8 border border-amber/30 shadow-[0_0_30px_rgba(232,184,109,0.1)] scroll-mt-24"
         >
-          <h2 className="font-display text-xl text-paper">Developer field guides</h2>
-          <p className="mt-2 max-w-prose text-sm text-paper/70">
-            Practical guides for coding while traveling-connectivity, offline
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#e8b86d] shadow-[0_0_8px_#e8b86d]" />
+            <h2 className="font-display text-xl text-paper font-semibold">
+              Developer field guides
+            </h2>
+          </div>
+          <p className="mt-2 max-w-prose text-sm text-paper/75 leading-relaxed">
+            Practical guides for coding while traveling - connectivity, offline
             workflows, gear, and security.
           </p>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-6 space-y-4">
             {guides.map((g) => (
-              <li key={g.frontmatter.slug}>
+              <li key={g.frontmatter.slug} className="group">
                 <Link
                   href={`/field-notes/${g.frontmatter.slug}`}
-                  className="font-display text-lg text-paper hover:text-lime"
+                  className="font-display text-lg text-paper transition-colors group-hover:text-[#e8b86d] font-medium"
                 >
                   {g.frontmatter.title}
                 </Link>
-                <p className="mt-1 text-sm text-paper/60">{g.frontmatter.summary}</p>
+                <p className="mt-1 text-sm text-paper/60 leading-relaxed">
+                  {g.frontmatter.summary}
+                </p>
               </li>
             ))}
           </ul>

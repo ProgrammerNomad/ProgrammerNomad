@@ -1,1 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"><rect fill="#1a1b1a" width="800" height="500"/><text x="400" y="260" text-anchor="middle" fill="#B5FF43" font-family="system-ui" font-size="20">Travel photo</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none" aria-hidden="true">
+  <!-- Deep Dark Canvas Base -->
+  <rect width="800" height="500" fill="#0C0E0C"/>
+
+  <defs>
+    <!-- Ambient Radial Atmosphere Glows -->
+    <radialGradient id="topGlow" cx="65%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#E8B86D" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#B5FF43" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0C0E0C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bottomGlow" cx="20%" cy="85%" r="50%">
+      <stop offset="0%" stop-color="#00D2FF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0C0E0C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="peakGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8B86D" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0C0E0C" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#topGlow)"/>
+  <rect width="800" height="500" fill="url(#bottomGlow)"/>
+
+  <!-- Topographic Contour Curves -->
+  <g stroke="#E8B86D" stroke-width="1.2" opacity="0.22" fill="none">
+    <path d="M-50,220 C120,180 250,260 420,200 C580,140 700,220 850,170"/>
+    <path d="M-50,250 C130,210 270,290 440,230 C600,170 710,250 850,200"/>
+    <path d="M-50,280 C140,240 290,320 460,260 C620,200 720,280 850,230"/>
+    <path d="M-50,310 C150,270 310,350 480,290 C640,230 730,310 850,260"/>
+    <path d="M-50,340 C160,300 330,380 500,320 C660,260 740,340 850,290"/>
+    <path d="M-50,370 C170,330 350,410 520,350 C680,290 750,370 850,320"/>
+  </g>
+
+  <!-- Mountain Ridgelines Silhouette -->
+  <path d="M-20,360 L140,220 L260,300 L420,160 L560,280 L720,190 L820,270 L820,500 L-20,500 Z" fill="url(#peakGrad)"/>
+  <path d="M-20,390 L110,290 L240,350 L390,240 L530,330 L690,260 L820,320 L820,500 L-20,500 Z" fill="#0C0E0C" opacity="0.85"/>
+
+  <!-- Subtle Coordinate & Telemetry Grid Marks -->
+  <g stroke="#B5FF43" stroke-width="1" opacity="0.4">
+    <!-- Corner Crosshairs -->
+    <path d="M30,30 L45,30 M30,30 L30,45"/>
+    <path d="M770,30 L755,30 M770,30 L770,45"/>
+    <path d="M30,470 L45,470 M30,470 L30,455"/>
+    <path d="M770,470 L755,470 M770,470 L770,455"/>
+  </g>
+
+  <!-- High-Tech Nomad Compass Rose / Hub Node -->
+  <g transform="translate(680, 110)">
+    <circle cx="0" cy="0" r="42" stroke="#E8B86D" stroke-width="1" stroke-dasharray="2 4" opacity="0.35"/>
+    <circle cx="0" cy="0" r="32" stroke="#B5FF43" stroke-width="1.2" opacity="0.25"/>
+    <circle cx="0" cy="0" r="3" fill="#E8B86D"/>
+    <line x1="-38" y1="0" x2="38" y2="0" stroke="#E8B86D" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="-38" x2="0" y2="38" stroke="#E8B86D" stroke-width="1" opacity="0.3"/>
+  </g>
+
+  <!-- Telemetry Badge (Bottom Left) -->
+  <g transform="translate(48, 435)">
+    <rect x="0" y="0" width="220" height="28" rx="6" fill="#141814" stroke="#E8B86D" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="14" cy="14" r="3" fill="#E8B86D"/>
+    <text x="26" y="18" fill="#E8B86D" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="2">FIELD RECORD // ARCHIVE</text>
+  </g>
+
+  <!-- Dot Grid Array (Tactical map look) -->
+  <g fill="#B5FF43" opacity="0.15">
+    <circle cx="200" cy="80" r="1.5"/><circle cx="240" cy="80" r="1.5"/><circle cx="280" cy="80" r="1.5"/><circle cx="320" cy="80" r="1.5"/>
+    <circle cx="200" cy="110" r="1.5"/><circle cx="240" cy="110" r="1.5"/><circle cx="280" cy="110" r="1.5"/><circle cx="320" cy="110" r="1.5"/>
+    <circle cx="200" cy="140" r="1.5"/><circle cx="240" cy="140" r="1.5"/><circle cx="280" cy="140" r="1.5"/><circle cx="320" cy="140" r="1.5"/>
+  </g>
+</svg>

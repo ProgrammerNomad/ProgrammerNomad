@@ -36,8 +36,10 @@ export default async function AboutPage() {
   ]);
 
   const gallery = [
-    { src: "/images/shiv-singh.svg", alt: "Shiv Singh headshot placeholder" },
-    { src: "/images/travel/placeholder.svg", alt: "Travel placeholder" },
+    { src: "/images/shiv-singh.jpg", alt: "Shiv Singh - Nomad Programmer" },
+    { src: "/images/travel/rishikesh-2026/cover.jpg", alt: "Rishikesh Himalayan river expedition" },
+    { src: "/images/travel/madhmaheshwar/cover.jpg", alt: "Madhmaheshwar high altitude trail" },
+    { src: "/images/travel/pangi-lahaul-2026/cover.jpg", alt: "Pangi Valley high mountain pass" },
   ];
 
   return (

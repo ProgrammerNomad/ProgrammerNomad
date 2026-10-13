@@ -1,1 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><rect fill="#242624" width="640" height="400"/><text x="320" y="210" text-anchor="middle" fill="#B5FF43" font-family="system-ui" font-size="24">Project</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" fill="none" aria-hidden="true">
+  <!-- Deep Dark Canvas Base -->
+  <rect width="640" height="400" fill="#0A0D0B"/>
+
+  <defs>
+    <!-- Tech Ambient Radial Glows -->
+    <radialGradient id="codeGlow1" cx="30%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#B5FF43" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#00D2FF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0A0D0B" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="codeGlow2" cx="80%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#00D2FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0A0D0B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B5FF43" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#00D2FF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#B5FF43" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="400" fill="url(#codeGlow1)"/>
+  <rect width="640" height="400" fill="url(#codeGlow2)"/>
+
+  <!-- Matrix Dot Grid Overlay -->
+  <g fill="#B5FF43" opacity="0.12">
+    <circle cx="60" cy="60" r="1.5"/><circle cx="120" cy="60" r="1.5"/><circle cx="180" cy="60" r="1.5"/><circle cx="240" cy="60" r="1.5"/><circle cx="300" cy="60" r="1.5"/><circle cx="360" cy="60" r="1.5"/><circle cx="420" cy="60" r="1.5"/><circle cx="480" cy="60" r="1.5"/><circle cx="540" cy="60" r="1.5"/><circle cx="600" cy="60" r="1.5"/>
+    <circle cx="60" cy="120" r="1.5"/><circle cx="120" cy="120" r="1.5"/><circle cx="180" cy="120" r="1.5"/><circle cx="240" cy="120" r="1.5"/><circle cx="300" cy="120" r="1.5"/><circle cx="360" cy="120" r="1.5"/><circle cx="420" cy="120" r="1.5"/><circle cx="480" cy="120" r="1.5"/><circle cx="540" cy="120" r="1.5"/><circle cx="600" cy="120" r="1.5"/>
+    <circle cx="60" cy="180" r="1.5"/><circle cx="120" cy="180" r="1.5"/><circle cx="180" cy="180" r="1.5"/><circle cx="240" cy="180" r="1.5"/><circle cx="300" cy="180" r="1.5"/><circle cx="360" cy="180" r="1.5"/><circle cx="420" cy="180" r="1.5"/><circle cx="480" cy="180" r="1.5"/><circle cx="540" cy="180" r="1.5"/><circle cx="600" cy="180" r="1.5"/>
+    <circle cx="60" cy="240" r="1.5"/><circle cx="120" cy="240" r="1.5"/><circle cx="180" cy="240" r="1.5"/><circle cx="240" cy="240" r="1.5"/><circle cx="300" cy="240" r="1.5"/><circle cx="360" cy="240" r="1.5"/><circle cx="420" cy="240" r="1.5"/><circle cx="480" cy="240" r="1.5"/><circle cx="540" cy="240" r="1.5"/><circle cx="600" cy="240" r="1.5"/>
+    <circle cx="60" cy="300" r="1.5"/><circle cx="120" cy="300" r="1.5"/><circle cx="180" cy="300" r="1.5"/><circle cx="240" cy="300" r="1.5"/><circle cx="300" cy="300" r="1.5"/><circle cx="360" cy="300" r="1.5"/><circle cx="420" cy="300" r="1.5"/><circle cx="480" cy="300" r="1.5"/><circle cx="540" cy="300" r="1.5"/><circle cx="600" cy="300" r="1.5"/>
+  </g>
+
+  <!-- High-Tech Circuit & Architecture Lines -->
+  <g stroke="url(#traceGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M40,200 L160,200 L210,140 L350,140 L400,190 L520,190 L560,150 L600,150"/>
+    <path d="M120,280 L220,280 L270,220 L380,220 L430,270 L540,270"/>
+    <path d="M160,200 L160,110 L230,110"/>
+    <path d="M350,140 L350,70 L460,70"/>
+    <path d="M270,220 L270,320 L360,320"/>
+  </g>
+
+  <!-- Circuit Connection Nodes (Pulsing glowing pins) -->
+  <circle cx="160" cy="200" r="4" fill="#B5FF43"/>
+  <circle cx="210" cy="140" r="3.5" fill="#00D2FF"/>
+  <circle cx="350" cy="140" r="4.5" fill="#B5FF43"/>
+  <circle cx="400" cy="190" r="3.5" fill="#00D2FF"/>
+  <circle cx="270" cy="220" r="4" fill="#B5FF43"/>
+  <circle cx="430" cy="270" r="3.5" fill="#00D2FF"/>
+
+  <!-- Code Syntax Floating Watermark Glyphs -->
+  <g font-family="monospace" font-size="13" fill="#B5FF43" opacity="0.45">
+    <text x="70" y="95">&lt;nomad:arch /&gt;</text>
+    <text x="320" y="105">export const module = {};</text>
+    <text x="180" y="340">λ =&gt; async dispatch()</text>
+  </g>
+
+  <!-- Terminal HUD Header Box (Center-Top) -->
+  <g transform="translate(40, 35)">
+    <rect x="0" y="0" width="180" height="26" rx="6" fill="#121613" stroke="#B5FF43" stroke-width="1" stroke-opacity="0.35"/>
+    <circle cx="12" cy="13" r="3" fill="#B5FF43"/>
+    <text x="24" y="17" fill="#B5FF43" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="1.5">OPEN-SOURCE // CORE</text>
+  </g>
+
+  <!-- Terminal HUD Stats Box (Bottom-Right) -->
+  <g transform="translate(440, 335)">
+    <rect x="0" y="0" width="160" height="26" rx="6" fill="#121613" stroke="#00D2FF" stroke-width="1" stroke-opacity="0.35"/>
+    <circle cx="12" cy="13" r="3" fill="#00D2FF"/>
+    <text x="24" y="17" fill="#00D2FF" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="1.5">SYS_ID: #PRODUCTION</text>
+  </g>
+</svg>

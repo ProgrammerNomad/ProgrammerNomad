@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 export const fieldControlClass =
-  "mt-2 w-full border border-paper/15 bg-elevated px-4 py-3 text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
+  "mt-2 w-full rounded-lg border border-paper/15 bg-elevated/60 backdrop-blur-md px-4 py-3 text-paper transition-all duration-300 placeholder:text-paper/40 focus:border-lime/60 focus:bg-elevated/80 focus:shadow-[0_0_20px_rgba(181,255,67,0.18)] focus:outline-none";
 
 export function FieldLabel({
   htmlFor,

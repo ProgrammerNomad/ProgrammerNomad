@@ -16,9 +16,16 @@ export function WorkProjectCard({
     : entry.repoUrl;
   const external = !entry.detailPage;
 
+  const coverCategory = entry.categories[0]?.toLowerCase() ?? "";
+  const coverClass = coverCategory === "php" ? "gen-cover--php"
+    : coverCategory === "python" ? "gen-cover--python"
+    : coverCategory === "typescript" ? "gen-cover--typescript"
+    : coverCategory === "iot" ? "gen-cover--iot"
+    : "";
+
   const inner = (
     <>
-      <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
+      <div className={cn("relative aspect-[16/10] overflow-hidden bg-canvas", !entry.cover && "gen-cover " + coverClass)}>
         {entry.cover ? (
           <Image
             src={entry.cover}
@@ -27,9 +34,8 @@ export function WorkProjectCard({
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 400px"
           />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-elevated to-canvas" />
-        )}
+        ) : null}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--glass-bg)] to-transparent" />
       </div>
       <div className="p-5">
         <MetaLabel>{entry.categories.join(" · ") || "Open Source"}</MetaLabel>
@@ -56,7 +62,7 @@ export function WorkProjectCard({
   );
 
   const classes = cn(
-    "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated shadow-sm transition hover:-translate-y-0.5 hover:border-lime/40 hover:shadow-[0_0_24px_rgba(181,255,67,0.08)]",
+    "glass-card group block",
     className,
   );
 

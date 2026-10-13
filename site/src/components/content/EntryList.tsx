@@ -22,14 +22,21 @@ export function EntryListSimple({
   hrefPrefix: string;
 }) {
   return (
-    <ul className="divide-y divide-paper/10 border-y border-paper/10">
+    <ul className="space-y-3">
       {entries.map((entry) => (
         <li key={entry.slug}>
           <Link
             href={`${hrefPrefix}/${entry.slug}`}
-            className="flex flex-col gap-1 py-5 transition hover:text-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime sm:flex-row sm:items-baseline sm:justify-between"
+            className="glass-card group flex flex-col gap-2 p-5 transition-all duration-300 hover:border-lime/50 hover:shadow-[0_0_25px_rgba(181,255,67,0.14)] hover:translate-x-1 sm:flex-row sm:items-baseline sm:justify-between"
           >
-            <span className="font-display text-lg text-paper">{entry.title}</span>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-sm text-lime opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                →
+              </span>
+              <span className="font-display text-lg text-paper transition-colors group-hover:text-white group-hover:font-medium">
+                {entry.title}
+              </span>
+            </div>
             <MetaLabel>{entry.date}</MetaLabel>
           </Link>
         </li>

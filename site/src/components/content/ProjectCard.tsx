@@ -5,7 +5,7 @@ import { MetaLabel } from "@/components/ui/MetaLabel";
 import { cn } from "@/lib/utils";
 
 const cardClass =
-  "group block overflow-hidden rounded-xl border border-paper/10 bg-elevated shadow-sm transition hover:-translate-y-0.5 hover:border-lime/40 hover:shadow-[0_0_24px_rgba(181,255,67,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
+  "glass-card group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
 
 export function ProjectCard({
   entry,
@@ -24,7 +24,7 @@ export function ProjectCard({
 
   return (
     <Link href={link} className={cn(cardClass, className)}>
-      <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
+      <div className={cn("relative aspect-[16/10] overflow-hidden bg-canvas", !entry.cover && "gen-cover gen-cover--travel")}>
         {entry.cover ? (
           <Image
             src={entry.cover}
@@ -33,9 +33,8 @@ export function ProjectCard({
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 400px"
           />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-elevated to-canvas" />
-        )}
+        ) : null}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--glass-bg)] to-transparent" />
       </div>
       <div className="p-5">
         <MetaLabel>{entry.date}</MetaLabel>

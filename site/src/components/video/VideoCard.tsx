@@ -8,9 +8,9 @@ export function VideoCard({ video }: { video: YouTubeVideo }) {
   return (
     <Link
       href={`/videos/${video.id}`}
-      className="group block overflow-hidden rounded-xl border border-paper/10 bg-elevated transition hover:border-lime/40"
+      className="glass-card group block"
     >
-      <div className="relative aspect-video bg-canvas">
+      <div className="relative aspect-video bg-canvas overflow-hidden">
         <Image
           src={video.thumbnailUrl}
           alt=""
@@ -19,6 +19,12 @@ export function VideoCard({ video }: { video: YouTubeVideo }) {
           sizes="(max-width: 768px) 100vw, 400px"
           unoptimized
         />
+        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--glass-bg)] to-transparent" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-lime/20 backdrop-blur-sm">
+            <span className="ml-0.5 text-lime text-lg">▶</span>
+          </div>
+        </div>
       </div>
       <div className="p-4">
         <MetaLabel>{date}</MetaLabel>

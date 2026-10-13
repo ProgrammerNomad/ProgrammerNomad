@@ -24,7 +24,10 @@ function CountValue({ value }: { value: number }) {
   }, [inView, spring, value]);
 
   return (
-    <span ref={ref} className="font-display text-2xl text-lime md:text-3xl">
+    <span
+      ref={ref}
+      className="font-display text-3xl font-bold text-lime text-glow-lime md:text-4xl"
+    >
       {reduced ? value : 0}
     </span>
   );
@@ -42,8 +45,11 @@ function Stat({
   if (value === null) return null;
   const inner = (
     <>
-      <CountValue value={value} />
-      <span className="mt-1 font-mono text-xs uppercase tracking-widest text-paper/60">
+      <div className="flex items-center justify-between">
+        <CountValue value={value} />
+        <span className="h-1.5 w-1.5 rounded-full bg-lime/60 opacity-0 transition group-hover:opacity-100 group-hover:shadow-[0_0_8px_#b5ff43]" />
+      </div>
+      <span className="mt-2 font-mono text-xs uppercase tracking-widest text-paper/65 transition group-hover:text-paper/90">
         {label}
       </span>
     </>
@@ -52,14 +58,14 @@ function Stat({
     return (
       <Link
         href={href}
-        className="flex flex-col border border-paper/10 bg-elevated/50 px-6 py-4 transition hover:border-lime/40"
+        className="glass-card group flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime/50 hover:shadow-[0_0_30px_rgba(181,255,67,0.18)]"
       >
         {inner}
       </Link>
     );
   }
   return (
-    <div className="flex flex-col border border-paper/10 bg-elevated/50 px-6 py-4">
+    <div className="glass-card group flex flex-col p-6 transition-all duration-300">
       {inner}
     </div>
   );
