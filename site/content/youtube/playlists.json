@@ -1,0 +1,13 @@
+{
+  "sections": [
+    {
+      "title": "How-to",
+      "videoIds": []
+    },
+    {
+      "title": "Travel",
+      "videoIds": []
+    }
+  ],
+  "_comment": "Add YouTube video IDs from RSS to group videos into playlist sections on /videos."
+}

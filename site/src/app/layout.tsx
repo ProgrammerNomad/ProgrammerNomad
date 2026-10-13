@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { PersonJsonLd } from "@/lib/seo/json-ld";
+import { PersonJsonLd, WebSiteJsonLd } from "@/lib/seo/json-ld";
+import { PlausibleAnalytics } from "@/components/analytics/PlausibleAnalytics";
 import { rootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
 
@@ -34,6 +35,8 @@ export default function RootLayout({
         className={`${display.variable} ${body.variable} ${mono.variable} min-h-screen bg-canvas text-paper antialiased`}
       >
         <PersonJsonLd />
+        <WebSiteJsonLd />
+        <PlausibleAnalytics />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />

@@ -18,6 +18,7 @@ const ALLOWED_COMPONENTS = new Set([
   "Video",
   "LinkCard",
   "ArchitectureDiagram",
+  "YouTubeEmbed",
 ]);
 
 const DISALLOWED_PATTERNS = [

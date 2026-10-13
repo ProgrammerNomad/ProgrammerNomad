@@ -5,7 +5,8 @@ describe("content loader", () => {
   it("excludes draft work from published lists", async () => {
     const slugs = await getPublishedSlugs("work");
     expect(slugs).not.toContain("domain-data-platform");
-    expect(slugs).toContain("infrastructure-automation");
+    expect(slugs).not.toContain("infrastructure-automation");
+    expect(slugs).toContain("jodkit");
   });
 
   it("getAllEntries returns only published by default", async () => {

@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { getEntryBySlug, getPublishedSlugs } from "@/lib/content/loader";
 import { renderMdx } from "@/lib/content/mdx";
-import { ArticleJsonLd } from "@/lib/seo/json-ld";
+import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { entryMetadata } from "@/lib/seo/metadata";
 
 export async function generateStaticParams() {
@@ -35,7 +35,14 @@ export default async function FieldNoteDetailPage({
 
   return (
     <Container className="py-16 md:py-24">
-      <ArticleJsonLd entry={entry.frontmatter} pathPrefix="/field-notes" />
+      <BlogPostingJsonLd entry={entry.frontmatter} pathPrefix="/field-notes" />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Travel", path: "/field-notes" },
+          { name: entry.frontmatter.title, path: `/field-notes/${slug}` },
+        ]}
+      />
       <MetaLabel>{entry.frontmatter.date}</MetaLabel>
       <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">
         {entry.frontmatter.title}

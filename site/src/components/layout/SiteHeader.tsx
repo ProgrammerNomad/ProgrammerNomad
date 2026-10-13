@@ -8,9 +8,11 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/work", label: "Work" },
+  { href: "/work", label: "Projects" },
+  { href: "/videos", label: "Videos" },
+  { href: "/field-notes", label: "Travel" },
   { href: "/writing", label: "Writing" },
-  { href: "/field-notes", label: "Field Notes" },
+  { href: "/gear", label: "Gear" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -29,7 +31,7 @@ export function SiteHeader() {
           Nomad Programmer
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -48,7 +50,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-paper md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+          className="inline-flex items-center justify-center rounded-md p-2 text-paper lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
@@ -61,7 +63,7 @@ export function SiteHeader() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-paper/10 bg-elevated md:hidden"
+          className="border-t border-paper/10 bg-elevated lg:hidden"
           role="dialog"
           aria-label="Mobile navigation"
         >

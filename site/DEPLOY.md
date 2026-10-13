@@ -28,10 +28,18 @@ Publish must **not** equal Base (`site`). If the UI has Publish = `site`, the pl
 - `publish` must **not** equal `base` (`publish: .../site/.next` with `publishOrigin: config` is OK).
 - `(build.command completed in …)` then **Plugin "@netlify/plugin-nextjs"** succeeds (no exit code 2).
 
-3. **Environment variables**
+3. **Environment variables** (see [`.env.example`](.env.example))
 
-   - Production (`main`): `SITE_ENV=production` (optional; default indexable when `CONTEXT=production`).
+   | Variable | Purpose |
+   |----------|---------|
+   | `SITE_ENV` | `production` on main (optional if `CONTEXT=production`) |
+   | `YOUTUBE_CHANNEL_ID` | RSS feed for `/videos` and home video grid |
+   | `YOUTUBE_API_KEY` | Optional; accurate YouTube video count on home |
+   | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible analytics |
+   | `NEWSLETTER_EMBED_URL` | iframe URL for contact page newsletter |
+
    - Preview/PR deploys: Netlify sets `CONTEXT=deploy-preview` - site emits **noindex** and `robots.txt` disallow.
+   - **Netlify Forms:** `collab` form on `/contact`; static detection via [`public/__forms.html`](public/__forms.html).
 
 4. After any config change: **Deploys → Trigger deploy → Clear cache and deploy site**.
 
@@ -47,7 +55,18 @@ Publish must **not** equal Base (`site`). If the UI has Publish = `site`, the pl
 
 1. Verify property for `https://www.nomadprogrammer.in` (DNS TXT or HTML file).
 2. Submit sitemap: `https://www.nomadprogrammer.in/sitemap.xml`.
-3. Validate rich results for `Person` (layout) and `Article` (writing / field-notes) in Search Console.
+3. Validate rich results for `Person`, `WebSite`, `BlogPosting`, and `VideoObject` in Search Console.
+
+## Off-site SEO backlinks
+
+- GitHub profile → Website: `https://www.nomadprogrammer.in`
+- YouTube channel About link → same URL
+- Instagram bio → same URL
+- Google Business / profile → same URL
+
+## Content stats fallback
+
+If `YOUTUBE_API_KEY` is unset, set verified counts in [`content/stats.json`](content/stats.json) (`youtubeVideoCount`). GitHub repo count is fetched at build from the public API.
 
 ## Pre-launch checks
 

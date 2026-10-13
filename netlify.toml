@@ -1,5 +1,5 @@
 # When UI Base directory is empty, this file applies (base = site).
-# When UI Base = site, Netlify reads site/netlify.toml instead — see site/netlify.toml for publish override.
+# When UI Base = site, Netlify reads site/netlify.toml instead - see site/netlify.toml for publish override.
 
 [build]
   base = "site"

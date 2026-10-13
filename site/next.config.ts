@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.resolve(__dirname),
   images: {
     dangerouslyAllowSVG: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "i.ytimg.com", pathname: "/**" },
+    ],
   },
   async headers() {
     return [

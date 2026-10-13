@@ -1,0 +1,8 @@
+[
+  { "name": "Laravel", "category": "Backend" },
+  { "name": "Next.js", "category": "Frontend" },
+  { "name": "Python", "category": "Backend" },
+  { "name": "TypeScript", "category": "Language" },
+  { "name": "IoT", "category": "Hardware" },
+  { "name": "Raspberry Pi", "category": "Hardware" }
+]

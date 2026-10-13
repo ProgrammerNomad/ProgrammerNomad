@@ -3,10 +3,13 @@ import { Container } from "@/components/ui/Container";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import { getAllEntries } from "@/lib/content/loader";
 
-export const metadata = {
-  title: "Writing",
-  description: "Articles, tutorials, and long-form notes.",
-};
+import { indexPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = indexPageMetadata(
+  "Writing – Nomad Programmer",
+  "Tech tutorials, architecture notes, and career tips by Shiv Singh.",
+  "/writing",
+);
 
 export default async function WritingIndexPage() {
   const entries = await getAllEntries("writing");

@@ -93,6 +93,15 @@ export function Video({
   );
 }
 
+export function YouTubeEmbed({ videoId }: { videoId: string }) {
+  return (
+    <Video
+      src={`https://www.youtube.com/embed/${videoId}`}
+      title="YouTube video"
+    />
+  );
+}
+
 export function LinkCard({
   href,
   title,
@@ -152,6 +161,7 @@ export const mdxComponents = {
   Figure,
   CodeBlock,
   Video,
+  YouTubeEmbed,
   LinkCard,
   ArchitectureDiagram,
   a: MdxLink,

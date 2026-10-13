@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Laptop",
+    "name": "Primary dev machine",
+    "description": "Daily driver for coding, editing, and travel work.",
+    "affiliateUrl": null
+  },
+  {
+    "category": "Cameras",
+    "name": "GoPro",
+    "description": "Action and travel B-roll on treks and city walks.",
+    "affiliateUrl": null
+  },
+  {
+    "category": "Cameras",
+    "name": "Drone",
+    "description": "Aerial shots for travel films where regulations allow.",
+    "affiliateUrl": null
+  },
+  {
+    "category": "Software",
+    "name": "Adobe Premiere",
+    "description": "Long-form YouTube edits and multi-cam timelines.",
+    "affiliateUrl": null
+  },
+  {
+    "category": "Software",
+    "name": "Movavi",
+    "description": "Quick cuts and social clips on the road.",
+    "affiliateUrl": null
+  }
+]

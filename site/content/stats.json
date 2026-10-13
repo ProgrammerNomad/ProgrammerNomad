@@ -1,0 +1,5 @@
+{
+  "youtubeVideoCount": null,
+  "lastVerified": null,
+  "_comment": "Set youtubeVideoCount when YOUTUBE_API_KEY is not configured. Never use fake numbers."
+}
