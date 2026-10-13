@@ -17,7 +17,7 @@ function Sculpture({ paused }: { paused: boolean }) {
     <mesh ref={mesh}>
       <icosahedronGeometry args={[1.2, 1]} />
       <meshStandardMaterial
-        color="#242624"
+        color="#0B0C0B"
         emissive="#B5FF43"
         emissiveIntensity={0.15}
         wireframe

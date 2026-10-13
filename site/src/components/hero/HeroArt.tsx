@@ -72,15 +72,15 @@ export function HeroArt() {
   return (
     <div
       ref={containerRef}
-      className="relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border border-paper/10 bg-elevated md:aspect-[4/5]"
+      className="relative aspect-square w-full max-w-md overflow-hidden md:aspect-[4/5]"
       aria-hidden
     >
       <Image
-        src="/hero-poster.webp"
+        src="/hero-poster.svg"
         alt=""
         fill
         priority
-        className={`object-cover transition-opacity duration-700 ${showCanvas ? "opacity-0" : "opacity-100"}`}
+        className={`object-contain transition-opacity duration-700 ${showCanvas ? "opacity-0" : "opacity-100"}`}
         sizes="(max-width: 768px) 100vw, 400px"
       />
       {showCanvas ? (
