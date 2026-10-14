@@ -4,7 +4,7 @@ import { FooterWordmark } from "./FooterWordmark";
 import styles from "./FooterWordmark.module.css";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { MetaLabel } from "@/components/ui/MetaLabel";
-import { SocialLink } from "@/components/ui/SocialLink";
+import { SocialIconLinks } from "@/components/ui/SocialIconLinks";
 import {
   FOOTER_SOCIAL_LINKS,
   HEADER_COORDINATES,
@@ -42,13 +42,9 @@ export function SiteFooter() {
           <MetaLabel>{HEADER_COORDINATES} / DIGITAL SPACE</MetaLabel>
           <p className="mt-2 max-w-md text-sm text-paper/70">{SITE_TAGLINE}</p>
         </div>
-        <div className="flex flex-wrap gap-4 font-mono text-xs uppercase tracking-widest">
-          {FOOTER_SOCIAL_LINKS.map((link) => (
-            <SocialLink key={link.href} href={link.href}>
-              {link.label}
-            </SocialLink>
-          ))}
-        </div>
+        <nav aria-label="Social profiles">
+          <SocialIconLinks links={FOOTER_SOCIAL_LINKS} />
+        </nav>
         <p className="font-mono text-xs text-paper/50">
           © {new Date().getFullYear()} Shiv Singh · Nomad Programmer
         </p>

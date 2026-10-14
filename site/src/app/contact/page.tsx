@@ -2,7 +2,8 @@ import { Container } from "@/components/ui/Container";
 import { AtlasHeading } from "@/components/ui/AtlasHeading";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { SocialLink } from "@/components/ui/SocialLink";
-import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/lib/seo/site-config";
+import { SocialIconLinks } from "@/components/ui/SocialIconLinks";
+import { CONTACT_EMAIL, PROFILE_SOCIAL_LINKS } from "@/lib/seo/site-config";
 import { indexPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = indexPageMetadata(
@@ -65,13 +66,10 @@ export default function ContactPage() {
           />
         </section>
       )}
-      <ul className="mt-12 flex flex-wrap gap-5 font-mono text-xs uppercase tracking-widest">
-        {SOCIAL_LINKS.map((link) => (
-          <li key={link.href}>
-            <SocialLink href={link.href}>{link.label} ↗</SocialLink>
-          </li>
-        ))}
-      </ul>
+      <SocialIconLinks
+        links={PROFILE_SOCIAL_LINKS}
+        className="mt-12"
+      />
     </Container>
   );
 }

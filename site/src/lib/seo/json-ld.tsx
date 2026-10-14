@@ -2,8 +2,8 @@ import { siteUrl } from "@/lib/env";
 import {
   ADDRESS,
   AUTHOR_NAME,
+  AUTHOR_PORTRAIT_IMAGE,
   CONTACT_EMAIL,
-  DEFAULT_OG_IMAGE,
   ORGANIZATION,
   SAME_AS,
   SITE_DESCRIPTION,
@@ -29,7 +29,7 @@ export function PersonJsonLd() {
     name: AUTHOR_NAME,
     alternateName: SITE_NAME,
     url: `${siteUrl}/`,
-    image: `${siteUrl}${DEFAULT_OG_IMAGE}`,
+    image: `${siteUrl}${AUTHOR_PORTRAIT_IMAGE}`,
     description: SITE_TAGLINE,
     jobTitle: ORGANIZATION.jobTitle,
     worksFor: {
@@ -89,7 +89,8 @@ export function BlogPostingJsonLd({
   pathPrefix: string;
 }) {
   const url = `${siteUrl}${pathPrefix}/${entry.slug}`;
-  const data = {
+  const imagePath = entry.ogImage ?? entry.cover;
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: entry.title,
@@ -108,6 +109,10 @@ export function BlogPostingJsonLd({
     },
     mainEntityOfPage: url,
   };
+  if (imagePath) {
+    data.image =
+      imagePath.startsWith("http") ? imagePath : `${siteUrl}${imagePath}`;
+  }
   return <JsonLdScript data={data} />;
 }
 

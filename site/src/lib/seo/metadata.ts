@@ -4,6 +4,7 @@ import {
   DEFAULT_OG_IMAGE,
   SITE_NAME,
   SITE_DESCRIPTION,
+  TWITTER_HANDLE,
 } from "@/lib/seo/site-config";
 import type { BaseFrontmatter } from "@/lib/validation/schemas";
 
@@ -11,6 +12,12 @@ const defaultRobots = (): Metadata["robots"] =>
   shouldAllowIndexing()
     ? { index: true, follow: true }
     : { index: false, follow: false };
+
+const twitterDefaults = {
+  card: "summary_large_image" as const,
+  site: TWITTER_HANDLE,
+  creator: TWITTER_HANDLE,
+};
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -30,7 +37,7 @@ export const rootMetadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
-    card: "summary_large_image",
+    ...twitterDefaults,
     title: "Nomad Programmer – Shiv Singh",
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
@@ -55,7 +62,7 @@ export function indexPageMetadata(
       images: [DEFAULT_OG_IMAGE],
     },
     twitter: {
-      card: "summary_large_image",
+      ...twitterDefaults,
       title,
       description,
       images: [DEFAULT_OG_IMAGE],
@@ -81,7 +88,7 @@ export function entryMetadata(
       images: [og],
     },
     twitter: {
-      card: "summary_large_image",
+      ...twitterDefaults,
       title: entry.title,
       description: entry.summary,
       images: [og],
