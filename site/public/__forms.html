@@ -4,12 +4,21 @@
     <title>Forms</title>
   </head>
   <body>
-    <form name="collab" netlify netlify-honeypot="bot-field" hidden>
+    <form
+      name="collab"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="collab" />
       <input type="text" name="bot-field" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="type" />
       <textarea name="message"></textarea>
+      <div data-netlify-recaptcha="true"></div>
     </form>
   </body>
 </html>

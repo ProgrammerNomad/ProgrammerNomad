@@ -33,13 +33,36 @@ Publish must **not** equal Base (`site`). If the UI has Publish = `site`, the pl
    | Variable | Purpose |
    |----------|---------|
    | `SITE_ENV` | `production` on main (optional if `CONTEXT=production`) |
-   | `YOUTUBE_CHANNEL_ID` | RSS feed for `/videos` and home video grid |
-   | `YOUTUBE_API_KEY` | Optional; accurate YouTube video count on home |
+   | `YOUTUBE_CHANNEL_ID` | Channel ID for RSS (defaults in code to @NomadProgrammer if unset) |
+   | `YOUTUBE_API_KEY` | **Recommended** — Data API fallback when RSS fails; also home video count |
    | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible analytics |
    | `NEWSLETTER_EMBED_URL` | iframe URL for contact page newsletter |
 
    - Preview/PR deploys: Netlify sets `CONTEXT=deploy-preview` - site emits **noindex** and `robots.txt` disallow.
-   - **Netlify Forms:** `collab` form on `/contact`; static detection via [`public/__forms.html`](public/__forms.html).
+
+   **Netlify Forms (AJAX on `/contact`):** Follow [Netlify Forms setup](https://docs.netlify.com/manage/forms/setup/) and the [OpenNext forms workaround](https://opennext.js.org/netlify/forms).
+
+   1. Netlify UI → **Forms** → **Enable form detection** (or **Forms → Form detection → Enable** if it was disabled).
+   2. Redeploy after any change to [`public/__forms.html`](public/__forms.html) or [`ContactForm`](src/components/contact/ContactForm.tsx) field names.
+   3. Confirm **Forms → collab** appears after deploy; test submit from live `/contact` (check **Spam** tab if missing).
+   4. Optional: **Forms → Submission notifications** for email/webhook alerts.
+
+   Implementation notes:
+
+   - Deploy-time blueprint: [`public/__forms.html`](public/__forms.html) (hidden `form-name`, matching field names, honeypot, reCAPTCHA div).
+   - Client POST: `POST /__forms.html` with `Content-Type: application/x-www-form-urlencoded` and body from `FormData` via [`src/lib/netlify-form.ts`](src/lib/netlify-form.ts) (not JSON).
+   - Local `npm run dev` does not submit (`NETLIFY` unset); production uses `NETLIFY=true`.
+
+   **reCAPTCHA (Netlify-managed, default):** Per [spam filters](https://docs.netlify.com/manage/forms/spam-filters/) — `data-netlify-recaptcha="true"` on the form plus an empty widget `div` in the blueprint and live form. No Google keys in the repo; Netlify injects the widget on the published site.
+
+   **reCAPTCHA (your own Google v2 keys, optional):** [Google reCAPTCHA Admin](https://www.google.com/admin/recaptcha) → Netlify env:
+
+   | Variable | Scope | Purpose |
+   |----------|--------|---------|
+   | `SITE_RECAPTCHA_KEY` | Builds + Runtime | Site key |
+   | `SITE_RECAPTCHA_SECRET` | Runtime only | Secret for Netlify validation |
+
+   Troubleshooting: [Forms troubleshooting](https://docs.netlify.com/manage/forms/troubleshooting-tips/).
 
 4. After any config change: **Deploys → Trigger deploy → Clear cache and deploy site**.
 

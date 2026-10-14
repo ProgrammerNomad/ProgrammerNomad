@@ -6,6 +6,7 @@ import {
   type ContactErrors,
   type ContactFields,
 } from "@/lib/contact";
+import { submitNetlifyForm } from "@/lib/netlify-form";
 
 export function ContactForm({
   email,
@@ -36,21 +37,28 @@ export function ContactForm({
       field?.focus();
       return;
     }
+    const recaptchaActive = !!form.querySelector(
+      ".contact-recaptcha iframe, textarea[name='g-recaptcha-response']",
+    );
+    if (
+      deliveryEnabled &&
+      recaptchaActive &&
+      !String(data.get("g-recaptcha-response") ?? "").trim()
+    ) {
+      setErrors({ recaptcha: "Please complete the security check." });
+      setStatus("idle");
+      return;
+    }
     if (!deliveryEnabled) {
       setStatus("preview");
       return;
     }
     setStatus("sending");
     try {
-      const body = new URLSearchParams();
-      data.forEach((value, key) => body.append(key, String(value)));
-      const response = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
-      if (!response.ok) throw new Error("Form not accepted");
+      const accepted = await submitNetlifyForm(data);
+      if (!accepted) throw new Error("Form not accepted");
       setStatus("success");
+      setErrors({});
       form.reset();
     } catch {
       setStatus("error");
@@ -62,6 +70,7 @@ export function ContactForm({
       method="POST"
       action="/__forms.html"
       data-netlify="true"
+      data-netlify-recaptcha="true"
       netlify-honeypot="bot-field"
       className="contact-form"
       noValidate={enhanced}
@@ -164,6 +173,16 @@ export function ContactForm({
           </p>
         )}
       </div>
+      <div
+        className="contact-recaptcha mt-6 min-h-[78px]"
+        data-netlify-recaptcha="true"
+        aria-describedby={errors.recaptcha ? "recaptcha-error" : undefined}
+      />
+      {errors.recaptcha && (
+        <p className="field-error" id="recaptcha-error">
+          {errors.recaptcha}
+        </p>
+      )}
       <div className="form-feedback" role="status" aria-live="polite">
         {status === "success" && (
           <p>Message submitted successfully. Thank you for getting in touch.</p>

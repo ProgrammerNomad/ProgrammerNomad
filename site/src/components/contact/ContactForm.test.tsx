@@ -7,6 +7,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import { NETLIFY_FORM_POST_PATH } from "@/lib/netlify-form";
 import { ContactForm } from "./ContactForm";
 
 afterEach(() => {
@@ -53,6 +54,27 @@ describe("contact submission states", () => {
     ).toBe("This is a local test only.");
     expect(screen.getByRole("button", { name: /Try again/ })).toBeTruthy();
   });
+  it("includes g-recaptcha-response when the widget is present", async () => {
+    const fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 });
+    vi.stubGlobal("fetch", fetch);
+    render(<ContactForm email="test@example.com" deliveryEnabled />);
+    fill();
+    const form = screen.getByRole("button", { name: /Send message/ })
+      .closest("form")!;
+    const token = document.createElement("textarea");
+    token.name = "g-recaptcha-response";
+    token.value = "test-token";
+    form.appendChild(token);
+    fireEvent.click(screen.getByRole("button", { name: /Send message/ }));
+    await waitFor(() =>
+      expect(screen.getByRole("status").textContent).toContain(
+        "submitted successfully",
+      ),
+    );
+    expect(String(fetch.mock.calls[0][1].body)).toContain(
+      "g-recaptcha-response=test-token",
+    );
+  });
   it("shows success only after acceptance by the existing endpoint", async () => {
     const fetch = vi.fn().mockResolvedValue({ ok: true });
     vi.stubGlobal("fetch", fetch);
@@ -64,8 +86,11 @@ describe("contact submission states", () => {
         "submitted successfully",
       ),
     );
-    expect(fetch.mock.calls[0][0]).toBe("/__forms.html");
+    expect(fetch.mock.calls[0][0]).toBe(NETLIFY_FORM_POST_PATH);
     expect(fetch.mock.calls[0][1].body).toContain("form-name=collab");
+    expect(fetch.mock.calls[0][1].headers).toEqual({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
     expect(
       (screen.getByLabelText(/Tell me about/) as HTMLTextAreaElement).value,
     ).toBe("");

@@ -9,6 +9,9 @@ export const CONTACT_EMAIL = "shiv@srapsware.com";
 
 export const GITHUB_USER = "ProgrammerNomad";
 
+/** @NomadProgrammer — public; used when YOUTUBE_CHANNEL_ID env is unset */
+export const DEFAULT_YOUTUBE_CHANNEL_ID = "UCqXCwumTq46dgibfTwrJkGQ";
+
 export const TWITTER_HANDLE = "@programmernomad";
 
 export const SOCIAL = {

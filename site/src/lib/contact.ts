@@ -4,7 +4,9 @@ export type ContactFields = {
   type: string;
   message: string;
 };
-export type ContactErrors = Partial<Record<keyof ContactFields, string>>;
+export type ContactErrors = Partial<
+  Record<keyof ContactFields | "recaptcha", string>
+>;
 export function validateContact(values: ContactFields): ContactErrors {
   const errors: ContactErrors = {};
   if (values.name.trim().length < 2)
