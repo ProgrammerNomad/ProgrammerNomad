@@ -61,8 +61,21 @@ describe("shared atlas destinations", () => {
     const published = new Set(
       notes.map((note) => `/field-notes/${note.frontmatter.slug}`),
     );
-    expect(atlas).toEqual(groupTravelDestinations(map));
+    expect(
+      atlas.map(({ id, label, lat, lng, stories }) => ({
+        id,
+        label,
+        lat,
+        lng,
+        stories,
+      })),
+    ).toEqual(groupTravelDestinations(map));
+    expect(
+      atlas.every((d) => d.visits.every((v) => published.has(v.href))),
+    ).toBe(true);
     expect(count).toBe(atlas.length);
+    const bangkok = atlas.find((d) => d.label === "Bangkok");
+    expect(bangkok?.visits.every((v) => v.photoCount === 0)).toBe(true);
     expect(new Set(atlas.map((place) => place.id)).size).toBe(atlas.length);
     expect(atlas.length).toBeGreaterThan(0);
     expect(

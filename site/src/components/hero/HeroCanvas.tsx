@@ -3,6 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { GeographicLines } from "./GeographicLines";
 import type { TravelDestination } from "@/lib/travel/destinations";
 import {
   generateGlobeDots,
@@ -26,25 +27,8 @@ function AtlasContours() {
   return (
     <>
       <mesh rotation={[1.15, 0.25, 0.55]}>
-        <torusGeometry args={[1.46, 0.009, 6, 96]} />
-        <meshBasicMaterial color="#b5ff43" transparent opacity={0.58} />
-      </mesh>
-      <mesh rotation={[0.42, 0.85, 1.1]}>
-        <torusGeometry args={[1.62, 0.006, 6, 96]} />
-        <meshBasicMaterial color="#00d2ff" transparent opacity={0.3} />
-      </mesh>
-      <mesh rotation={[2.05, -0.28, 0.7]}>
-        <torusGeometry args={[1.72, 0.004, 6, 96]} />
-        <meshBasicMaterial color="#b5ff43" transparent opacity={0.2} />
-      </mesh>
-      <mesh rotation={[0.35, 0.5, 0]}>
-        <icosahedronGeometry args={[GLOBE_RADIUS * 1.035, 2]} />
-        <meshBasicMaterial
-          color="#b5ff43"
-          transparent
-          opacity={0.1}
-          wireframe
-        />
+        <torusGeometry args={[1.46, 0.004, 6, 96]} />
+        <meshBasicMaterial color="#b5ff43" transparent opacity={0.22} />
       </mesh>
     </>
   );
@@ -94,7 +78,7 @@ function EarthGlobe({
   const lastPointer = useRef({ x: 0, y: 0 });
   const previousTurn = useRef(turn);
   const { landPositions, oceanPositions } = useMemo(
-    () => generateGlobeDots(GLOBE_RADIUS * 1.006, 1800),
+    () => generateGlobeDots(GLOBE_RADIUS * 1.006, 6500),
     [],
   );
   const gridLines = useMemo(
@@ -106,7 +90,7 @@ function EarthGlobe({
             new THREE.LineBasicMaterial({
               color: "#b5ff43",
               transparent: true,
-              opacity: 0.16,
+              opacity: 0.07,
             }),
           ),
       ),
@@ -205,6 +189,7 @@ function EarthGlobe({
       }}
     >
       <AtlasContours />
+      <GeographicLines radius={GLOBE_RADIUS * 1.007} />
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
         <meshStandardMaterial
@@ -244,10 +229,10 @@ function EarthGlobe({
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.025}
+          size={0.012}
           color="#b5ff43"
           transparent
-          opacity={0.68}
+          opacity={0.32}
           sizeAttenuation
         />
       </points>
@@ -262,14 +247,14 @@ function EarthGlobe({
           size={0.014}
           color="#55735d"
           transparent
-          opacity={0.35}
+          opacity={0.08}
           sizeAttenuation
         />
       </points>
       {positions.map((place) => (
         <mesh key={place.id} position={place.vector}>
           <sphereGeometry
-            args={[place.id === selected.id ? 0.04 : 0.018, 12, 12]}
+            args={[place.id === selected.id ? 0.026 : 0.009, 12, 12]}
           />
           <meshBasicMaterial
             color={place.id === selected.id ? "#ffffff" : "#79d8ec"}

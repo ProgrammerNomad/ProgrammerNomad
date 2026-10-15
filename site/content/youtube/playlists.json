@@ -1,13 +1,23 @@
 {
   "sections": [
     {
-      "title": "How-to",
-      "videoIds": []
+      "title": "Himalayan notes",
+      "videoIds": ["-8RuyUKIQlc", "_TMpMnVbOvw", "yncKsKVD_sM", "_1fNg8dxLWc"]
     },
     {
-      "title": "Travel",
-      "videoIds": []
+      "title": "Cities & landmarks",
+      "videoIds": ["Xkk8IPtL-cI", "1TmelRTtdQg", "Eba_z5Ia3dc", "Jw_UTRdkTk8"]
+    },
+    {
+      "title": "Out on the road",
+      "videoIds": [
+        "yptkQp61ArQ",
+        "BXyRXa8ZzFg",
+        "A3Mi0LW9usk",
+        "_BP9olbNYyE",
+        "pkNkSvwjs2E"
+      ]
     }
   ],
-  "_comment": "Add YouTube video IDs from RSS to group videos into playlist sections on /videos."
+  "_comment": "Editorial shelves based on titles/location hashtags captured on 2026-10-15. These do not assert a relationship with a dated field-note visit."
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { X, ArrowLeft, ArrowRight, Expand } from "lucide-react";
+import mediaDimensions from "@/lib/travel/data/media-dimensions.json";
 
 export type GalleryPhoto = { src: string; alt: string; caption?: string };
 export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
@@ -11,13 +12,24 @@ export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
   const opener = useRef<HTMLButtonElement | null>(null);
   if (!photos.length) return null;
   const photo = photos[selected];
+  const dimensions = (src: string) =>
+    (mediaDimensions as Record<string, { width: number; height: number }>)[
+      src
+    ] ?? { width: 1200, height: 900 };
   const step = (delta: number) =>
     setSelected((index) => (index + delta + photos.length) % photos.length);
   return (
     <>
       <div className="photo-gallery">
         {photos.map((item, index) => (
-          <figure key={item.src}>
+          <figure
+            key={item.src}
+            data-orientation={
+              dimensions(item.src).height > dimensions(item.src).width
+                ? "portrait"
+                : "landscape"
+            }
+          >
             <button
               type="button"
               className="gallery-photo"
@@ -31,8 +43,8 @@ export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
               <Image
                 src={item.src}
                 alt={item.alt}
-                width={1200}
-                height={900}
+                width={dimensions(item.src).width}
+                height={dimensions(item.src).height}
                 sizes="(max-width:700px) 100vw, 600px"
               />
               <span aria-hidden="true">
@@ -84,8 +96,8 @@ export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
           <Image
             src={photo.src}
             alt={photo.alt}
-            width={1600}
-            height={1200}
+            width={dimensions(photo.src).width}
+            height={dimensions(photo.src).height}
             sizes="95vw"
             className="lightbox-image"
           />

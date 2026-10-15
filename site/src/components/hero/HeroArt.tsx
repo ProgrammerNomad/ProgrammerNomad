@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
 import {
   Component,
@@ -39,8 +40,10 @@ class CanvasBoundary extends Component<
 
 export function HeroArt({
   destinations,
+  initialPaths,
 }: {
   destinations: TravelDestination[];
+  initialPaths: string[];
 }) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const [motionAllowed, setMotionAllowed] = useState(false);
@@ -52,8 +55,26 @@ export function HeroArt({
   const [rotating, setRotating] = useState(false);
   const [turn, setTurn] = useState(0);
   const [selectedId, setSelectedId] = useState(destinations[0]?.id);
+  const [posterPaths, setPosterPaths] = useState(initialPaths);
   const selected =
     destinations.find((d) => d.id === selectedId) ?? destinations[0];
+  useEffect(() => {
+    if (!selected || selected.id === destinations[0]?.id) {
+      setPosterPaths(initialPaths);
+      return;
+    }
+    let cancelled = false;
+    import("./poster-paths")
+      .then(({ getPosterPaths }) => {
+        if (!cancelled) setPosterPaths(getPosterPaths(selected));
+      })
+      .catch(() => {
+        if (!cancelled) setPosterPaths([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selected, initialPaths, destinations]);
   const onReady = useCallback(() => setReady(true), []);
   const onError = useCallback(() => {
     setFailed(true);
@@ -141,7 +162,11 @@ export function HeroArt({
           className={`${styles.poster} ${live ? styles.posterHidden : ""}`}
           aria-hidden="true"
         >
-          <HeroPoster destinations={destinations} selected={selected} />
+          <HeroPoster
+            destinations={destinations}
+            selected={selected}
+            boundaries={posterPaths}
+          />
         </div>
         {showCanvas && (
           <div
@@ -220,6 +245,9 @@ export function HeroArt({
           value={selected.id}
           onChange={(e) => {
             setSelectedId(e.target.value);
+            setPosterPaths(
+              e.target.value === destinations[0]?.id ? initialPaths : [],
+            );
             setRotating(false);
             setTurn(0);
           }}
@@ -237,6 +265,57 @@ export function HeroArt({
             <ArrowUpRight size={14} aria-hidden="true" />
           </Link>
         </div>
+        <div
+          className={styles.visitPanel}
+          aria-label="Selected destination stories"
+        >
+          {selected.visits?.length ? (
+            selected.visits.map((visit) => (
+              <div key={visit.href} className={styles.visit}>
+                {visit.cover && (
+                  <Link href={visit.href} tabIndex={-1} aria-hidden="true">
+                    <Image
+                      src={visit.cover}
+                      alt=""
+                      width={160}
+                      height={110}
+                      sizes="100px"
+                    />
+                  </Link>
+                )}
+                <div>
+                  <p>{visit.title}</p>
+                  <span>{visit.date} / Published note</span>
+                  <div className={styles.visitActions}>
+                    <Link href={visit.href}>Open story ↗</Link>
+                    {visit.photoCount > 0 && (
+                      <Link href={`${visit.href}#photo-journal`}>
+                        View {visit.photoCount} photos ↗
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className={styles.atlasStatus}>
+              A recorded place. A field note has not been published yet.
+            </p>
+          )}
+          <Link
+            className={styles.atlasStatus}
+            href={`/field-notes?place=${encodeURIComponent(selected.id)}#atlas`}
+          >
+            Find this place on the travel atlas ↗
+          </Link>
+        </div>
+        <p className={styles.geoCredit}>
+          Geography:{" "}
+          <a href="https://www.naturalearthdata.com/about/disputed-boundaries-policy/">
+            Natural Earth
+          </a>{" "}
+          · simplified boundaries
+        </p>
         <noscript>
           <p className={styles.atlasStatus}>
             Interactive selection requires JavaScript. Explore all destinations

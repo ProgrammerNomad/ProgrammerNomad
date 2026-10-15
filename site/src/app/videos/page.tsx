@@ -2,11 +2,13 @@ import fs from "fs/promises";
 import path from "path";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { VideoCard } from "@/components/video/VideoCard";
 import { indexPageMetadata } from "@/lib/seo/metadata";
-import { fetchChannelVideos, type YouTubeVideo } from "@/lib/youtube/rss";
+import { fetchChannelVideos, getChannelId } from "@/lib/youtube/rss";
+import { DEFAULT_YOUTUBE_CHANNEL_ID } from "@/lib/seo/site-config";
 import { AtlasHeading } from "@/components/ui/AtlasHeading";
 import { VideoPoster } from "@/components/video/VideoPoster";
+import { VideoLibrary } from "@/components/video/VideoLibrary";
+import videoCatalog from "../../../content/youtube/catalog.json";
 
 export const metadata = indexPageMetadata(
   "Nomad Programmer YouTube Videos – Tech & Travel",
@@ -30,18 +32,21 @@ async function loadPlaylists(): Promise<PlaylistConfig> {
   }
 }
 
-function videosForSection(all: YouTubeVideo[], ids: string[]) {
-  if (ids.length === 0) return [];
-  return ids
-    .map((id) => all.find((v) => v.id === id))
-    .filter((v): v is YouTubeVideo => Boolean(v));
-}
-
 export default async function VideosPage() {
-  const [videos, playlists] = await Promise.all([
+  const [latest, playlists] = await Promise.all([
     fetchChannelVideos(24),
     loadPlaylists(),
   ]);
+  const videos = [
+    ...new Map(
+      [
+        ...latest,
+        ...(getChannelId() === DEFAULT_YOUTUBE_CHANNEL_ID
+          ? videoCatalog.videos
+          : []),
+      ].map((video) => [video.id, video]),
+    ).values(),
+  ].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   const sectionsWithVideos = playlists.sections.filter(
     (s) => s.videoIds.length > 0,
@@ -87,31 +92,7 @@ export default async function VideosPage() {
               <span className="atlas-button mt-6">Watch the film ↗</span>
             </div>
           </Link>
-          <h2 className="font-display text-3xl mt-16 mb-8">
-            Recent dispatches
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {videos.slice(1).map((v) => (
-              <VideoCard key={v.id} video={v} />
-            ))}
-          </div>
-
-          {sectionsWithVideos.map((section) => {
-            const sectionVideos = videosForSection(videos, section.videoIds);
-            if (sectionVideos.length === 0) return null;
-            return (
-              <section key={section.title} className="mt-16">
-                <h2 className="font-display text-2xl text-paper">
-                  {section.title}
-                </h2>
-                <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {sectionVideos.map((v) => (
-                    <VideoCard key={v.id} video={v} />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
+          <VideoLibrary videos={videos} sections={sectionsWithVideos} />
         </>
       )}
       <section className="editorial-section mt-16">

@@ -14,6 +14,7 @@ import type { FieldNotesFrontmatter } from "@/lib/validation/schemas";
 import type { RelatedArticle } from "@/lib/content/related";
 import type { TocItem } from "@/lib/content/toc";
 import { recordedFact } from "@/lib/travel/story-presentation";
+import { RecordedItinerary } from "./RecordedItinerary";
 
 export function TravelStoryLayout({
   entry,
@@ -120,7 +121,10 @@ export function TravelStoryLayout({
               />
             </div>
           </aside>
-          <Prose>{children}</Prose>
+          <div data-reading-body className="min-w-0">
+            <RecordedItinerary route={entry.route} />
+            <Prose>{children}</Prose>
+          </div>
         </div>
         {photos.length > 0 && (
           <section className="editorial-section mt-16" id="photo-journal">

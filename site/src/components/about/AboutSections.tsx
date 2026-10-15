@@ -83,32 +83,36 @@ export function SkillsGrid({
 }: {
   skills: { name: string; category: string }[];
 }) {
+  const projects: Record<string, string> = {
+    Laravel: "/work/jodkit",
+    "Next.js": "/work/indian-railway-station-search",
+    Python: "/work/dashpix",
+    TypeScript: "/work/likhaeditor",
+    IoT: "/work/dashpix",
+    "Raspberry Pi": "/work/dashpix",
+  };
   return (
-    <div className="flex flex-wrap gap-2.5">
-      {skills.map((s) => {
-        const cat = s.category?.toLowerCase() ?? "";
-        const isBackend = cat.includes("backend") || cat.includes("framework");
-        const isDevops = cat.includes("devops") || cat.includes("cloud");
-        const isDb = cat.includes("database") || cat.includes("data");
-        const colorClass = isBackend
-          ? "hover:border-lime/60 hover:text-lime hover:shadow-[0_0_15px_rgba(181,255,67,0.2)]"
-          : isDevops
-            ? "hover:border-cyan/60 hover:text-[#00d2ff] hover:shadow-[0_0_15px_rgba(0,210,255,0.2)]"
-            : isDb
-              ? "hover:border-amber/60 hover:text-[#e8b86d] hover:shadow-[0_0_15px_rgba(232,184,109,0.2)]"
-              : "hover:border-lime/50 hover:text-white";
-
-        return (
-          <span
-            key={s.name}
-            className={`glass-card inline-flex items-center gap-1.5 px-3.5 py-2 font-mono text-xs uppercase tracking-wider text-paper/85 transition-all duration-200 cursor-default ${colorClass}`}
-            title={s.category}
-          >
-            <span className="h-1 w-1 rounded-full bg-lime/60" />
-            {s.name}
-          </span>
-        );
-      })}
+    <div className="skill-groups">
+      {[...new Set(skills.map((s) => s.category))].map((category) => (
+        <section key={category}>
+          <h3 className="atlas-meta">{category}</h3>
+          <ul>
+            {skills
+              .filter((s) => s.category === category)
+              .map((s) => (
+                <li key={s.name}>
+                  {projects[s.name] ? (
+                    <Link href={projects[s.name]}>
+                      {s.name} <span aria-hidden="true">↗</span>
+                    </Link>
+                  ) : (
+                    s.name
+                  )}
+                </li>
+              ))}
+          </ul>
+        </section>
+      ))}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { HeroArt } from "@/components/hero/HeroArt";
+import { getPosterPaths } from "@/components/hero/poster-paths";
 import type { TravelDestination } from "@/lib/travel/destinations";
 import styles from "./HomeOpening.module.css";
 
@@ -74,7 +75,7 @@ export function HomeOpening({
             />
           </Link>
         </div>
-        <HeroArt destinations={destinations} />
+        <HeroArt destinations={destinations} initialPaths={destinations[0] ? getPosterPaths(destinations[0]) : []} />
       </div>
       <div className={styles.openingFoot}>
         <span>BUILD SOMETHING. GO SOMEWHERE.</span>

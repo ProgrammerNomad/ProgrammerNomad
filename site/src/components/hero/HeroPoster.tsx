@@ -1,34 +1,15 @@
 import type { TravelDestination } from "@/lib/travel/destinations";
-
-// Orthographic projection using the same coordinates as the WebGL markers.
-export function projectDestination(
-  place: Pick<TravelDestination, "lat" | "lng">,
-  center: Pick<TravelDestination, "lat" | "lng">,
-) {
-  const radians = Math.PI / 180;
-  const lat = place.lat * radians;
-  const origin = center.lat * radians;
-  const delta = (place.lng - center.lng) * radians;
-  return {
-    x: 300 + 190 * Math.cos(lat) * Math.sin(delta),
-    y:
-      300 -
-      190 *
-        (Math.cos(origin) * Math.sin(lat) -
-          Math.sin(origin) * Math.cos(lat) * Math.cos(delta)),
-    visible:
-      Math.sin(origin) * Math.sin(lat) +
-        Math.cos(origin) * Math.cos(lat) * Math.cos(delta) >
-      0,
-  };
-}
+import { projectDestination } from "./poster-projection";
+export { projectDestination } from "./poster-projection";
 
 export function HeroPoster({
   destinations,
   selected,
+  boundaries = [],
 }: {
   destinations: TravelDestination[];
   selected: TravelDestination;
+  boundaries?: string[];
 }) {
   return (
     <svg viewBox="0 0 600 600" fill="none" aria-hidden="true">
@@ -41,6 +22,15 @@ export function HeroPoster({
         stroke="#b5ff43"
         strokeOpacity=".45"
       />
+      {boundaries.map((d, i) => (
+        <path
+          key={i}
+          d={d}
+          stroke={i ? "#6f8957" : "#b2c69c"}
+          strokeWidth={i ? ".65" : ".9"}
+          strokeOpacity={i ? ".5" : ".8"}
+        />
+      ))}
       {[65, 125].map((radius) => (
         <ellipse
           key={radius}
@@ -71,7 +61,7 @@ export function HeroPoster({
         ry="108"
         transform="rotate(-28 300 300)"
         stroke="#b5ff43"
-        strokeOpacity=".5"
+        strokeOpacity=".18"
       />
       <ellipse
         cx="300"
@@ -80,7 +70,7 @@ export function HeroPoster({
         ry="140"
         transform="rotate(58 300 300)"
         stroke="#79d8ec"
-        strokeOpacity=".3"
+        strokeOpacity=".08"
       />
       {destinations.map((place) => {
         const point = projectDestination(place, selected);
@@ -89,7 +79,7 @@ export function HeroPoster({
             key={place.id}
             cx={point.x.toFixed(3)}
             cy={point.y.toFixed(3)}
-            r={place.id === selected.id ? 4.5 : 2.5}
+            r={place.id === selected.id ? 3.5 : 1.3}
             fill={place.id === selected.id ? "#f4f3ee" : "#b5ff43"}
           />
         ) : null;

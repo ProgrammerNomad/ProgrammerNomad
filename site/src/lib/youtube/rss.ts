@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { DEFAULT_YOUTUBE_CHANNEL_ID } from "@/lib/seo/site-config";
+import videoCatalog from "../../../content/youtube/catalog.json";
 
 export type YouTubeVideo = {
   id: string;
@@ -18,9 +19,7 @@ const RSS_FETCH_HEADERS = {
 } as const;
 
 export function getChannelId(): string {
-  return (
-    process.env.YOUTUBE_CHANNEL_ID?.trim() || DEFAULT_YOUTUBE_CHANNEL_ID
-  );
+  return process.env.YOUTUBE_CHANNEL_ID?.trim() || DEFAULT_YOUTUBE_CHANNEL_ID;
 }
 
 function getApiKey(): string | undefined {
@@ -135,7 +134,9 @@ async function fetchChannelVideosFromApi(
   if (!apiKey) return [];
 
   try {
-    const channelUrl = new URL("https://www.googleapis.com/youtube/v3/channels");
+    const channelUrl = new URL(
+      "https://www.googleapis.com/youtube/v3/channels",
+    );
     channelUrl.searchParams.set("part", "contentDetails");
     channelUrl.searchParams.set("id", channelId);
     channelUrl.searchParams.set("key", apiKey);
@@ -241,7 +242,9 @@ export async function fetchChannelVideos(limit = 15): Promise<YouTubeVideo[]> {
   console.warn(
     `[youtube] No videos for channel ${channelId} (${reason}; ${apiHint})`,
   );
-  return [];
+  return getChannelId() === DEFAULT_YOUTUBE_CHANNEL_ID
+    ? videoCatalog.videos.slice(0, limit)
+    : [];
 }
 
 export async function fetchVideoById(
@@ -250,6 +253,11 @@ export async function fetchVideoById(
   const videos = await fetchChannelVideos(50);
   const fromFeed = videos.find((v) => v.id === videoId);
   if (fromFeed) return fromFeed;
+  const archived =
+    getChannelId() === DEFAULT_YOUTUBE_CHANNEL_ID
+      ? videoCatalog.videos.find((video) => video.id === videoId)
+      : undefined;
+  if (archived) return archived;
   return fetchVideoByIdFromApi(videoId);
 }
 

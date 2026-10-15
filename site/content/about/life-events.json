@@ -1,0 +1,50 @@
+[
+  {
+    "id": "birth",
+    "title": "Born in Chitrakoot",
+    "place": "Chitrakoot",
+    "kind": "birth",
+    "chapter": "Life, beyond the keyboard",
+    "description": "Where my story begins."
+  },
+  {
+    "id": "btech",
+    "title": "BTech",
+    "place": "Education",
+    "kind": "education",
+    "chapter": "Life, beyond the keyboard",
+    "description": "A chapter in my engineering education."
+  },
+  {
+    "id": "mtech",
+    "title": "MTech",
+    "place": "Education",
+    "kind": "education",
+    "chapter": "Life, beyond the keyboard",
+    "description": "Continuing my technical education."
+  },
+  {
+    "id": "australia",
+    "title": "Moving to Australia",
+    "place": "Australia",
+    "kind": "move",
+    "chapter": "Life, beyond the keyboard",
+    "description": "A new country and a different perspective."
+  },
+  {
+    "id": "delhi",
+    "title": "Returning to Delhi",
+    "place": "Delhi",
+    "kind": "return",
+    "chapter": "Life, beyond the keyboard",
+    "description": "Back in India, beginning the next chapter."
+  },
+  {
+    "id": "marriage",
+    "title": "Marriage",
+    "place": "A personal milestone",
+    "kind": "marriage",
+    "chapter": "Life, beyond the keyboard",
+    "description": "A new chapter together."
+  }
+]

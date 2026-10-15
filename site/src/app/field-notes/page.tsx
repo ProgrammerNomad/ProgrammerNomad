@@ -12,6 +12,7 @@ import { indexPageMetadata } from "@/lib/seo/metadata";
 import { getTravelDestinations } from "@/lib/travel/merge-places";
 import { AtlasHeading } from "@/components/ui/AtlasHeading";
 import { TravelAtlas } from "@/components/travel/TravelAtlas";
+import { JourneyShelf } from "@/components/travel/JourneyShelf";
 import type { FieldNotesFrontmatter } from "@/lib/validation/schemas";
 
 export const metadata = indexPageMetadata(
@@ -56,6 +57,7 @@ export default async function FieldNotesIndexPage() {
           .filter((e) => !isFieldGuide(e.frontmatter))
           .map((e) => e.frontmatter)}
       />
+      <JourneyShelf destinations={destinations} />
 
       {guides.length > 0 ? (
         <section id="field-guides" className="field-guide-shelf scroll-mt-24">

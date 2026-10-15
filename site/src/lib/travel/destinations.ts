@@ -5,6 +5,14 @@ export type TravelDestination = {
   lat: number;
   lng: number;
   stories: string[];
+  visits?: {
+    href: string;
+    title: string;
+    date: string;
+    cover?: string;
+    photoCount: number;
+    videoId?: string;
+  }[];
 };
 
 type Place = { label: string; lat: number; lng: number; href?: string };

@@ -20,6 +20,7 @@ export function ContactForm({
     "idle" | "sending" | "success" | "error" | "preview"
   >("idle");
   const [enhanced, setEnhanced] = useState(false);
+  const [inquiry, setInquiry] = useState("brand");
   useEffect(() => setEnhanced(true), []);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,6 +61,7 @@ export function ContactForm({
       setStatus("success");
       setErrors({});
       form.reset();
+      setInquiry("brand");
     } catch {
       setStatus("error");
     }
@@ -134,14 +136,23 @@ export function ContactForm({
         <select
           id="type"
           name="type"
+          value={inquiry}
+          onChange={(event) => setInquiry(event.target.value)}
+          aria-describedby={errors.type ? "type-error" : "inquiry-hint"}
           className="atlas-input mt-2"
           aria-invalid={!!errors.type}
-          aria-describedby={errors.type ? "type-error" : undefined}
         >
           <option value="brand">Brand collaboration</option>
           <option value="sponsorship">Sponsorship</option>
           <option value="consulting">Engineering consulting</option>
         </select>
+        <p id="inquiry-hint" className="text-sm text-paper/65 mt-3">
+          {inquiry === "consulting"
+            ? "Include the engineering problem, your current stack, and the outcome you need."
+            : inquiry === "sponsorship"
+              ? "Share your campaign, intended audience, format, and timeline."
+              : "Tell me about your brand, the story you want to tell, and why it is a good fit."}
+        </p>
         {errors.type && (
           <p id="type-error" className="field-error">
             {errors.type}

@@ -8,6 +8,7 @@ import { PlausibleAnalytics } from "@/components/analytics/PlausibleAnalytics";
 import { rootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
 import "./atlas.css";
+import "./v3.css";
 import { GlobalSearch } from "@/components/layout/GlobalSearch";
 import { getSearchIndex } from "@/lib/content/search-index";
 

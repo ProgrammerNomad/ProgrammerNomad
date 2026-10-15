@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import type { BaseFrontmatter } from "@/lib/validation/schemas";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { ArticleFlow } from "./ArticleFlow";
 
 const PLACEHOLDER_COVER = "/images/travel/placeholder.svg";
 
@@ -99,7 +100,10 @@ export function GuideArticleLayout({
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <TableOfContents items={toc} />
           </aside>
-          <Prose>{children}</Prose>
+          <div data-reading-body className="min-w-0">
+            {entry.slug === "static-first-architecture" && <ArticleFlow />}
+            <Prose>{children}</Prose>
+          </div>
         </div>
 
         {related.length > 0 ? (

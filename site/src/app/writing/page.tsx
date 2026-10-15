@@ -32,7 +32,19 @@ export default async function WritingIndexPage() {
         title="Thinking out loud."
         description="Engineering notes, architecture decisions, and practical knowledge from life between the keyboard and the road."
       />
-      <div className="mt-12">
+      <nav className="reading-paths" aria-label="Choose a reading path">
+        <a href="#engineering-notes">
+          <span className="atlas-meta">01 / Engineering</span>
+          <strong>Understand the decisions.</strong>
+          <span>Architecture, code and the reasoning behind them. ↘</span>
+        </a>
+        <a href="#practical-guides">
+          <span className="atlas-meta">02 / Out in the field</span>
+          <strong>Keep working, wherever you are.</strong>
+          <span>Connectivity, preparation and life on the road. ↘</span>
+        </a>
+      </nav>
+      <div id="engineering-notes" className="mt-12 scroll-mt-24">
         <div className="writing-index-grid">
           <div>
             <p className="atlas-meta">
@@ -65,8 +77,23 @@ export default async function WritingIndexPage() {
           itemCount={entries.length}
           currentPage={1}
         />
+        <nav className="topic-links" aria-label="Writing topics">
+          {[...new Set(entries.flatMap((e) => e.frontmatter.tags))].map(
+            (tag) => (
+              <Link
+                key={tag}
+                href={`/writing/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {tag} ↗
+              </Link>
+            ),
+          )}
+        </nav>
       </div>
-      <section className="editorial-section mt-16">
+      <section
+        id="practical-guides"
+        className="editorial-section mt-16 scroll-mt-24"
+      >
         <div className="section-topline">
           <div>
             <p className="atlas-meta">Practical knowledge / Out in the field</p>

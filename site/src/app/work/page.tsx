@@ -13,6 +13,18 @@ export const metadata = indexPageMetadata(
 
 export default async function WorkIndexPage() {
   const entries = await getAllEntries<WorkFrontmatter>("work");
+  const featuredOrder = [
+    "shiprocket-woo-shipping",
+    "indian-railway-station-search",
+    "likhaeditor",
+  ];
+  const ordered = [...entries].sort((a, b) => {
+    const rank = (slug: string) =>
+      featuredOrder.includes(slug)
+        ? featuredOrder.indexOf(slug)
+        : featuredOrder.length;
+    return rank(a.frontmatter.slug) - rank(b.frontmatter.slug);
+  });
 
   return (
     <Container className="py-16 md:py-24" data-section="work">
@@ -27,7 +39,7 @@ export default async function WorkIndexPage() {
         </p>
       </AtlasHeading>
       <div className="mt-12">
-        <WorkFilterGrid entries={entries.map((e) => e.frontmatter)} />
+        <WorkFilterGrid entries={ordered.map((e) => e.frontmatter)} />
       </div>
     </Container>
   );

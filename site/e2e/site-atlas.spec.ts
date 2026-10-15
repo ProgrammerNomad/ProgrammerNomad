@@ -66,10 +66,10 @@ for (const width of [320, 360, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const errors: string[] = [];
-    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("pageerror", (error) => errors.push(`${page.url()}: ${error.message}`));
     page.on("console", (message) => {
       if (message.type() === "error" && /hydrat/i.test(message.text()))
-        errors.push(message.text());
+        errors.push(`${page.url()}: ${message.text()}`);
     });
     for (const route of routes) {
       const response = await page.goto(route);

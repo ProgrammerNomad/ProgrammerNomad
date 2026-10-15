@@ -6,6 +6,7 @@ import { indexPageMetadata } from "@/lib/seo/metadata";
 import Image from "next/image";
 import { Camera, Code2, Laptop } from "lucide-react";
 import { AtlasHeading } from "@/components/ui/AtlasHeading";
+import { PackingChecklist } from "@/components/gear/PackingChecklist";
 
 export const metadata = indexPageMetadata(
   "Gear & Tools – Nomad Programmer",
@@ -40,8 +41,30 @@ export default async function GearPage() {
         index="05"
         eyebrow="The field kit / Gear & tools"
         title="Build. Capture. Carry on."
-        description="The tools behind coding days and travel films. A working kit, organized around what it helps me do-not a shopping list."
+        description="The tools behind coding days and travel films. Organized around what each one helps me do."
       />
+      <section
+        className="kit-workflow"
+        aria-label="Coding and filmmaking workflow"
+      >
+        <div>
+          <Code2 aria-hidden="true" />
+          <h2>Build</h2>
+          <p>Repositories, documentation, a place to focus.</p>
+        </div>
+        <span aria-hidden="true">→</span>
+        <div>
+          <Camera aria-hidden="true" />
+          <h2>Capture</h2>
+          <p>Bring back the details of a place.</p>
+        </div>
+        <span aria-hidden="true">→</span>
+        <div>
+          <Laptop aria-hidden="true" />
+          <h2>Edit &amp; share</h2>
+          <p>Turn raw material into a story.</p>
+        </div>
+      </section>
 
       {Object.entries(byCategory).map(([category, list], index) => (
         <section key={category} className="gear-section">
@@ -77,7 +100,7 @@ export default async function GearPage() {
                   />
                 )}
                 <div className="flex flex-wrap gap-3 items-baseline justify-between">
-                  <h3 className="font-display text-lg font-semibold text-lime text-glow-lime">
+                  <h3 className="font-display text-lg font-semibold text-lime">
                     {item.name}
                   </h3>
                   <span className="font-mono text-[10px] uppercase tracking-wider text-paper/40">
@@ -105,6 +128,7 @@ export default async function GearPage() {
           </ul>
         </section>
       ))}
+      <PackingChecklist />
 
       <section className="mt-16 border-t border-paper/10 pt-12">
         <h2 className="font-display text-2xl text-paper">Related guides</h2>

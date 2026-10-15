@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { JourneyShelf } from "@/components/travel/JourneyShelf";
 import Link from "next/link";
 import { HomeOpening } from "@/components/home/HomeOpening";
 import styles from "@/components/home/HomeOpening.module.css";
@@ -40,6 +41,7 @@ export default async function HomePage() {
         <HighlightStrip stats={stats} />
       </Container>
       <Container>
+        <JourneyShelf destinations={destinations} />
         <section className="editorial-section">
           <div className="section-topline">
             <div>

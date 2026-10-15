@@ -42,7 +42,6 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
           className="group -my-1 flex items-center gap-3 rounded-sm py-1 font-mono uppercase tracking-[0.25em] text-paper transition hover:text-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
         >
           <span className="relative flex h-2 w-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75 motion-reduce:animate-none" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-lime shadow-[0_0_8px_#b5ff43]" />
           </span>
           <div className="flex flex-col gap-0.5">

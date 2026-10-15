@@ -14,6 +14,7 @@ import { projectDiagrams } from "@/lib/content/project-diagrams";
 import { Prose } from "@/components/ui/Prose";
 import { TableOfContents } from "@/components/writing/PostExtras";
 import { extractTocFromMdx } from "@/lib/content/toc";
+import { RailwayArchitecture } from "@/components/work/RailwayArchitecture";
 
 export async function generateStaticParams() {
   const entries = await getAllEntries<WorkFrontmatter>("work");
@@ -102,8 +103,12 @@ export default async function WorkDetailPage({
         </div>
         <ProjectVisual entry={fm} />
       </div>
-      {projectDiagrams[slug] && (
-        <CapabilityDiagram nodes={projectDiagrams[slug]} />
+      {slug === "indian-railway-station-search" ? (
+        <RailwayArchitecture />
+      ) : (
+        projectDiagrams[slug] && (
+          <CapabilityDiagram nodes={projectDiagrams[slug]} />
+        )
       )}
       <div className="article-columns mt-16">
         <aside>

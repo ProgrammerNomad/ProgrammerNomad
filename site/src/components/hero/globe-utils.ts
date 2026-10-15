@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { isLand } from "@/lib/travel/geography";
 
 /**
  * Converts spherical latitude and longitude (in degrees) to 3D Cartesian coordinates.
@@ -14,43 +15,6 @@ export function latLngToVector3(
   const z = radius * Math.sin(phi) * Math.sin(theta);
   const y = radius * Math.cos(phi);
   return new THREE.Vector3(x, y, z);
-}
-
-/**
- * Stylized continental regions, not a geographic boundary dataset.
- */
-function isLandCoordinate(lat: number, lng: number): boolean {
-  // India & South Asia (Shiv's primary base)
-  if (lat >= 6 && lat <= 37 && lng >= 68 && lng <= 97) return true;
-
-  // Southeast Asia & Thailand
-  if (lat >= -10 && lat <= 25 && lng >= 95 && lng <= 145) return true;
-
-  // East Asia (China, Korea, Japan)
-  if (lat >= 20 && lat <= 50 && lng >= 100 && lng <= 145) return true;
-
-  // Middle East & Central Asia
-  if (lat >= 12 && lat <= 45 && lng >= 35 && lng <= 75) return true;
-
-  // Europe
-  if (lat >= 36 && lat <= 71 && lng >= -10 && lng <= 50) return true;
-
-  // Africa
-  if (lat >= -35 && lat <= 37 && lng >= -17 && lng <= 51) return true;
-
-  // North America
-  if (lat >= 15 && lat <= 72 && lng >= -165 && lng <= -55) return true;
-
-  // South America
-  if (lat >= -55 && lat <= 12 && lng >= -80 && lng <= -35) return true;
-
-  // Australia & New Zealand
-  if (lat >= -45 && lat <= -10 && lng >= 113 && lng <= 178) return true;
-
-  // Northern Eurasia / Siberia
-  if (lat >= 50 && lat <= 75 && lng >= 50 && lng <= 180) return true;
-
-  return false;
 }
 
 /**
@@ -76,12 +40,12 @@ export function generateGlobeDots(
     const lat = 90 - (Math.acos(y) * 180) / Math.PI;
     const lng = (Math.atan2(-z, x) * 180) / Math.PI;
 
-    const isLand = isLandCoordinate(lat, lng);
+    const land = isLand(lat, lng);
     const px = x * radius;
     const py = y * radius;
     const pz = z * radius;
 
-    if (isLand) {
+    if (land) {
       landPoints.push(px, py, pz);
     } else if (i % 3 === 0) {
       // sparse ocean points

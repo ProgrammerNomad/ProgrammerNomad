@@ -14,10 +14,16 @@ export function ReadingProgress() {
 
     const onScroll = () => {
       if (mq.matches) return;
-      const doc = document.documentElement;
-      const scrollTop = doc.scrollTop || document.body.scrollTop;
-      const height = doc.scrollHeight - doc.clientHeight;
-      setProgress(height > 0 ? (scrollTop / height) * 100 : 0);
+      const article = document.querySelector("[data-reading-body]");
+      if (!article) return;
+      const bounds = article.getBoundingClientRect();
+      const distance = Math.max(1, bounds.height - innerHeight * 0.6);
+      setProgress(
+        Math.max(
+          0,
+          Math.min(100, ((innerHeight * 0.2 - bounds.top) / distance) * 100),
+        ),
+      );
     };
 
     onScroll();

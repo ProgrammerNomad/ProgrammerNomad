@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   fetchChannelVideos,
+  fetchVideoById,
   getChannelId,
   parseEntries,
 } from "./rss";
@@ -25,6 +26,7 @@ describe("fetchChannelVideos", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("uses the Data API when RSS returns a non-OK response", async () => {
@@ -75,6 +77,26 @@ describe("fetchChannelVideos", () => {
     expect(videos).toHaveLength(1);
     expect(videos[0].id).toBe("abc123");
     expect(videos[0].title).toBe("Test film");
+  });
+
+  it("retains reviewed channel metadata when both live sources are unavailable", async () => {
+    vi.stubEnv("YOUTUBE_CHANNEL_ID", "");
+    vi.stubEnv("YOUTUBE_API_KEY", "");
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 503 })));
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const videos = await fetchChannelVideos(3);
+    expect(videos).toHaveLength(3);
+    expect(videos[0].id).toBe("Xkk8IPtL-cI");
+    const archived = await fetchVideoById("_1fNg8dxLWc");
+    expect(archived?.title).toContain("Ransi");
+  });
+
+  it("does not substitute the default channel's archive for another channel", async () => {
+    vi.stubEnv("YOUTUBE_CHANNEL_ID", "UCdifferentChannel");
+    vi.stubEnv("YOUTUBE_API_KEY", "");
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 503 })));
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(await fetchChannelVideos()).toEqual([]);
   });
 });
 

@@ -10,8 +10,8 @@ import {
   CompanyCards,
   PressKitBlock,
   SkillsGrid,
-  Timeline,
 } from "@/components/about/AboutSections";
+import { LifeTimeline, type LifeEvent } from "@/components/about/LifeTimeline";
 import { getPageEntry } from "@/lib/content/loader";
 import { renderMdx } from "@/lib/content/mdx";
 import { indexPageMetadata } from "@/lib/seo/metadata";
@@ -35,11 +35,12 @@ export default async function AboutPage() {
   if (!page) notFound();
   const body = await renderMdx(page.body);
 
-  const [timeline, skills] = await Promise.all([
+  const [timeline, skills, life] = await Promise.all([
     loadJson<{ year: string; title: string; description: string }[]>(
       "timeline.json",
     ),
     loadJson<{ name: string; category: string }[]>("skills.json"),
+    loadJson<LifeEvent[]>("life-events.json"),
   ]);
 
   const gallery = [
@@ -83,8 +84,9 @@ export default async function AboutPage() {
           <Image
             src="/images/shiv-singh.jpg"
             alt="Shiv Singh, Nomad Programmer"
-            width={700}
-            height={850}
+            width={2316}
+            height={3088}
+            sizes="(max-width:700px) calc(100vw - 32px), (max-width:1152px) 44vw, 480px"
             priority
             className="about-portrait"
           />
@@ -103,12 +105,27 @@ export default async function AboutPage() {
       </section>
 
       <section className="mt-16">
-        <p className="atlas-meta mb-4">The path so far</p>
+        <p className="atlas-meta mb-4">The path so far / Life &amp; work</p>
         <h2 className="font-display text-4xl text-paper">
-          Milestones, not a straight line.
+          Every chapter leaves a mark.
         </h2>
         <div className="mt-8">
-          <Timeline items={timeline} />
+          <LifeTimeline
+            items={[
+              ...life,
+              ...timeline.map((event, i) => ({
+                ...event,
+                kind: ["code", "business", "film", "leadership"][i],
+                chapter: "Building a career",
+                href: [
+                  "/work",
+                  "https://srapsware.com",
+                  "/videos",
+                  "https://mobrilz.com",
+                ][i],
+              })),
+            ]}
+          />
         </div>
       </section>
 

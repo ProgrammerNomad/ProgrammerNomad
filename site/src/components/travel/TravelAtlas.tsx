@@ -51,6 +51,7 @@ export function TravelAtlas({
   const [region, setRegion] = useState("All");
   const [experience, setExperience] = useState("All");
   const [showMap, setShowMap] = useState(true);
+  const [showPhotos, setShowPhotos] = useState(false);
   const lookup = useMemo(
     () =>
       new Map(stories.map((story) => [`/field-notes/${story.slug}`, story])),
@@ -107,6 +108,20 @@ export function TravelAtlas({
           {showMap ? "Use list only" : "Show map"}
         </button>
       </div>
+      <div className="atlas-view-options">
+        <button
+          type="button"
+          className="filter-chip"
+          aria-pressed={showPhotos}
+          onClick={() => {
+            setShowPhotos((v) => !v);
+            setShowMap(false);
+          }}
+        >
+          {showPhotos ? "Close photo view" : "Browse photo journeys"}
+        </button>
+        <span className="atlas-meta">Map · List · Photography</span>
+      </div>
       <div className="atlas-filters">
         <label>
           Find a destination
@@ -153,6 +168,52 @@ export function TravelAtlas({
         {filtered.length} places /{" "}
         {filtered.reduce((n, d) => n + d.stories.length, 0)} published visits
       </p>
+      {showPhotos && (
+        <div
+          className="atlas-photo-view"
+          aria-label="Destinations with photographs"
+        >
+          {filtered.flatMap((d) =>
+            (d.visits ?? [])
+              .filter((v) => v.cover && v.photoCount > 0)
+              .map((v) => (
+                <article key={v.href}>
+                  <Link href={v.href}>
+                    <Image
+                      src={v.cover!}
+                      alt={v.title}
+                      width={600}
+                      height={400}
+                      sizes="(max-width:700px) 100vw, 380px"
+                    />
+                    <h3>{v.title} ↗</h3>
+                  </Link>
+                  <p className="atlas-meta">
+                    {d.label} / {v.photoCount} photographs
+                  </p>
+                  <button
+                    type="button"
+                    className="atlas-button"
+                    onClick={() => {
+                      setSelected(d.id);
+                      setShowPhotos(false);
+                    }}
+                  >
+                    Select destination
+                  </button>
+                </article>
+              )),
+          )}
+          {!filtered.some((d) =>
+            d.visits?.some((v) => v.cover && v.photoCount > 0),
+          ) && (
+            <p className="atlas-description">
+              No photo journals match these filters. The destination list below
+              still includes the recorded places.
+            </p>
+          )}
+        </div>
+      )}
       <div className="atlas-explorer">
         <div className="min-w-0">
           {showMap && filtered.length > 0 && (
@@ -233,6 +294,16 @@ export function TravelAtlas({
                     <p className="text-sm text-paper/65 mt-2 leading-relaxed">
                       {v.summary}
                     </p>
+                    {(destination.visits?.find(
+                      (visit) => visit.href === `/field-notes/${v.slug}`,
+                    )?.photoCount ?? 0) > 0 && (
+                      <Link
+                        className="atlas-button mt-4"
+                        href={`/field-notes/${v.slug}#photo-journal`}
+                      >
+                        Open photo journal ↗
+                      </Link>
+                    )}
                     {v.youtubeVideoId && (
                       <a
                         className="atlas-button mt-4"

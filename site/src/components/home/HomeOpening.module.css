@@ -316,6 +316,63 @@
   font: 11px/1.6 var(--font-mono);
   color: var(--atlas-muted);
 }
+.visitPanel {
+  margin-top: 20px;
+  border-top: 1px solid var(--atlas-line);
+  padding-top: 16px;
+  display: grid;
+  gap: 16px;
+}
+.visit {
+  display: flex;
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+.visit > a {
+  flex: 0 0 88px;
+}
+.visit img {
+  width: 88px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.visit > div {
+  min-width: 0;
+}
+.visit p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+.visit span {
+  display: block;
+  font: 10px/1.6 var(--font-mono);
+  color: var(--atlas-muted);
+  margin-top: 5px;
+}
+.visitActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 4px;
+}
+.visitActions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 12px;
+  color: var(--atlas-lime);
+}
+.geoCredit {
+  font: 10px/1.6 var(--font-mono);
+  color: var(--atlas-muted);
+  margin-top: 16px;
+}
+.geoCredit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .destinationDetail a {
   display: inline-flex;
   align-items: center;

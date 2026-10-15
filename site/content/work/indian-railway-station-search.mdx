@@ -18,6 +18,40 @@ cover: "/images/work/default.svg"
 
 Search stations by name or code-built for travelers and developers integrating rail data.
 
+## The problem
+
+A station may be known by its code, English name, or a regional name. This tool brings those ways of searching into a single interface, then keeps selected stations together for reference.
+
+## Implementation
+
+The inspected implementation uses Next.js 14, React 18, TypeScript and Fuse.js 7. Station JSON is fetched into the browser, where Fuse builds a weighted search index. Name and station-code matches have weight 2, regional-language names 1.5, and district/state 1. Results are capped at 50 suggestions.
+
+Selecting a suggestion adds a station card. Repeated station codes are deduplicated. The latest ten selections are stored in localStorage so the interface can offer recent choices on the same browser.
+
+These details come from [StationSearch.tsx at revision a0c8dcb](https://github.com/ProgrammerNomad/indian-railway-station-search/blob/a0c8dcb7cf4275b1017ebe5f6c0eb0daa2f099bc/components/StationSearch.tsx), rather than assumptions about a production backend.
+
+## Decisions and tradeoffs
+
+**Search in the browser.** A local Fuse index avoids a search-server round trip after the dataset loads. The tradeoff is downloading and indexing the complete station dataset on the user's device. No mobile performance benchmark is claimed here.
+
+**More than one station at a time.** Selected station cards support comparison and reference. Available information includes regional names, district/state, address and coordinates; completeness varies by record.
+
+**A bounded recent list.** Ten recent selections give returning visitors a shortcut without requiring an account. These records are local to the browser, not synchronized between devices.
+
+## Limitations
+
+The CDN fallback is conditional: a non-OK HTTP response triggers the bundled JSON. A rejected network request or invalid JSON reaches the error path instead. This is not comprehensive offline support.
+
+Keyboard handling exists for suggestions, but the inspected source does not establish a complete combobox/listbox accessibility pattern. That remains an improvement opportunity for the project itself.
+
+This app searches station records. It does not supply live trains, ticket booking, schedules, or seat availability. The dataset is CDN-hosted; it should not be presented as a real-time government API.
+
+## Source and next steps
+
+The working behavior above is supported by the [search implementation](https://github.com/ProgrammerNomad/indian-railway-station-search/blob/a0c8dcb7cf4275b1017ebe5f6c0eb0daa2f099bc/components/StationSearch.tsx), [station cards](https://github.com/ProgrammerNomad/indian-railway-station-search/blob/a0c8dcb7cf4275b1017ebe5f6c0eb0daa2f099bc/components/StationCard.tsx), and [package declarations](https://github.com/ProgrammerNomad/indian-railway-station-search/blob/a0c8dcb7cf4275b1017ebe5f6c0eb0daa2f099bc/package.json).
+
+Useful next steps include testing the data-loading failure paths, measuring first-search performance on a phone, and reviewing suggestion semantics with assistive technology. These are proposed improvements, not completed changes to the linked repository.
+
 ## Stack
 
 - Next.js App Router
