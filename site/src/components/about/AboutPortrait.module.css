@@ -1,0 +1,170 @@
+.frame {
+  min-width: 0;
+  margin: 0;
+}
+
+.photoFrame {
+  position: relative;
+  min-width: 0;
+  isolation: isolate;
+  margin: 10px 10px 0 0;
+}
+
+.photoFrame::before {
+  position: absolute;
+  z-index: -1;
+  inset: -10px -10px -10px 10px;
+  border: 1px solid color-mix(in srgb, var(--lime) 45%, transparent);
+  border-radius: 50% 50% 3px 3px;
+  content: "";
+  animation: frame-arrive 850ms 180ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.window {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--surface-raised);
+  border-radius: 50% 50% 3px 3px;
+}
+
+.portrait {
+  display: block;
+  clip-path: inset(100% 0 0 round 50% 50% 3px 3px);
+  animation: portrait-reveal 1050ms 120ms cubic-bezier(0.22, 0.75, 0.2, 1) both;
+}
+
+.route {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.routePath {
+  stroke: var(--lime);
+  stroke-width: 0.55;
+  stroke-linecap: round;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  opacity: 0.9;
+  animation: route-arrive 1500ms 300ms cubic-bezier(0.45, 0, 0.25, 1) forwards;
+}
+
+.waypointRing {
+  fill: none;
+  stroke: var(--accent-travel);
+  stroke-width: 0.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: waypoint-ring 720ms 1450ms ease-out both;
+}
+
+.waypoint {
+  fill: var(--lime);
+  opacity: 0;
+  animation: waypoint-arrive 300ms 1450ms ease-out forwards;
+}
+
+.spark {
+  stroke: var(--accent-travel);
+  stroke-width: 0.7;
+  stroke-linecap: round;
+  stroke-dasharray: 0 8;
+  opacity: 0;
+  animation: spark-arrive 450ms 1500ms ease-out both;
+}
+
+@keyframes portrait-reveal {
+  from {
+    clip-path: inset(100% 0 0 round 50% 50% 3px 3px);
+    filter: saturate(0.4) brightness(0.92);
+  }
+  to {
+    clip-path: inset(0 round 50% 50% 3px 3px);
+    filter: saturate(0.88) brightness(1);
+  }
+}
+
+@keyframes frame-arrive {
+  from {
+    opacity: 0;
+    transform: translate(-7px, 7px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes route-arrive {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes waypoint-ring {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+@keyframes waypoint-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spark-arrive {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 0 8;
+  }
+  35% {
+    opacity: 0.9;
+    stroke-dasharray: 2 3;
+  }
+  100% {
+    opacity: 0;
+    stroke-dasharray: 0 8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photoFrame::before,
+  .portrait,
+  .routePath,
+  .waypointRing,
+  .waypoint,
+  .spark {
+    animation: none;
+    opacity: 1;
+  }
+
+  .portrait {
+    clip-path: none;
+  }
+
+  .routePath {
+    stroke-dashoffset: 0;
+  }
+
+  .waypointRing,
+  .spark {
+    opacity: 0;
+  }
+}

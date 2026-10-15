@@ -2,7 +2,6 @@ import fs from "fs/promises";
 import path from "path";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import Image from "next/image";
 import Link from "next/link";
 import { Prose } from "@/components/ui/Prose";
 import { PhotoGallery as EditorialGallery } from "@/components/content/PhotoGallery";
@@ -12,6 +11,7 @@ import {
   SkillsGrid,
 } from "@/components/about/AboutSections";
 import { LifeTimeline, type LifeEvent } from "@/components/about/LifeTimeline";
+import { AboutPortrait } from "@/components/about/AboutPortrait";
 import { getPageEntry } from "@/lib/content/loader";
 import { renderMdx } from "@/lib/content/mdx";
 import { indexPageMetadata } from "@/lib/seo/metadata";
@@ -80,20 +80,7 @@ export default async function AboutPage() {
         <span className="atlas-index about-opening-index" aria-hidden="true">
           06
         </span>
-        <figure>
-          <Image
-            src="/images/shiv-singh.jpg"
-            alt="Shiv Singh, Nomad Programmer"
-            width={2316}
-            height={3088}
-            sizes="(max-width:700px) calc(100vw - 32px), (max-width:1152px) 44vw, 480px"
-            priority
-            className="about-portrait"
-          />
-          <figcaption className="atlas-meta mt-4">
-            Shiv Singh / Nomad Programmer
-          </figcaption>
-        </figure>
+        <AboutPortrait />
       </header>
       <section className="about-story editorial-section">
         <h2>
