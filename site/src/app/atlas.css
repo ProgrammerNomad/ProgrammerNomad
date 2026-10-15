@@ -408,10 +408,13 @@ dialog::backdrop {
 }
 .about-opening {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.3fr) auto minmax(0, 1fr);
   gap: 4rem;
   align-items: center;
   padding-bottom: 5rem;
+}
+.about-opening-index {
+  align-self: end;
 }
 .about-opening h1 {
   font:
@@ -548,6 +551,9 @@ dialog::backdrop {
   .contact-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
+  }
+  .about-opening-index {
+    display: none;
   }
   .about-opening figure {
     max-width: 400px;

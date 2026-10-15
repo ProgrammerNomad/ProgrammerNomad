@@ -1,8 +1,8 @@
 export const PRIMARY_NAV = [
   { href: "/work", label: "Projects" },
-  { href: "/videos", label: "Videos" },
   { href: "/field-notes", label: "Travel" },
   { href: "/writing", label: "Writing" },
+  { href: "/videos", label: "Videos" },
   { href: "/gear", label: "Gear" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

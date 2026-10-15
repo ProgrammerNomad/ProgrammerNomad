@@ -76,6 +76,9 @@ export default async function AboutPage() {
             Let&apos;s talk ↗
           </Link>
         </div>
+        <span className="atlas-index about-opening-index" aria-hidden="true">
+          06
+        </span>
         <figure>
           <Image
             src="/images/shiv-singh.jpg"
