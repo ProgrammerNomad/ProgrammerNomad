@@ -72,14 +72,15 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
       };
     };
     const words = [...el.querySelectorAll("p > span")].map(timing);
-    const route = el.querySelector<SVGPathElement>("path[pathLength]")!;
-    const waypoint = el.querySelector("circle")!;
+    const scene = el.querySelector('[data-testid="footer-landscape-desktop"]')!;
+    const route = scene.querySelector<SVGPathElement>("path[pathLength]")!;
+    const waypoint = scene.querySelector(":scope > circle")!;
     const endpoint = route.getPointAtLength(route.getTotalLength());
     return {
       words,
       route: timing(route),
       waypoint: timing(waypoint),
-      markerCount: el.querySelectorAll("circle").length,
+      markerCount: scene.querySelectorAll(":scope > circle").length,
       atEndpoint:
         Math.abs(Number(waypoint.getAttribute("cx")) - endpoint.x) < 0.1 &&
         Math.abs(Number(waypoint.getAttribute("cy")) - endpoint.y) < 0.1,
@@ -100,14 +101,12 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
   ]) {
     expect(animation.iterations).toBe("1");
   }
-  await expect(closing.locator("path[pathLength]")).toHaveCSS(
-    "stroke-dashoffset",
-    "0px",
-  );
-  await expect(closing.locator("path[pathLength]")).toHaveCSS(
-    "vector-effect",
-    "none",
-  );
+  await expect(
+    closing.getByTestId("footer-landscape-desktop").locator("path[pathLength]"),
+  ).toHaveCSS("stroke-dashoffset", "0px");
+  await expect(
+    closing.getByTestId("footer-landscape-desktop").locator("path[pathLength]"),
+  ).toHaveCSS("vector-effect", "none");
   await expect
     .poll(() =>
       closing.evaluate((el) =>
@@ -127,7 +126,7 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
         .every((a) => a.playState === "finished"),
     ),
   ).toBe(true);
-  await closing.hover();
+  await closing.locator("p").hover();
   await expect
     .poll(() =>
       closing
@@ -155,6 +154,51 @@ test("wordmark reveals once, draws its route, and a hover sweep finishes without
     "color",
     "rgb(244, 243, 238)",
   );
+});
+
+test("landscape replays by keyboard and settles without permanent motion", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const closing = page.getByTestId("footer-wordmark");
+  await closing.scrollIntoViewIfNeeded();
+  const replay = closing.getByRole("button", { name: "Replay the journey" });
+  await expect(replay).toBeVisible();
+  await expect
+    .poll(() =>
+      closing.evaluate((el) =>
+        el
+          .getAnimations({ subtree: true })
+          .every((a) => a.playState === "finished"),
+      ),
+    )
+    .toBe(true);
+  await replay.focus();
+  await page.keyboard.press("Enter");
+  await expect(replay).toBeFocused();
+  await expect
+    .poll(() =>
+      closing.evaluate((el) =>
+        el
+          .getAnimations({ subtree: true })
+          .some((a) => a.playState === "running"),
+      ),
+    )
+    .toBe(true);
+  await expect
+    .poll(
+      () =>
+        closing.evaluate((el) =>
+          el
+            .getAnimations({ subtree: true })
+            .every((a) => a.playState === "finished"),
+        ),
+      { timeout: 8000 },
+    )
+    .toBe(true);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(replay).toBeHidden();
+  await expect(closing).toHaveAttribute("data-state", "static");
 });
 
 test("wordmark and navigation stay visible without JavaScript", async ({
