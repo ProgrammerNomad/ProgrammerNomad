@@ -40,7 +40,7 @@ export function EntryListSimple({
               <span className="font-mono text-sm text-lime opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                 →
               </span>
-              <span className="font-display text-lg text-paper transition-colors group-hover:text-white group-hover:font-medium">
+              <span className="font-display text-lg text-paper transition-colors group-hover:text-lime group-hover:font-medium">
                 {entry.title}
               </span>
             </div>

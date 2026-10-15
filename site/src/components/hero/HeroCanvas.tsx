@@ -18,17 +18,22 @@ type AtlasProps = {
   turn: number;
   paused: boolean;
   autoRotate: boolean;
+  theme: "dark" | "light";
   onReady: () => void;
   onError: () => void;
   onInteraction: () => void;
 };
 
-function AtlasContours() {
+function AtlasContours({ theme }: { theme: "dark" | "light" }) {
   return (
     <>
       <mesh rotation={[1.15, 0.25, 0.55]}>
         <torusGeometry args={[1.46, 0.004, 6, 96]} />
-        <meshBasicMaterial color="#b5ff43" transparent opacity={0.22} />
+        <meshBasicMaterial
+          color={theme === "light" ? "#718c4e" : "#b5ff43"}
+          transparent
+          opacity={theme === "light" ? 0.2 : 0.22}
+        />
       </mesh>
     </>
   );
@@ -66,6 +71,7 @@ function EarthGlobe({
   turn,
   paused,
   autoRotate,
+  theme,
   onInteraction,
 }: AtlasProps) {
   const groupRef = useRef<THREE.Group>(null);
@@ -88,13 +94,13 @@ function EarthGlobe({
           new THREE.Line(
             geometry,
             new THREE.LineBasicMaterial({
-              color: "#b5ff43",
+              color: theme === "light" ? "#718c4e" : "#b5ff43",
               transparent: true,
               opacity: 0.07,
             }),
           ),
       ),
-    [],
+    [theme],
   );
   const positions = useMemo(
     () =>
@@ -188,20 +194,20 @@ function EarthGlobe({
         invalidate();
       }}
     >
-      <AtlasContours />
-      <GeographicLines radius={GLOBE_RADIUS * 1.007} />
+      <AtlasContours theme={theme} />
+      <GeographicLines radius={GLOBE_RADIUS * 1.007} theme={theme} />
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
         <meshStandardMaterial
-          color="#080a08"
+          color={theme === "light" ? "#d8e2ce" : "#080a08"}
           roughness={0.88}
-          metalness={0.12}
+          metalness={theme === "light" ? 0.02 : 0.12}
         />
       </mesh>
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS * 1.015, 36, 36]} />
         <meshBasicMaterial
-          color="#b5ff43"
+          color={theme === "light" ? "#8ca66b" : "#b5ff43"}
           transparent
           opacity={0.04}
           side={THREE.BackSide}
@@ -211,7 +217,7 @@ function EarthGlobe({
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS * 1.12, 36, 36]} />
         <meshBasicMaterial
-          color="#00d2ff"
+          color={theme === "light" ? "#e5c582" : "#00d2ff"}
           transparent
           opacity={0.035}
           side={THREE.BackSide}
@@ -230,9 +236,9 @@ function EarthGlobe({
         </bufferGeometry>
         <pointsMaterial
           size={0.012}
-          color="#b5ff43"
+          color={theme === "light" ? "#3f6335" : "#b5ff43"}
           transparent
-          opacity={0.32}
+          opacity={theme === "light" ? 0.42 : 0.32}
           sizeAttenuation
         />
       </points>
@@ -245,7 +251,7 @@ function EarthGlobe({
         </bufferGeometry>
         <pointsMaterial
           size={0.014}
-          color="#55735d"
+          color={theme === "light" ? "#9ba991" : "#55735d"}
           transparent
           opacity={0.08}
           sizeAttenuation
@@ -257,7 +263,15 @@ function EarthGlobe({
             args={[place.id === selected.id ? 0.026 : 0.009, 12, 12]}
           />
           <meshBasicMaterial
-            color={place.id === selected.id ? "#ffffff" : "#79d8ec"}
+            color={
+              place.id === selected.id
+                ? theme === "light"
+                  ? "#1f2b1d"
+                  : "#ffffff"
+                : theme === "light"
+                  ? "#176c7b"
+                  : "#79d8ec"
+            }
           />
         </mesh>
       ))}
@@ -266,6 +280,7 @@ function EarthGlobe({
 }
 
 export function HeroCanvas(props: AtlasProps) {
+  const { theme } = props;
   return (
     <Canvas
       frameloop="demand"
@@ -279,12 +294,16 @@ export function HeroCanvas(props: AtlasProps) {
         touchAction: "pan-y",
       }}
     >
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[4, 5, 3]} intensity={1.5} color="#ffffff" />
+      <ambientLight intensity={theme === "light" ? 0.95 : 0.5} />
+      <directionalLight
+        position={theme === "light" ? [-4, 5, 3] : [4, 5, 3]}
+        intensity={theme === "light" ? 1.8 : 1.5}
+        color={theme === "light" ? "#fff1c9" : "#ffffff"}
+      />
       <directionalLight
         position={[-4, -3, -2]}
-        intensity={0.4}
-        color="#00d2ff"
+        intensity={theme === "light" ? 0.18 : 0.4}
+        color={theme === "light" ? "#718c4e" : "#00d2ff"}
       />
       <EarthGlobe {...props} />
       <CanvasHealth onReady={props.onReady} onError={props.onError} />

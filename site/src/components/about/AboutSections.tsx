@@ -66,7 +66,7 @@ export function CompanyCards() {
               ↗
             </span>
           </div>
-          <h3 className="mt-3 font-display text-xl font-semibold text-paper group-hover:text-white">
+          <h3 className="mt-3 font-display text-xl font-semibold text-paper group-hover:text-lime">
             {c.name}
           </h3>
           <p className="mt-2 text-sm text-paper/70 leading-relaxed">

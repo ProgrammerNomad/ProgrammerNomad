@@ -390,6 +390,32 @@
   margin-left: 10px;
   color: #e8b86d80;
 }
+
+[data-theme="light"] .journey-frame > div,
+[data-theme="light"] .photo-gallery .gallery-photo img,
+[data-theme="light"] .photo-gallery > figure:first-child img,
+[data-theme="light"] .article-flow,
+[data-theme="light"] .rail-recent {
+  background-color: var(--surface-raised);
+}
+[data-theme="light"] .journey-frame > div > span {
+  color: #f3f1e9;
+  background: rgba(32, 36, 31, 0.82);
+}
+[data-theme="light"] .rail-architecture li p,
+[data-theme="light"] .reading-paths a > span:last-child,
+[data-theme="light"] .article-flow li span,
+[data-theme="light"] .kit-workflow p,
+[data-theme="light"] .packing-section,
+[data-theme="light"] .route-note {
+  color: var(--text-muted);
+}
+[data-theme="light"] .rail-architecture li,
+[data-theme="light"] .rail-recent,
+[data-theme="light"] .atlas-photo-view article,
+[data-theme="light"] .gallery-photo {
+  border-color: var(--border-subtle);
+}
 @media (max-width: 900px) {
   .rail-architecture > ol,
   .skill-groups {

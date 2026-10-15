@@ -2,9 +2,9 @@
   min-width: 0;
   min-height: 270px;
   padding: 24px;
-  background: #101510;
-  border-bottom: 1px solid #ffffff20;
-  color: #f4f3ee;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--paper);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -13,7 +13,7 @@
   font: 10px/1.6 var(--font-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #aeb8a6;
+  color: var(--text-muted);
 }
 .shipping {
   display: grid;
@@ -41,10 +41,10 @@
 .bottom {
   margin-top: auto;
   font: 11px/1.6 var(--font-mono);
-  color: #b0b8a8;
+  color: var(--text-muted);
 }
 .rail {
-  background: #101820;
+  background: var(--surface-raised);
 }
 .railSearch {
   display: flex;
@@ -52,7 +52,7 @@
   gap: 12px;
   border-bottom: 1px solid #92c8e5;
   padding: 10px 0 16px;
-  color: #d1e3ec;
+  color: var(--text-soft);
   font-size: 16px;
 }
 .railRows {
@@ -72,7 +72,7 @@
   border-radius: 50%;
 }
 .editor {
-  background: #1b1720;
+  background: var(--surface-raised);
   gap: 16px;
 }
 .toolbar {
@@ -93,7 +93,7 @@
 }
 .document p {
   margin-top: 10px;
-  color: #bfb5c5;
+  color: var(--text-muted);
   font-size: 12px;
   line-height: 1.6;
 }

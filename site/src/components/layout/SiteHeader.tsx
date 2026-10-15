@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { HEADER_COORDINATES } from "@/lib/seo/site-config";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader({ children }: { children?: React.ReactNode }) {
   const pathname = usePathname();
@@ -46,7 +47,7 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
           </span>
           <div className="flex flex-col gap-0.5">
             <span className="text-xs font-semibold">Nomad Programmer</span>
-            <span className="hidden text-[10px] tracking-widest text-paper/45 group-hover:text-lime/80 sm:block">
+            <span className="hidden text-[10px] tracking-widest text-paper/45 group-hover:text-lime sm:block">
               {HEADER_COORDINATES}
             </span>
           </div>
@@ -65,7 +66,7 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
                   "nav-link-animated font-mono text-xs uppercase tracking-widest transition-colors py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime",
                   isActive
                     ? "text-lime font-bold text-glow-lime"
-                    : "text-paper/75 hover:text-white",
+                    : "text-paper/75 hover:text-paper",
                 )}
               >
                 {link.label}
@@ -76,6 +77,7 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
 
         <div className="flex shrink-0 items-center gap-1">
           {children}
+          <ThemeToggle />
           <button
             ref={menuButton}
             type="button"

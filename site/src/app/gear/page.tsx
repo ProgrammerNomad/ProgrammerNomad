@@ -115,7 +115,7 @@ export default async function GearPage() {
                     href={item.affiliateUrl}
                     target="_blank"
                     rel="sponsored noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-lime transition-all group-hover:text-white"
+                    className="mt-4 inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-lime transition-all group-hover:text-paper"
                   >
                     <span>View product (affiliate)</span>
                     <span className="transition-transform group-hover:translate-x-1">

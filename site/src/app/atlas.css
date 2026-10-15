@@ -1,9 +1,9 @@
 /* Nomad Dev Atlas: shared structure; individual surfaces keep their own identity. */
 :root {
-  --atlas-ink: #e9eee5;
-  --atlas-muted: #adb4a7;
-  --atlas-line: #ffffff24;
-  --atlas-warm: #e8b86d;
+  --atlas-ink: var(--paper);
+  --atlas-muted: var(--text-muted);
+  --atlas-line: var(--border-subtle);
+  --atlas-warm: var(--accent-travel);
   --atlas-radius: 6px;
   --atlas-read-width: 68ch;
 }
@@ -988,6 +988,7 @@ dialog::backdrop {
 .prose {
   min-width: 0;
   max-width: var(--atlas-read-width);
+  overflow-wrap: anywhere;
   color: #d2d7cd;
   font-size: 1.05rem;
   line-height: 1.9;
@@ -1112,4 +1113,146 @@ dialog::backdrop {
   .tilt-card:hover {
     transform: none;
   }
+}
+
+/* The light atlas keeps the same route language, with ink tuned for paper. */
+[data-theme="light"] .atlas-description,
+[data-theme="light"] .filter-chip,
+[data-theme="light"] .search-trigger,
+[data-theme="light"] .search-result strong,
+[data-theme="light"] .empty-state,
+[data-theme="light"] .prose :not(pre) > code {
+  color: var(--text-soft);
+}
+
+/* Keep editorial copy legible when the site switches away from the default
+   dark Typography palette. `prose-invert` is intentionally retained for dark. */
+[data-theme="light"] .prose {
+  color: var(--text-soft);
+  --tw-prose-body: var(--text-soft);
+  --tw-prose-headings: var(--paper);
+  --tw-prose-lead: var(--text-muted);
+  --tw-prose-bold: var(--paper);
+  --tw-prose-counters: var(--text-muted);
+  --tw-prose-bullets: var(--text-muted);
+  --tw-prose-hr: var(--border-subtle);
+  --tw-prose-quotes: var(--paper);
+  --tw-prose-quote-borders: var(--lime);
+  --tw-prose-captions: var(--text-muted);
+  --tw-prose-code: var(--paper);
+  --tw-prose-pre-code: #e9eee5;
+  --tw-prose-pre-bg: #20241f;
+  --tw-prose-th-borders: var(--border-subtle);
+  --tw-prose-td-borders: var(--border-subtle);
+}
+[data-theme="light"] .prose :where(h2, h3, h4) {
+  color: var(--paper);
+}
+[data-theme="light"] .prose strong {
+  color: var(--paper);
+}
+[data-theme="light"] .prose :not(pre) > code {
+  color: var(--paper);
+  background: color-mix(in srgb, var(--lime) 9%, transparent);
+}
+[data-theme="light"] .atlas-button {
+  color: var(--paper);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .atlas-button--primary {
+  color: var(--canvas);
+  border-color: var(--lime);
+}
+[data-theme="light"] .atlas-button:hover,
+[data-theme="light"] .search-result:hover {
+  background: color-mix(in srgb, var(--paper) 5%, transparent);
+}
+[data-theme="light"] .atlas-input,
+[data-theme="light"] .atlas-dialog,
+[data-theme="light"] .scene-card,
+[data-theme="light"] .diagram-panel {
+  color: var(--paper);
+  background: var(--surface);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .project-card {
+  color: var(--paper);
+  background: var(--surface);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .project-card:hover {
+  border-color: color-mix(in srgb, var(--lime) 55%, var(--border-subtle));
+}
+[data-theme="light"] .prose pre {
+  color: #e9eee5;
+  background: #20241f;
+}
+[data-theme="light"] .prose blockquote {
+  background: color-mix(in srgb, var(--lime) 6%, transparent);
+}
+[data-theme="light"] .reading-layout .prose,
+[data-theme="light"] .contact-form,
+[data-theme="light"] .atlas-selection,
+[data-theme="light"] .atlas-coordinate-art,
+[data-theme="light"] .travel-story,
+[data-theme="light"] .travel-story-no-photo,
+[data-theme="light"] .capability-diagram {
+  color: var(--paper);
+  background-color: var(--surface);
+}
+[data-theme="light"] .editorial-timeline > li,
+[data-theme="light"] .gear-section,
+[data-theme="light"] .gear-item,
+[data-theme="light"] .contact-intent,
+[data-theme="light"] .video-card,
+[data-theme="light"] .featured-film {
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .gear-item h3,
+[data-theme="light"] .contact-form label,
+[data-theme="light"] .travel-facts dd,
+[data-theme="light"] .photo-gallery figcaption,
+[data-theme="light"] .destination-button,
+[data-theme="light"] .atlas-filters label,
+[data-theme="light"] .contact-intent p {
+  color: var(--text-soft);
+}
+[data-theme="light"] .destination-list {
+  border-color: var(--border-subtle);
+  background: var(--surface);
+}
+[data-theme="light"] .destination-button {
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .destination-button[aria-pressed="true"] {
+  color: var(--accent-travel);
+  background: color-mix(in srgb, var(--accent-travel) 10%, transparent);
+}
+[data-theme="light"] .contact-form input,
+[data-theme="light"] .contact-form textarea,
+[data-theme="light"] .contact-form select {
+  color: var(--paper);
+  background: var(--canvas);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .video-play {
+  color: var(--paper);
+  background: color-mix(in srgb, var(--canvas) 82%, transparent);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .video-poster-label {
+  color: var(--paper);
+}
+[data-theme="light"] .gallery-photo > span {
+  color: #f3f1e9;
+  background: rgba(32, 36, 31, 0.82);
+  border-color: rgba(32, 36, 31, 0.25);
+}
+[data-theme="light"] .gallery-dialog {
+  color: var(--paper);
+  background: var(--canvas-elevated);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .off-map-mark {
+  color: color-mix(in srgb, var(--lime) 35%, transparent);
 }

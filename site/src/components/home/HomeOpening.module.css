@@ -1,9 +1,9 @@
 .home {
-  --atlas-text: #f4f3ee;
-  --atlas-muted: #a3aba2;
-  --atlas-line: #353d35;
-  --atlas-surface: #171c18;
-  --atlas-lime: #b5ff43;
+  --atlas-text: var(--home-text);
+  --atlas-muted: var(--home-muted);
+  --atlas-line: var(--home-line);
+  --atlas-surface: var(--home-surface);
+  --atlas-lime: var(--home-lime);
   min-width: 0;
   color: var(--atlas-text);
   overflow-wrap: anywhere;
@@ -95,7 +95,7 @@
 }
 .primaryAction {
   background: var(--atlas-lime);
-  color: #0b0c0b;
+  color: var(--canvas);
 }
 .primaryAction:hover {
   background: #caff7b;
@@ -301,7 +301,7 @@
   min-height: 48px;
   padding: 10px 12px;
   color: var(--atlas-text);
-  background: #111611;
+  background: var(--home-surface);
   border: 1px solid #667062;
   border-radius: 4px;
   font-size: 16px;

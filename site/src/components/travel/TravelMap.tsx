@@ -19,8 +19,8 @@ const nomadIcon =
         className: "custom-nomad-pin",
         html: `
         <div style="position: relative; width: 22px; height: 22px; display: flex; items-center; justify-content: center;">
-          <div style="position: absolute; inset: 0; border-radius: 50%; background: rgba(181,255,67,0.3);"></div>
-          <div style="position: absolute; top: 4px; left: 4px; width: 14px; height: 14px; border-radius: 50%; background: #b5ff43; border: 2px solid #0b0c0b; box-shadow: 0 0 8px #b5ff43;"></div>
+          <div style="position: absolute; inset: 0; border-radius: 50%; background: color-mix(in srgb, var(--lime) 30%, transparent);"></div>
+          <div style="position: absolute; top: 4px; left: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--lime); border: 2px solid var(--canvas); box-shadow: 0 0 8px var(--lime);"></div>
         </div>
       `,
         iconSize: [22, 22],
@@ -65,7 +65,7 @@ export function TravelMap({
   return (
     <div
       id="travel-map"
-      className="glass-card dark-map-tiles relative h-[440px] w-full overflow-hidden border border-lime/30 shadow-[0_0_35px_rgba(181,255,67,0.12)] [&_.leaflet-container]:h-full [&_.leaflet-container]:w-full [&_.leaflet-container]:bg-canvas [&_.leaflet-popup-content-wrapper]:rounded-lg [&_.leaflet-popup-content-wrapper]:border [&_.leaflet-popup-content-wrapper]:border-lime/30 [&_.leaflet-popup-content-wrapper]:bg-[#141614] [&_.leaflet-popup-content-wrapper]:text-paper [&_.leaflet-popup-tip]:bg-[#141614]"
+      className="glass-card dark-map-tiles relative h-[440px] w-full overflow-hidden border border-lime/30 shadow-[0_0_35px_rgba(181,255,67,0.12)] [&_.leaflet-container]:h-full [&_.leaflet-container]:w-full [&_.leaflet-container]:bg-canvas [&_.leaflet-popup-content-wrapper]:rounded-lg [&_.leaflet-popup-content-wrapper]:border [&_.leaflet-popup-content-wrapper]:border-lime/30 [&_.leaflet-popup-content-wrapper]:bg-elevated [&_.leaflet-popup-content-wrapper]:text-paper [&_.leaflet-popup-tip]:bg-elevated"
     >
       <MapContainer
         center={[center.lat, center.lng]}
@@ -97,7 +97,7 @@ export function TravelMap({
                 {p.href ? (
                   <a
                     href={p.href}
-                    className="text-lime font-semibold underline hover:text-white"
+                    className="text-lime font-semibold underline hover:text-paper"
                   >
                     {p.label}
                   </a>

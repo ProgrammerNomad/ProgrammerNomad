@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -11,6 +12,8 @@ import "./atlas.css";
 import "./v3.css";
 import { GlobalSearch } from "@/components/layout/GlobalSearch";
 import { getSearchIndex } from "@/lib/content/search-index";
+
+const themeBootstrap = `try { var storedTheme = localStorage.getItem("nomad-programmer-theme"); document.documentElement.dataset.theme = storedTheme === "light" ? "light" : "dark"; } catch (_) {}`;
 
 const display = Syne({
   subsets: ["latin"],
@@ -36,10 +39,13 @@ export default async function RootLayout({
 }>) {
   const searchRecords = await getSearchIndex();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} min-h-screen bg-canvas text-paper antialiased`}
       >
+        <Script id="theme-bootstrap" strategy="beforeInteractive">
+          {themeBootstrap}
+        </Script>
         <BackgroundAmbient />
         <div className="relative z-10">
           <PersonJsonLd />

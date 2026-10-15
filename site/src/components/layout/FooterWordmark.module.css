@@ -1,5 +1,5 @@
 .footer {
-  background: #080a08;
+  background: var(--footer-canvas);
   padding-bottom: 20px;
 }
 
@@ -7,7 +7,7 @@
   margin: clamp(56px, 8vw, 128px) 0 0;
   padding: 0 clamp(12px, 2vw, 40px);
   container-type: inline-size;
-  color: #f4f3ee;
+  color: var(--footer-ink);
 }
 
 .wordmark {
@@ -25,10 +25,10 @@
 .ink {
   background-image: linear-gradient(
     110deg,
-    #f4f3ee 43%,
-    #d9edbc 49%,
-    #fff 51%,
-    #f4f3ee 57%
+    var(--footer-ink) 43%,
+    color-mix(in srgb, var(--footer-ink) 72%, var(--lime)) 49%,
+    var(--paper) 51%,
+    var(--footer-ink) 57%
   );
   background-size: 300% 100%;
   background-position: 100% 0;
@@ -64,31 +64,31 @@
   vector-effect: non-scaling-stroke;
 }
 .scenery {
-  stroke: #bdc7b0;
+  stroke: var(--text-soft);
   opacity: 0.65;
 }
 .technical {
-  stroke: #97bec0;
+  stroke: var(--accent-cyan);
 }
 .technical text {
   stroke: none;
-  fill: #a4b6aa;
+  fill: var(--text-muted);
   font: 9px var(--font-mono);
   letter-spacing: 2px;
 }
 .forest {
-  stroke: #8d9e75;
+  stroke: var(--lime);
 }
 .water {
-  stroke: #91b9bd;
+  stroke: var(--accent-cyan);
   transform-box: fill-box;
   transform-origin: center;
 }
 .bike {
-  stroke: #f4f3ee;
+  stroke: var(--footer-ink);
 }
 .bike circle {
-  fill: #080a08;
+  fill: var(--footer-canvas);
 }
 .caption {
   display: flex;
@@ -100,12 +100,12 @@
   font: 10px/1.5 var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #9ba592;
+  color: var(--footer-muted);
 }
 .replay {
   min-height: 44px;
   padding: 8px 0 8px 14px;
-  color: #bdc7b0;
+  color: var(--text-soft);
   cursor: pointer;
   letter-spacing: 0.06em;
 }
@@ -118,7 +118,7 @@
 }
 
 .routeBase {
-  stroke: #30372a;
+  stroke: var(--border-subtle);
 }
 .landscape .routeDraw {
   /* Normalized dash lengths must scale with the path, not the viewport. */
@@ -324,7 +324,7 @@
   }
   .ink {
     background: none;
-    color: #f4f3ee;
+    color: var(--footer-ink);
   }
   .replay {
     display: none;

@@ -56,8 +56,18 @@ export function HeroArt({
   const [turn, setTurn] = useState(0);
   const [selectedId, setSelectedId] = useState(destinations[0]?.id);
   const [posterPaths, setPosterPaths] = useState(initialPaths);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const selected =
     destinations.find((d) => d.id === selectedId) ?? destinations[0];
+  useEffect(() => {
+    const syncTheme = () =>
+      setTheme(
+        document.documentElement.dataset.theme === "light" ? "light" : "dark",
+      );
+    syncTheme();
+    window.addEventListener("nomad-theme-change", syncTheme);
+    return () => window.removeEventListener("nomad-theme-change", syncTheme);
+  }, []);
   useEffect(() => {
     if (!selected || selected.id === destinations[0]?.id) {
       setPosterPaths(initialPaths);
@@ -177,6 +187,7 @@ export function HeroArt({
               <HeroCanvas
                 destinations={destinations}
                 selected={selected}
+                theme={theme}
                 turn={turn}
                 paused={!inView || !visible}
                 autoRotate={rotating}

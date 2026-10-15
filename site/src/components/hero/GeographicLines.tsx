@@ -3,7 +3,13 @@ import { useMemo } from "react";
 import { boundarySegments } from "@/lib/travel/geography";
 import { latLngToVector3 } from "./globe-utils";
 
-export function GeographicLines({ radius }: { radius: number }) {
+export function GeographicLines({
+  radius,
+  theme,
+}: {
+  radius: number;
+  theme: "dark" | "light";
+}) {
   const layers = useMemo(
     () =>
       [false, true].map(
@@ -30,9 +36,17 @@ export function GeographicLines({ radius }: { radius: number }) {
             />
           </bufferGeometry>
           <lineBasicMaterial
-            color={i ? "#6f8957" : "#b2c69c"}
+            color={
+              theme === "light"
+                ? i
+                  ? "#78906b"
+                  : "#435c3c"
+                : i
+                  ? "#6f8957"
+                  : "#b2c69c"
+            }
             transparent
-            opacity={i ? 0.48 : 0.75}
+            opacity={theme === "light" ? (i ? 0.5 : 0.78) : i ? 0.48 : 0.75}
             depthTest
             depthWrite={false}
           />

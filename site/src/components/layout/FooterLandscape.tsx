@@ -32,19 +32,22 @@ function Bike() {
       <path d="M13 56Q28 49 47 56 M114 55Q131 48 146 59 M103 39L123 80 M108 39L129 80" />
       <path
         d="M97 9L109 3L115 28L104 32Z M106 32L116 32L120 42L107 45Z M112 45L145 48L137 53H115"
-        fill="#080a08"
+        fill="var(--footer-canvas)"
       />
       <path d="M93 30L88 19L80 17 M86 20L78 21 M94 30L104 31 M89 19L92 9L99 7 M92 9L86 6L80 9L82 13L91 12" />
       <path d="M13 33H38L48 36H62 M14 33L17 39H39L50 43H64 M10 28H30L36 32 M12 28L9 34" />
       <path
         d="M60 35Q66 24 79 25L92 29L103 44L91 55L66 53L57 44Z"
-        fill="#080a08"
+        fill="var(--footer-canvas)"
       />
       <path
         d="M67 32L81 30L92 36 M92 36L96 45L87 51 M43 44L57 44L65 55L53 61L42 56Z"
-        fill="#080a08"
+        fill="var(--footer-canvas)"
       />
-      <path d="M72 53L88 54L94 65L87 77H69L64 66Z" fill="#080a08" />
+      <path
+        d="M72 53L88 54L94 65L87 77H69L64 66Z"
+        fill="var(--footer-canvas)"
+      />
       <path d="M72 59H86 M71 64H88 M72 69H85 M67 77L69 84H94L100 76 M96 48Q108 54 105 70L98 75 M96 48L87 50 M65 54Q57 58 60 72L67 77 M72 76L54 81 M48 62L29 58L25 64L46 70L59 70" />
       <path d="M16 40L11 47L6 48 M40 40L48 47 M93 75L101 81 M96 80L95 86" />
     </g>
